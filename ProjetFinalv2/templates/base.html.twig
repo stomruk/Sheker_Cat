@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
+</head>
+<body>
+<nav>
+    <div class="nav-item nav-game">
+        <a>Games</a>
+    </div>
+    <div class="nav-item nav-logo">
+        <img height="75%" src="{{ asset('media/logo.png') }}">
+    </div>
+    <div class="nav-item nav-login">
+        <a>Login</a>
+    </div>
+    <div class="nav-item nav-search">
+        <div>
+            <label>Search : </label>
+            <input type="text">
+        </div>
+    </div>
+
+</nav>
+{% block body %}
+{% endblock %}
+{% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
+</body>
+</html>
