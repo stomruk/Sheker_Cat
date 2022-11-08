@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    {% set HeadType = 'head1' %}
+    {% set SkinColor = 'tile000' %}
+    <div class="container">
+        <div class="avatar-grid">
+            <div class="current-avatar" style="background-color: lightgreen">
+                <div id="head" class="head">
+                    <div id="hair" class="hair"></div>
+                </div>
+            </div>
+            <div class="avatar-color" style="background-color: pink">
+                {% for skin in skins %}
+                    <div id={{ skin.skin}} class="grid-color" style="border: 2px solid black"></div>
+                {% endfor %}
+                {# <div id="color2" class="grid-color" style="background-color: lightsalmon"></div>
+                <div id="color3" class="grid-color" style="background-color: black"></div>
+                <div id="color4" class="grid-color" style="background-color: blue"></div> #}
+                <div id="tile004" style="background-color: rgb(194,215,188); border: 2px solid black;"></div>
+                <div id="tile005" style="background-color: rgb(223,67,89); border: 2px solid black;"></div>
+                <div id="tile006" style="background-color: rgb(247,246,233); border: 2px solid black;"></div>
+                <div id="tile007" style="background-color: rgb(161,188,65); border: 2px solid black;"></div>
+            </div>
+            <div style="background-color: turquoise"><h1 style="text-align: center">Confirm</h1></div>
+        </div>
+        <div class="stuffs-grid">
+            <div id="head-btn" style="background-color: lightblue;text-align: center"><h2>Head</h2></div>
+            <div id="hair-btn" style="background-color: lightgreen; text-align: center"><h2>Hair</h2></div>
+            <div style="background-color: lightseagreen"></div>
+            <div style="background-color: lightcyan"></div>
+            <div style="background-color: lightpink"></div>
+            <div style="background-color: lightskyblue"></div>
+            <div style="background-color: lightyellow"></div>
+            <div class="options" style="background-color: lightsteelblue">
+                {% for head in heads %}
+                    <img id="{{ head.type }}" class="head-options" src="{{ asset('media/avatar/head/'~head.type~'/tile000.png') }}">
+                {% endfor %}
+                {% for hair in hairs %}
+                    <img id="{{ hair.type }}" style="display: none;" class="hair-options" src="{{ asset('media/avatar/hair/'~hair.type~'/tile000.png') }}">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let num = 0
+        let sect = 'head'
+        let skinColor = ['rgb(248,197,171)','rgb(254,224,214)','rgb(217,154,125)','rgb(164,115,103)']
+        let hairCol = ['rgb(129,105,82)','rgb(179,111,79)','rgb(254,241,198)','rgb(96,91,98)']
+
+        let head = 'head1'
+        let hair = 'hair0'
+        let color = 'tile000'
+        let skinCol = 'tile000'
+
+        {% for skin in hairColors %}
+        document.getElementById('{{ skin.color }}').addEventListener('click', e=>{
+            color = e.target.id
+            if (sect === 'head'){
+                skinCol = e.target.id
+                changeHead(head,skinCol)
+            }
+            else if(sect === 'hair'){
+                changeHair(hair,color)
+            }
+
+        })
+        {% endfor %}
+        {% for head in heads %}
+            document.getElementById('{{ head.type }}').addEventListener('click', e=>{
+            head = e.target.id
+            changeHead(head,color)
+        })
+        {% endfor %}
+
+        {% for hair in hairs %}
+        document.getElementById('{{ hair.type }}').addEventListener('click', e=>{
+            hair = e.target.id
+            changeHair(hair,color)
+        })
+        {% endfor %}
+    </script>
+    <script src="{{ asset('media/avatar.js') }}"></script>
+{% endblock %}
