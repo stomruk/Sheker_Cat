@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\EyesRepository;
 use App\Repository\HairColorRepository;
 use App\Repository\HairRepository;
 use App\Repository\HeadRepository;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AvatarController extends AbstractController
 {
     #[Route('/avatar', name: 'app_avatar')]
-    public function index(HeadRepository $headRepository, SkinColorRepository $skinColorRepository, HairRepository $hairRepository,HairColorRepository $hairColorRepository): Response
+    public function index(HeadRepository $headRepository, SkinColorRepository $skinColorRepository, HairRepository $hairRepository,HairColorRepository $hairColorRepository,EyesRepository $eyesRepository): Response
     {
         return $this->render('profil/avatar.html.twig',
             [
@@ -21,6 +22,7 @@ class AvatarController extends AbstractController
             'skins' => $skinColorRepository->findAll(),
             'hairs' => $hairRepository->findAll(),
             'hairColors' => $hairColorRepository->findAll(),
+            'eyes' => $eyesRepository->findAll(),
             ]);
     }
 

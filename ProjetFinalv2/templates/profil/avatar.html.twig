@@ -10,6 +10,7 @@
             <div class="current-avatar" style="background-color: lightgreen">
                 <div id="head" class="head">
                     <div id="hair" class="hair"></div>
+                    <div id="eyes" class="eyes"></div>
                 </div>
             </div>
             <div class="avatar-color" style="background-color: pink">
@@ -29,7 +30,7 @@
         <div class="stuffs-grid">
             <div id="head-btn" style="background-color: lightblue;text-align: center"><h2>Head</h2></div>
             <div id="hair-btn" style="background-color: lightgreen; text-align: center"><h2>Hair</h2></div>
-            <div style="background-color: lightseagreen"></div>
+            <div id="eyes-btn" style="background-color: lightseagreen;text-align: center"><h2>Eyes</h2></div>
             <div style="background-color: lightcyan"></div>
             <div style="background-color: lightpink"></div>
             <div style="background-color: lightskyblue"></div>
@@ -41,6 +42,9 @@
                 {% for hair in hairs %}
                     <img id="{{ hair.type }}" style="display: none;" class="hair-options" src="{{ asset('media/avatar/hair/'~hair.type~'/tile000.png') }}">
                 {% endfor %}
+                {% for eye in eyes %}
+                    <img id="{{ eye.type }}" style="display: none;" class="eyes-options" src="{{ asset('media/avatar/eyes/'~eye.type~'/tile000.png') }}">
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -51,20 +55,25 @@
         let skinColor = ['rgb(248,197,171)','rgb(254,224,214)','rgb(217,154,125)','rgb(164,115,103)']
         let hairCol = ['rgb(129,105,82)','rgb(179,111,79)','rgb(254,241,198)','rgb(96,91,98)']
 
-        let head = 'head1'
+        let head = 'head0'
         let hair = 'hair0'
-        let color = 'tile000'
+        let eyes = 'eyes0'
+        let hairColor = 'tile000'
         let skinCol = 'tile000'
 
-        {% for skin in hairColors %}
-        document.getElementById('{{ skin.color }}').addEventListener('click', e=>{
-            color = e.target.id
+        {% for color in hairColors %}
+        document.getElementById('{{ color.color }}').addEventListener('click', e=>{
             if (sect === 'head'){
                 skinCol = e.target.id
                 changeHead(head,skinCol)
             }
             else if(sect === 'hair'){
-                changeHair(hair,color)
+                hairColor = e.target.id
+                changeHair(hair,hairColor)
+            }
+            else if(sect === 'eyes'){
+                hairColor = e.target.id
+                changeEyes(eyes,hairColor)
             }
 
         })
@@ -72,14 +81,20 @@
         {% for head in heads %}
             document.getElementById('{{ head.type }}').addEventListener('click', e=>{
             head = e.target.id
-            changeHead(head,color)
+            changeHead(head,skinCol)
         })
         {% endfor %}
 
         {% for hair in hairs %}
         document.getElementById('{{ hair.type }}').addEventListener('click', e=>{
             hair = e.target.id
-            changeHair(hair,color)
+            changeHair(hair,hairColor)
+        })
+        {% endfor %}
+        {% for eye in eyes %}
+        document.getElementById('{{ eye.type }}').addEventListener('click', e=>{
+            eyes = e.target.id
+            changeEyes(eyes,hairColor)
         })
         {% endfor %}
     </script>

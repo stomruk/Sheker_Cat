@@ -19,7 +19,6 @@
     padding: 0% 35%
 }
 .head{
-    z-index: 2 !important;
     width: 512px;
     height: 512px;
     background-size: cover;
@@ -35,7 +34,13 @@
 }
 .hair{
     position: absolute;
-    z-index: 1 !important;
+    width: 512px;
+    height: 512px;
+    background-size: cover;
+    /*background-image: url("../../public/media/avatar/hair/hair1/tile001.png");*/
+}
+.eyes{
+    position: absolute;
     width: 512px;
     height: 512px;
     background-size: cover;
