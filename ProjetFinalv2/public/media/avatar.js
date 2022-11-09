@@ -21,6 +21,10 @@ document.getElementById('nose-btn').addEventListener('click', e=>{
     selection = 'nose'
     changeTo(selection)
 })
+document.getElementById('cloth-btn').addEventListener('click', e=>{
+    selection = 'cloth'
+    changeTo(selection)
+})
 
 function changeHair(style, color){
     document.getElementById('hair').style.backgroundImage = 'url(../media/avatar/hair/'+style+'/'+color+')'
@@ -36,6 +40,9 @@ function changeMouth(type,color){
 }
 function changeNose(type,color){
     document.getElementById('nose').style.backgroundImage = 'url(../media/avatar/nose/'+type+'/'+color+')'
+}
+function changeCloth(type,color){
+    document.getElementById('cloth').style.backgroundImage = 'url(../media/avatar/cloth/'+type+'/'+color+')'
 }
 
 function changeSkin(head, mouth, nose,color){

@@ -56,6 +56,12 @@
     height: 512px;
     background-size: cover;
 }
+.cloth{
+    position: absolute;
+    width: 512px;
+    height: 500px;
+    background-size: cover;
+}
 .hide-first{
     display: none!important;
 }

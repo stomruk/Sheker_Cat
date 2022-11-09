@@ -11,6 +11,7 @@
                     <div id="eyes" class="eyes"></div>
                     <div id="mouth" class="mouth"></div>
                     <div id="nose" class="nose"></div>
+                    <div id="cloth" class="cloth"></div>
                 </div>
             </div>
             <div class="avatar-color" style="background-color: pink">
@@ -31,7 +32,7 @@
             <div id="eyes-btn" style="background-color: lightseagreen;text-align: center"><h2>Eyes</h2></div>
             <div id="mouth-btn" style="background-color: lightcyan;text-align: center"><h2>Mouth</h2></div>
             <div id="nose-btn" style="background-color: lightpink;text-align: center"><h2>Nose</h2></div>
-            <div style="background-color: lightskyblue"></div>
+            <div id="cloth-btn" style="background-color: lightsteelblue;text-align: center"><h2>Cloth</h2></div>
             <div style="background-color: lightyellow"></div>
             <div class="options" style="background-color: lightsteelblue">
                 {% for head in heads %}
@@ -48,6 +49,9 @@
                 {% endfor %}
                 {% for nose in noses %}
                     <img id="{{ nose.name }}" style="display: none" class="nose-options icons" src="{{ asset('media/avatar/nose/'~nose.name~'/tile000.png') }}">
+                {% endfor %}
+                {% for cloth in cloths %}
+                    <img id="{{ cloth.name }}" style="display: none" class="nose-options icons" src="{{ asset('media/avatar/cloth/'~cloth.name~'/tile000.png') }}">
                 {% endfor %}
             </div>
         </div>
@@ -68,6 +72,7 @@
         let hairColor = 'tile000.png'
         let eyes = 'eyes1'
         let eyesColor = 'tile000.png'
+        let cloth = 'cloth1'
 
 
         changeTo(selection)
@@ -122,6 +127,15 @@
                 document.getElementById('{{ nose.name }}').style.display = 'inline-block'
                 {% endfor %}
             }
+            if (value === 'cloth'){
+                {% for color in colors %}
+                document.getElementById('{{ color.color }}').style.backgroundColor = hairColors[num]
+                num++
+                {% endfor %}
+                {% for cloth in cloths %}
+                document.getElementById('{{ cloth.name }}').style.display = 'inline-block'
+                {% endfor %}
+            }
         }
 
         {% for head in heads %}
@@ -158,6 +172,12 @@
             changeNose(nose, skin)
         })
         {% endfor %}
+        {% for cloth in cloths %}
+        document.getElementById('{{ cloth.name }}').addEventListener('click',e=>{
+            cloth = e.target.id
+            changeCloth(cloth, hairColor)
+        })
+        {% endfor %}
 
         {% for color in colors %}
             document.getElementById('{{ color.color }}').addEventListener('click',e=>{
@@ -184,6 +204,10 @@
                 if (selection === 'eyes'){
                     eyesColor = e.target.id
                     changeEyes(eyes,eyesColor)
+                }
+                if (selection === 'cloth'){
+                    hairColor = e.target.id
+                    changeCloth(cloth,hairColor)
                 }
             })
         {% endfor %}

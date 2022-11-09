@@ -20,6 +20,7 @@ class AvatarController extends AbstractController
             'eyes' => $avatarPartRepository->findLike('eyes'),
             'mouths' => $avatarPartRepository->findLike('mouth'),
             'noses' => $avatarPartRepository->findLike('nose'),
+            'cloths' => $avatarPartRepository->findLike('cloth'),
             'colors' => $avatarColorRepository->findAll()
         ]);
     }
