@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\HairRepository;
+use App\Repository\AvatarColorRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: HairRepository::class)]
-class Hair
+#[ORM\Entity(repositoryClass: AvatarColorRepository::class)]
+class AvatarColor
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -14,21 +14,21 @@ class Hair
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Type = null;
+    private ?string $color = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getColor(): ?string
     {
-        return $this->Type;
+        return $this->color;
     }
 
-    public function setType(string $Type): self
+    public function setColor(string $color): self
     {
-        $this->Type = $Type;
+        $this->color = $color;
 
         return $this;
     }

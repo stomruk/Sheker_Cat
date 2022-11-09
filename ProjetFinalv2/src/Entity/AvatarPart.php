@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\HeadRepository;
+use App\Repository\AvatarPartRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: HeadRepository::class)]
-class Head
+#[ORM\Entity(repositoryClass: AvatarPartRepository::class)]
+class AvatarPart
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -14,21 +14,21 @@ class Head
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Type = null;
+    private ?string $name = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getName(): ?string
     {
-        return $this->Type;
+        return $this->name;
     }
 
-    public function setType(string $Type): self
+    public function setName(string $name): self
     {
-        $this->Type = $Type;
+        $this->name = $name;
 
         return $this;
     }

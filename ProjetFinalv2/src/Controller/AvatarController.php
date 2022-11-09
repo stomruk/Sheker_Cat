@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
-use App\Repository\EyesRepository;
-use App\Repository\HairColorRepository;
-use App\Repository\HairRepository;
-use App\Repository\HeadRepository;
-use App\Repository\MouthRepository;
-use App\Repository\SkinColorRepository;
+use App\Repository\AvatarColorRepository;
+use App\Repository\AvatarPartRepository;
+use App\Repository\AvatarRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,17 +12,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class AvatarController extends AbstractController
 {
     #[Route('/avatar', name: 'app_avatar')]
-    public function index(HeadRepository $headRepository, SkinColorRepository $skinColorRepository, HairRepository $hairRepository,HairColorRepository $hairColorRepository,EyesRepository $eyesRepository, MouthRepository $mouthRepository): Response
+    public function index(AvatarPartRepository $avatarPartRepository, AvatarColorRepository $avatarColorRepository): Response
     {
-        return $this->render('profil/avatar.html.twig',
-            [
-            'heads' => $headRepository->findAll(),
-            'skins' => $skinColorRepository->findAll(),
-            'hairs' => $hairRepository->findAll(),
-            'hairColors' => $hairColorRepository->findAll(),
-            'eyes' => $eyesRepository->findAll(),
-            'mouths' => $mouthRepository->findAll(),
-            ]);
+        return $this->render('profil/avatar.html.twig',[
+            'heads' => $avatarPartRepository->findLike('head'),
+            'hairs' => $avatarPartRepository->findLike('hair'),
+            'eyes' => $avatarPartRepository->findLike('eyes'),
+            'mouths' => $avatarPartRepository->findLike('mouth'),
+            'noses' => $avatarPartRepository->findLike('nose'),
+            'colors' => $avatarColorRepository->findAll()
+        ]);
     }
 
 }
