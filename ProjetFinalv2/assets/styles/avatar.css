@@ -37,12 +37,16 @@
     width: 512px;
     height: 512px;
     background-size: cover;
-    /*background-image: url("../../public/media/avatar/hair/hair1/tile001.png");*/
 }
 .eyes{
     position: absolute;
     width: 512px;
     height: 512px;
     background-size: cover;
-    /*background-image: url("../../public/media/avatar/hair/hair1/tile001.png");*/
+}
+.mouth{
+    position: absolute;
+    width: 512px;
+    height: 512px;
+    background-size: cover;
 }

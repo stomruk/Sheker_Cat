@@ -11,6 +11,7 @@
                 <div id="head" class="head">
                     <div id="hair" class="hair"></div>
                     <div id="eyes" class="eyes"></div>
+                    <div id="mouth" class="mouth"></div>
                 </div>
             </div>
             <div class="avatar-color" style="background-color: pink">
@@ -31,7 +32,7 @@
             <div id="head-btn" style="background-color: lightblue;text-align: center"><h2>Head</h2></div>
             <div id="hair-btn" style="background-color: lightgreen; text-align: center"><h2>Hair</h2></div>
             <div id="eyes-btn" style="background-color: lightseagreen;text-align: center"><h2>Eyes</h2></div>
-            <div style="background-color: lightcyan"></div>
+            <div id="mouth-btn" style="background-color: lightcyan;text-align: center"><h2>Mouth</h2></div>
             <div style="background-color: lightpink"></div>
             <div style="background-color: lightskyblue"></div>
             <div style="background-color: lightyellow"></div>
@@ -45,6 +46,9 @@
                 {% for eye in eyes %}
                     <img id="{{ eye.type }}" style="display: none;" class="eyes-options" src="{{ asset('media/avatar/eyes/'~eye.type~'/tile000.png') }}">
                 {% endfor %}
+                {% for mouth in mouths %}
+                    <img id="{{ mouth.type }}" style="display: none;" class="mouth-options" src="{{ asset('media/avatar/mouth/'~mouth.type~'/tile000.png') }}">
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -53,11 +57,14 @@
         let num = 0
         let sect = 'head'
         let skinColor = ['rgb(248,197,171)','rgb(254,224,214)','rgb(217,154,125)','rgb(164,115,103)']
-        let hairCol = ['rgb(129,105,82)','rgb(179,111,79)','rgb(254,241,198)','rgb(96,91,98)']
+        let hairColors = ['rgb(129,105,82)','rgb(179,111,79)','rgb(254,241,198)','rgb(96,91,98)']
+        let eyeColors = ['rgb(66,136,193)','rgb(39,75,114)','rgb(31,152,154)','rgb(255,139,9)','rgb(96,57,45)','rgb(39,75,114)','rgb(31,152,154)','rgb(255,139,9)']
 
         let head = 'head0'
         let hair = 'hair0'
         let eyes = 'eyes0'
+        let mouth = 'mouth0'
+
         let hairColor = 'tile000'
         let skinCol = 'tile000'
 
@@ -74,6 +81,10 @@
             else if(sect === 'eyes'){
                 hairColor = e.target.id
                 changeEyes(eyes,hairColor)
+            }
+            else if(sect === 'mouth'){
+                skinColor = e.target.id
+                changeEyes(mouth,skinColor)
             }
 
         })
@@ -95,6 +106,12 @@
         document.getElementById('{{ eye.type }}').addEventListener('click', e=>{
             eyes = e.target.id
             changeEyes(eyes,hairColor)
+        })
+        {% endfor %}
+        {% for mouth in mouths %}
+        document.getElementById('{{ mouth.type }}').addEventListener('click', e=>{
+            mouth = e.target.id
+            changeMouth(mouth,skinCol)
         })
         {% endfor %}
     </script>
