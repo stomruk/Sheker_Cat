@@ -62,6 +62,14 @@
     height: 500px;
     background-size: cover;
 }
-.hide-first{
-    display: none!important;
+.Submit-btn{
+    height: 100px;
+    width: 150px;
+}
+.clr_radio{
+    display: none;
+    position: absolute;
+}
+.radio-btn{
+    display: none;
 }

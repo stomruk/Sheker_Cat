@@ -14,7 +14,11 @@
         <img id="logo" height="75%" src="{{ asset('media/logo.png') }}">
     </div>
     <div class="nav-item nav-login">
-        <a href="{{ path('app_login') }}">Login</a>
+        {% if app.user is not null %}
+            <a href="{{ path('app_profil',{'username' : app.user.username}) }}">Profil</a>
+        {% else %}
+            <a href="{{ path('app_login') }}">Login</a>
+        {% endif %}
     </div>
     <div class="nav-item nav-search">
         <div>
