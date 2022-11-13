@@ -15,6 +15,7 @@
                 <h4 class="description-area">{{ game.description }}</h4>
             </div>
         </div>
+        {#
         <div class="carousel">
             <div class="current-image">
                 <img id="currentImg" width=100% src="{{ game.images.values.0.source }}">
@@ -24,6 +25,17 @@
                     <div class="image-icon">
                         <img id="image{{ image.id }}" width=100% src="{{ image.source }}">
                     </div>
+                {% endfor %}
+            </div>
+        </div>
+        #}
+        <div class="Carousel">
+            <div class="current-img">
+                <img id="currentImg" width=100% src="{{ game.images.values.0.source }}">
+            </div>
+            <div class="other-img">
+                {% for image in game.images.values %}
+                        <img class="images-icon" id="image{{ image.id }}" src="{{ image.source }}">
                 {% endfor %}
             </div>
         </div>

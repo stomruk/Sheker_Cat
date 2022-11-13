@@ -8,23 +8,29 @@
     <div class="container">
         <div class="profil-grid">
             <div class="username-grid" style="background-color: lightseagreen"><h1>{{ user.0.username }}</h1></div>
-            <div style="background-color: lightblue">
-                {% if user.0.avatar is null %}
-                    <a href="{{ path('app_avatar') }}">Create Avatar</a>
-                {% else %}
-                    <img width="10%" style="position: absolute" src="{{ asset('media/avatar/head/'~user.0.avatar.head.name~'/'~user.0.avatar.skin.color~'') }}">
-                    <img width="10%" style="position: absolute" src="{{ asset('media/avatar/hair/'~user.0.avatar.hair.name~'/'~user.0.avatar.hairColor.color~'') }}">
-                    <img width="10%" style="position: absolute" src="{{ asset('media/avatar/eyes/'~user.0.avatar.eyes.name~'/'~user.0.avatar.eyeColor.color~'') }}">
-                    <img width="10%" style="position: absolute" src="{{ asset('media/avatar/cloth/'~user.0.avatar.cloth.name~'/'~user.0.avatar.clothStyle.color~'') }}">
-                    <img width="10%" style="position: absolute" src="{{ asset('media/avatar/mouth/'~user.0.avatar.mouth.name~'/'~user.0.avatar.skin.color~'') }}">
-                    <img width="10%" style="position: absolute" src="{{ asset('media/avatar/nose/'~user.0.avatar.nose.name~'/'~user.0.avatar.skin.color~'') }}">
-                {% endif %}
+            <div class="avatar-zone-flex">
+                <div class="avatar-zone" style="background-color: lightblue">
+                    {% if user.0.avatar is null %}
+                        <a href="{{ path('app_avatar') }}">Create Avatar</a>
+                    {% else %}
+                        <img width="200px" style="position: absolute" src="{{ asset('media/avatar/head/'~user.0.avatar.head.name~'/'~user.0.avatar.skin.color~'') }}">
+                        <img width="200px" style="position: absolute" src="{{ asset('media/avatar/hair/'~user.0.avatar.hair.name~'/'~user.0.avatar.hairColor.color~'') }}">
+                        <img width="200px" style="position: absolute" src="{{ asset('media/avatar/eyes/'~user.0.avatar.eyes.name~'/'~user.0.avatar.eyeColor.color~'') }}">
+                        <img width="200px" style="position: absolute" src="{{ asset('media/avatar/cloth/'~user.0.avatar.cloth.name~'/'~user.0.avatar.clothStyle.color~'') }}">
+                        <img width="200px" style="position: absolute" src="{{ asset('media/avatar/mouth/'~user.0.avatar.mouth.name~'/'~user.0.avatar.skin.color~'') }}">
+                        <img width="200px" style="position: absolute" src="{{ asset('media/avatar/nose/'~user.0.avatar.nose.name~'/'~user.0.avatar.skin.color~'') }}">
+                    {% endif %}
+                </div>
             </div>
             <div style="background-color: lightcyan">Profil Description</div>
             <div class="detail-buttons" style="background-color: lightgreen">
-                <a>Games</a>
-                <a>Reviews</a>
-                <a>Games</a>
+                <h1 style="text-align: center">Games</h1>
+                <div class="profile-game-card">
+                    <div class="game-cover-zone"></div>
+                    <div class="game-name-zone"><p class="game-name-font">The Witcher 3: Wild Hunt</p></div>
+                    <div class="like-dislike-zone"></div>
+                    <div class="review-zone"></div>
+                </div>
             </div>
         </div>
     </div>

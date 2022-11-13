@@ -2,9 +2,9 @@
     width: 100%;
     display: grid;
     height: 50%;
-    grid: 50px 200px 450px / 350px 550px ;
-    grid-gap: 3%;
-    margin : 5% 50%;
+    grid: 50px 200px 450px / 30% 70% ;
+    grid-gap: 2%;
+    margin : 5% 5%;
 }
 
 .detail-buttons{
@@ -13,4 +13,45 @@
 }
 .username-grid{
     line-height: 10px;
+}
+.avatar-zone{
+    display: flex;
+    justify-content: center;
+    width: 200px;
+}
+.avatar-zone-flex{
+    display: flex;
+    justify-content: center;
+}
+.profile-game-card{
+    width: 95%;
+    height: 100px;
+    background-color: #3c096c;
+    margin-left: 2.5%;
+    display: flex;
+}
+.game-cover-zone{
+    width: 25%;
+    height: 100px;
+    background-color: #0f6674;
+}
+.game-name-zone{
+    width: 25%;
+    height: 100px;
+    background-color: violet;
+    text-align: center;
+}
+.game-name-font{
+    font-size: 175%;
+    ;
+}
+.like-dislike-zone{
+    width: 25%;
+    height: 100px;
+    background-color: cadetblue;
+}
+.review-zone{
+    width: 35%;
+    height: 100px;
+    background-color: indianred;
 }
