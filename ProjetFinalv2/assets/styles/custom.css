@@ -1,58 +1,154 @@
 @import url('https://fonts.googleapis.com/css2?family=Life+Savers&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
-body{
-    font-family: var(--font-etc);
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Marhey&display=swap');
 :root{
     --font-title : 'Life Savers', cursive;
-    --font-etc : 'Indie Flower', cursive;
+    --font-etc : 'Marhey', cursive;
 
-    --color_1 : #ffadad;
-    --color_2 : #1b9aaa;
-    --color_3 : #caffbf;
-    --color_4 : #fdffb6;
-    --color_5 : #a0c4ff;
+    --background : #8367C7;
+    --game-card :#5603AD;
+    --nav-bar : #B3E9C7;
+    --hover : #C2F8CB;
+    --rad-7 : 7px;
 }
 body{
-    background-color: var(--color_1);
     margin: 0px;
+    background-color: var(--background);
+    font-family: var(--font-etc);
 }
 nav{
-    background-color: var(--color_2);
-    height: 100px;
-    width: auto;
+    height: 250px;
+    width: 100%;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template: 150px / 1fr 350px 1fr;
 }
-.nav-item{
-    background-color: var(--color_3);
+.nav-button{
+    font-size: 32px;
 }
-.nav-game{
-    grid-row: 1 / 3;
+.nav-zone{
     display: flex;
     align-items: center;
-    padding-left: 2%;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 75px;
+    background-color: var(--nav-bar);
+}
+.nav-zone-1{
+    height: 250px;
+    background-color: var(--nav-bar);
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}.nav-zone-2{
+     display: flex;
+     align-items: center;
+     justify-content: space-around;
+     margin-top: 75px;
+     background-color: var(--nav-bar);
+ }
+.nav-text{
+     font-size: 36px;
+     margin : 0px;
+     text-align: center;
+ }
+.nav-button{
+    height: 75px;
+    display: flex;
+    align-items: center;
+    transition: 0.5s;
+}
+.nav-button:hover{
+    background-color: var(--hover);
+    height: 95px;
+    transition: 0.5s;
 }
 .nav-logo{
-    height: 100px;
+    font-family: var(--font-title);
+    font-size: 36px;
+    margin : 0px;
     text-align: center;
+    width: 100%;
 }
-#logo{
-    cursor: pointer;
+.logo{
+    width: 200px;
 }
-.nav-login{
-    grid-row: 1 / 3;
-    grid-column: 3 / 4;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 2%;
+.side-nav{
+    position: absolute;
+    top: 75px;
+    width: 25%;
+    height: 75px;
+    background-color: var(--nav-bar);
+    display: none;
+    flex-wrap: wrap;
+    align-content: space-evenly;
+    transition: 1s;
+    z-index: 1;
 }
-.nav-search{
-    display: flex;
+.side-button{
+    display: none;
+    width: 400px;
+    height: 15px;
+}
+.menu-burger{
+    position: absolute;
+    width: 100px;
+    height: 75px;
+    background-color: #7a9f8a;
+    margin-left: 25px;
+    display: none;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
-
+.menu-line{
+    border-radius: 5px;
+    height: 10px;
+    width: 75px;
+    background-color: black;
+    transition: 1s;
+}
+.sidenav-text{
+    font-size: 20px;
+}
 /*--------------------------- */
+
+@media screen and (max-width: 1024px) {
+    .nav-text{
+        font-size: 24px;
+    }
+    .menu-burger{
+        display: flex;
+    }
+    .side-nav{
+        display: flex;
+    }
+    nav{
+        grid-template: 150px / 1fr 250px 1fr;
+    }
+    .nav-text{
+        display: none;
+    }
+    .nav-logo{
+        font-size: 26px;
+    }
+    .logo{
+        width: 150px;
+    }
+}
+@media screen and (max-width: 625px) {
+    nav{
+        grid-template: 150px / 1fr 150px 1fr;
+    }
+    .nav-logo{
+        font-size: 20px;
+    }
+    .logo{
+        width: 100px;
+    }
+    .nav-zone-1{
+        height: 200px;
+    }
+    .sidenav-text{
+        font-size: 16px;
+    }
+}

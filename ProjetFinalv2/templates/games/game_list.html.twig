@@ -5,17 +5,23 @@
 {% block body %}
     <div class="container">
         {% for game in games %}
-            <div class="grid">
-                    <div class="box1"><img class="image" src="{{ game.cover }}"></div>
-                    <div class="info"><h4>{{ game.name }}</h4><br><a href="{{ path('app_game_page',{'id' : game.id}) }}">Details</a></div>
+            <div class="card">
+                <div class="card-highlight">
+                    <a class="card-detail" href="{{ path('app_game_page',{'id' : game.id}) }}">Details</a>
+                </div>
+                <div class="card-cover"><img width="100%" height="100%" src="{{ game.cover }}"></div>
+                <div><p class="card-name">{{ game.name }}</p></div>
                 {% if game.price == 0 %}
-                    <div><h2 class="price">free to play</h2></div>
+                    <div class="card-price"><p class="card-price-tag">free to play</p></div>
                 {% else %}
-                    <div><h2 class="price">{{ game.price }} €</h2></div>
+                    <div class="card-price"><p class="card-price-tag">{{ game.price }}€</p></div>
                 {% endif %}
-                    <div class="info"><a class="link-button" href="#">Add to Cart</a></div>
             </div>
+            {# <a href="{{ path('app_game_page',{'id' : game.id}) }}">Details</a> #}
         {% endfor %}
     </div>
+    <script>
 
+
+    </script>
 {% endblock %}
