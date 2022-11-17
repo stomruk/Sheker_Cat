@@ -1,0 +1,16 @@
+.profil-grid{
+    width: 100%;
+    display: grid;
+    height: 50%;
+    grid: 50px 200px 450px / 350px 550px ;
+    grid-gap: 3%;
+    margin : 5% 50%;
+}
+
+.detail-buttons{
+    grid-row: 1 / 4;
+    grid-column: 2 / 3;
+}
+.username-grid{
+    line-height: 10px;
+}

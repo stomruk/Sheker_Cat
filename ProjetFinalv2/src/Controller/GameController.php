@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Games;
 use App\Repository\GamesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,14 @@ class GameController extends AbstractController
     {
         return $this->render('games/game_list.html.twig', [
             'games' => $games->findAll(),
+        ]);
+    }
+    #[Route('/game/{id}', name: 'app_game_page')]
+    public function game_page($id, Games $game, GamesRepository $games,): Response
+    {
+        $game = $games->find($id);
+        return $this->render('games/game_page.html.twig', [
+            'game' => $game,
         ]);
     }
 }
