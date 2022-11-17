@@ -31,9 +31,16 @@ class Games
     #[ORM\OneToMany(mappedBy: 'Game', targetEntity: Images::class)]
     private Collection $images;
 
+    #[ORM\OneToOne(inversedBy: 'games', cascade: ['persist', 'remove'])]
+    private ?Developper $Developper = null;
+
+    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'Game')]
+    private Collection $categories;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,6 +121,45 @@ class Games
             if ($image->getGame() === $this) {
                 $image->setGame(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getDevelopper(): ?Developper
+    {
+        return $this->Developper;
+    }
+
+    public function setDevelopper(?Developper $Developper): self
+    {
+        $this->Developper = $Developper;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+            $category->addGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            $category->removeGame($this);
         }
 
         return $this;
