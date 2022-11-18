@@ -5,103 +5,56 @@
 {% block body %}
     <div class="container">
         <div class="page">
-            <div class="title-area">
-                <h1 class="title">{{ game.name }}</h1>
+            <div class="title-zone">
+                <h1 class="game-title">{{ game.name }}</h1>
             </div>
-            <div class="image-area">
-                <img class="image" src="{{ game.cover }}">
+            <div class="cover-zone">
+                <img class="cover-img" src="{{ game.cover }}">
             </div>
-            <div>
-                <h4 class="description-area">{{ game.description }}</h4>
+            <div class="detail-zone">
+                <p class="game-text">Developper : {{ game.developper.name }}</p>
+                <p class="game-text">Release Date : {{ game.date }}</p>
+                <button class="cart-button">Add To Cart</button>
             </div>
-        </div>
-        {#
-        <div class="carousel">
-            <div class="current-image">
-                <img id="currentImg" width=100% src="{{ game.images.values.0.source }}">
+            <div class="desc-zone">
+                <h2 style="text-align: center">Description</h2>
+                <p>{{ game.description }}</p>
             </div>
-            <div id="others" class="other-images">
-                {% for image in game.images.values %}
-                    <div class="image-icon">
-                        <img id="image{{ image.id }}" width=100% src="{{ image.source }}">
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-        #}
-        <div class="Carousel">
-            <div class="current-img">
-                <img id="currentImg" width=100% src="{{ game.images.values.0.source }}">
-            </div>
-            <div class="other-img">
-                {% for image in game.images.values %}
-                        <img class="images-icon" id="image{{ image.id }}" src="{{ image.source }}">
-                {% endfor %}
-            </div>
-        </div>
 
-        <div style="display: flex; justify-content: center; flex-wrap: wrap; ">
-            <div id="reviewSection" class="review-section">
-                <div class="review-frame">
-                    <div class="user-zone" style="background-color: yellow">User Zone</div>
-                    <div class="note-zone" style="background-color: green"><p>Notation</p><p>2 Like</p></div>
-                    <div class="review-zone" style="background-color: gray"><p>Avis</p></div>
-                </div>
-                <div class="review-frame">
-                    <div class="user-zone" style="background-color: yellow">User Zone</div>
-                    <div class="note-zone" style="background-color: green">Area 2</div>
-                    <div class="review-zone" style="background-color: gray">Area 3</div>
-                </div>
-                <div class="review-frame">
-                    <div class="user-zone" style="background-color: yellow">User Zone</div>
-                    <div class="note-zone" style="background-color: green">Area 2</div>
-                    <div class="review-zone" style="background-color: gray">Area 3</div>
-                </div>
-                <div class="review-frame">
-                    <div class="user-zone" style="background-color: yellow">User Zone</div>
-                    <div class="note-zone" style="background-color: green">Area 2</div>
-                    <div class="review-zone" style="background-color: gray">Area 3</div>
-                </div>
+            <div class="image-zone">
+
+                    <div class="current">
+                        <img class="current-img" src="{{ game.images.0.source }}">
+                    </div>
+
+                    <div class="others">
+                            {% for img in game.images.values %}
+                                <img id="img{{ img.id }}" class="img-icon" src="{{ img.source }}">
+                            {% endfor %}
+                    </div>
+
             </div>
-            <div id="viewmore" style="background-color: blue; height: 100px; width: 100px; margin-top: -40px">
-                View More
+            <div class="review-zone">
+                dqsdqsd
             </div>
         </div>
     </div>
     <script>
-        let zoom = false
-        let height = 440
-        let images = []
-        {% for image in game.images.values %}
-            images.push('image' + {{ image.id }})
+        {% for img in game.images.values %}
+            document.getElementById('img{{ img.id }}').onclick = 'test()'
         {% endfor %}
-        images.forEach(img => {
-            document.getElementById(img).addEventListener('click', e=> {
-                selectBorder(e.target.id)
-                document.getElementById('currentImg').src = document.getElementById(e.target.id).src
-            })
-        })
-        function selectBorder(target){
-            images.forEach(img => {
-                document.getElementById(img).style.border = 'none'
-            })
-            document.getElementById(target).style.border = '5px solid blue'
-            document.getElementById(target).style.animation = 'clickedFrame 0.3s linear'
+        function test(){
+            alert('test')
         }
-        document.getElementById('currentImg').addEventListener('click', e=>{
-            if(zoom === false){
-                document.getElementById('currentImg').style.animation = 'zoom 0.3s linear 0s 1 normal forwards'
-                zoom = true
-            }
-            else if(zoom === true){
-                document.getElementById('currentImg').style.animation = 'unzoom 0.3s linear 0s 1 normal forwards'
-                zoom = false
-            }
-        })
-        document.getElementById('viewmore').addEventListener('click',e=>{
-
-            height = height + 440
-            document.getElementById('reviewSection').style.height = height + 'px'
-        })
     </script>
 {% endblock %}
+
+{#
+{% for img in game.images.values %}
+    <img class="img-icon" src="{{ img.source }}">
+{% endfor %}
+<img class="current-img" src="{{ game.images.0.source }}">
+
+
+
+#}

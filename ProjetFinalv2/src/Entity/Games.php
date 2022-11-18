@@ -37,6 +37,9 @@ class Games
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'Game')]
     private Collection $categories;
 
+    #[ORM\Column(length: 255)]
+    private ?string $Date = null;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -161,6 +164,18 @@ class Games
         if ($this->categories->removeElement($category)) {
             $category->removeGame($this);
         }
+
+        return $this;
+    }
+
+    public function getDate(): ?string
+    {
+        return $this->Date;
+    }
+
+    public function setDate(string $Date): self
+    {
+        $this->Date = $Date;
 
         return $this;
     }

@@ -76,154 +76,105 @@
     justify-content: center;
 }
 .page{
+    width: 100%;
     display: grid;
-    grid-template: 50px 250px / 450px auto ;
-    grid-column-gap: 15px;
-    width: 100%;
-    border-radius: var(--rad-7);
-    margin:25px 5px;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
+    grid-template: 100px 400px 350px auto 150px  / 50% 50%;
 }
-.title-area{
-    margin-left: 5px;
-}
-.image{
-    border-radius: var(--rad-7);
-}
-.image-area{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-.title{
-    font-family: var(--font-title);
-    font-size: 28px;
-    line-height: 15px;
-}
-.description-area{
-    margin: 5%;
-}
-.Carousel{
-    width: 100%;
-    height: 100%;
-    background-color: #1c7430;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.current-img{
-    width: 90%;
-}
-.other-img{
-    width: 90%;
-    display: flex;
-    background-color: #5fc09e;
-    overflow: hidden;
-    overflow-x: auto;
-}
-
-.images-icon{
-    width: 5%;
-    margin: 1% 1%;
-}
-.review-section{
-    overflow: hidden;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    height: 440px;
-    width: 100%;
-    background-color: red;
-    margin: 25px 0px;
-}
-.review-frame{
-    margin: 2%;
-    height: 400px;
-    width: 300px;
-    background-color: blue;
-    display: grid;
-    grid-template: 100px / 100px 1fr;
-}
-.review-zone{
+.title-zone{
     grid-column: 1 / 3;
 }
+.game-title{
+    margin: 0px;
+    font-size: 64px;
+    text-align: center;
+}
+.cover-zone{
+    width: 90%;
+    background-color: yellow;
+    display: flex;
+    justify-content: center;
+}
+.cover-img{
+    width: 100%;
+}
+.detail-zone{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+}
+.cart-button{
+    width: 50%;
+    height: 25%;
+    border-radius: 15px;
+    background-color: var(--nav-bar);
+}
+.desc-zone{
+    padding: 5px;
+    grid-column: 1 / 3;
+    font-size: 24px;
+    overflow: auto;
+    border-radius: 5px;
+    background-color: #37389d;
+}
+
+
+.image-zone{
+    margin-top: 15px;
+    grid-column: 1 / 3;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.current{
+    width: 90%;
+}
+.current-img{
+    width: 100%;
+}
+.others{
+    width: 90%;
+    overflow: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.img-icon{
+    margin: 5px;
+    width: 35%;
+    display: inline-block;
+}
+.review-zone{
+    margin-top: 15px;
+    background-color: purple;
+    grid-column: 1 / 3;
+}
+
+
 
 /*--------------------------- */
 
 
-@keyframes zoom {
-    0%{
-        transform: scale(1);
-    }
-    100%{
-        transform: scale(1.8);
-    }
-}
-@keyframes unzoom {
-    0%{
-        transform: scale(1.8);
-    }
-    100%{
-        transform: scale(1);
-    }
-}
-@keyframes clickedFrame {
-    0%{
-        transform: scale(1);
-    }
-    50%{
-        transform: scale(0.75);
-    }
-    100%{
-        transform: scale(1);
-    }
-}
-
-@media screen and (min-width: 850px) {
-    .title-area{
-        grid-column: 1 / 3;
-    }
-    .image{
-        width: 100%;
-        height: 100%;
-    }
-}
-@media screen and (max-width: 850px) {
-    .page {
-        grid-template: auto auto auto / auto;
-    }
-    .title {
-        text-align: center;
-    }
-    .carousel{
-        width: 450px;
-    }
-    .current-image{
-        height: 265px;
-    }
-    .review-frame {
-        margin: 3%;
-    }
-}
 @media screen and (max-width: 650px) {
-    .image{
-        width: 90%;
-        height: 100%;
-    }
-    .carousel{
-        width: 350px;
-    }
-    .current-image{
-        height: 205px;
-    }
-    .review-frame {
-        margin: 5%;
-    }
     .card{
         grid-template: 180px 80px 40px / 200px;
     }
     .card-highlight{
         width: 200px;
+    }
+}
+@media screen and (max-width: 1150px) {
+    .cover-zone{
+        grid-column: 1 / 3;
+    }
+    .detail-zone{
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+        font-size: 16px;
+    }
+    .desc-zone{
+        grid-column: 1 / 2;
+        font-size: 16px;
     }
 }
