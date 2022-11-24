@@ -14,6 +14,7 @@
             <div class="detail-zone">
                 <p class="game-text">Developper : {{ game.developper.name }}</p>
                 <p class="game-text">Release Date : {{ game.date }}</p>
+                <p class="game-text">{{ game.price }}€</p>
                 <button class="cart-button">Add To Cart</button>
             </div>
             <div class="desc-zone">
@@ -24,7 +25,7 @@
             <div class="image-zone">
 
                     <div class="current">
-                        <img class="current-img" src="{{ game.images.0.source }}">
+                        <img id="current" class="current-img" src="{{ game.images.0.source }}">
                     </div>
 
                     <div class="others">
@@ -39,22 +40,5 @@
             </div>
         </div>
     </div>
-    <script>
-        {% for img in game.images.values %}
-            document.getElementById('img{{ img.id }}').onclick = 'test()'
-        {% endfor %}
-        function test(){
-            alert('test')
-        }
-    </script>
+    <script src="{{ asset('media/gamepage.js') }}"></script>
 {% endblock %}
-
-{#
-{% for img in game.images.values %}
-    <img class="img-icon" src="{{ img.source }}">
-{% endfor %}
-<img class="current-img" src="{{ game.images.0.source }}">
-
-
-
-#}

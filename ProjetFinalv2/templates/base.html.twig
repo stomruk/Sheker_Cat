@@ -19,7 +19,7 @@
         <div class="side-button nav-button"><p class="sidenav-text"><a href="#">Cart</a></p></div>
     </div>
     <div class="nav-zone">
-        <div class="nav-button"><p class="nav-text"><a href="#">Games</a></p></div>
+        <div class="nav-button"><p class="nav-text"><a href="{{ path('app_game_list') }}">Games</a></p></div>
         <div class="nav-button"><p class="nav-text"><a href="#">Community</a></p></div>
     </div>
     <div class="nav-zone-1">
@@ -29,11 +29,10 @@
     <div class="nav-zone-2">
         {% if app.user is not null %}
             <h1><a href="{{ path('app_profil',{'username' : app.user.username}) }}">Profil</a></h1>
-
         {% else %}
-            <div class="nav-button"><p class="nav-text"><a href="#">Login</a></p></div>
-            <div class="nav-button"><p class="nav-text"><a href="#">Cart</a></p></div>
+            <div class="nav-button"><p class="nav-text"><a href="{{ path('app_login') }}">Login</a></p></div>
         {% endif %}
+        <div class="nav-button"><p class="nav-text"><a href="#">Cart</a></p></div>
     </div>
 </nav>
 {% block body %}

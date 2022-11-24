@@ -104,6 +104,9 @@
     justify-content: center;
     font-size: 26px;
 }
+.game-text{
+    line-height: 15px;
+}
 .cart-button{
     width: 50%;
     height: 25%;

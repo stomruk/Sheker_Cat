@@ -7,31 +7,61 @@
 
     <div class="container">
         <div class="profil-grid">
-            <div class="username-grid" style="background-color: lightseagreen"><h1>{{ user.0.username }}</h1></div>
-            <div class="avatar-zone-flex">
-                <div class="avatar-zone" style="background-color: lightblue">
-                    {% if user.0.avatar is null %}
-                        <a href="{{ path('app_avatar') }}">Create Avatar</a>
-                    {% else %}
-                        <img width="200px" style="position: absolute" src="{{ asset('media/avatar/head/'~user.0.avatar.head.name~'/'~user.0.avatar.skin.color~'') }}">
-                        <img width="200px" style="position: absolute" src="{{ asset('media/avatar/hair/'~user.0.avatar.hair.name~'/'~user.0.avatar.hairColor.color~'') }}">
-                        <img width="200px" style="position: absolute" src="{{ asset('media/avatar/eyes/'~user.0.avatar.eyes.name~'/'~user.0.avatar.eyeColor.color~'') }}">
-                        <img width="200px" style="position: absolute" src="{{ asset('media/avatar/cloth/'~user.0.avatar.cloth.name~'/'~user.0.avatar.clothStyle.color~'') }}">
-                        <img width="200px" style="position: absolute" src="{{ asset('media/avatar/mouth/'~user.0.avatar.mouth.name~'/'~user.0.avatar.skin.color~'') }}">
-                        <img width="200px" style="position: absolute" src="{{ asset('media/avatar/nose/'~user.0.avatar.nose.name~'/'~user.0.avatar.skin.color~'') }}">
-                    {% endif %}
+            <div class="username-zone">
+                <p class="username-text">{{ user.0.username }}</p>
+            </div>
+            <div class="about-zone">
+                <p id="userDesc" class="about-text">{{ user.0.description }}</p>
+                <button id="desc_btn" class="idiot-button">Edit</button>
+                <div id="form" class="form-div">
+                    <form method="get" action="{{ path('app_desc') }}" name="desc">
+                        <textarea name="content" class="form-text-area" type="text-area">{{ user.0.description }}</textarea>
+                        <input type="submit">
+                    </form>
+                    <button id="cancel">Cancel</button>
                 </div>
             </div>
-            <div style="background-color: lightcyan">Profil Description</div>
-            <div class="detail-buttons" style="background-color: lightgreen">
-                <h1 style="text-align: center">Games</h1>
-                <div class="profile-game-card">
-                    <div class="game-cover-zone"></div>
-                    <div class="game-name-zone"><p class="game-name-font">The Witcher 3: Wild Hunt</p></div>
-                    <div class="like-dislike-zone"></div>
-                    <div class="review-zone"></div>
+            <div class="avatar-zone">
+                <div class="avatar-frame">
+                    <img class="avatar" src="{{ asset('media/avatar/head/'~user.0.avatar.head.name~'/'~user.0.avatar.skin.color) }}">
+                    <img class="avatar" src="{{ asset('media/avatar/hair/'~user.0.avatar.hair.name~'/'~user.0.avatar.haircolor.color) }}">
+                    <img class="avatar" src="{{ asset('media/avatar/eyes/'~user.0.avatar.eyes.name~'/'~user.0.avatar.eyecolor.color) }}">
+                    <img class="avatar" src="{{ asset('media/avatar/mouth/'~user.0.avatar.mouth.name~'/'~user.0.avatar.skin.color) }}">
+                    <img class="avatar" src="{{ asset('media/avatar/nose/'~user.0.avatar.nose.name~'/'~user.0.avatar.skin.color) }}">
+                    <img class="avatar" src="{{ asset('media/avatar/cloth/'~user.0.avatar.cloth.name~'/'~user.0.avatar.clothstyle.color) }}">
+                    <button id="avatar_btn">Edit</button>
+                </div>
+            </div>
+            <div class="games-zone">
+                <div class="game-table">
+                    <div class="cover-image-zone">
+                        <img class="image-cover" src="https://cdn.cloudflare.steamstatic.com/steam/apps/268050/header.jpg?t=1572026108">
+                    </div>
+                    <div>
+                        <p>The Evil Within</p>
+                        <button>Favorite</button>
+                    </div>
+                    <p>7 / 10</p>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('avatar_btn').onclick = avatar;
+        document.getElementById('cancel').onclick = cancel;
+        document.getElementById('desc_btn').onclick = descForm;
+        function descForm(){
+            document.getElementById('desc_btn').style.display = "none"
+            document.getElementById('userDesc').style.display = "none"
+            document.getElementById('form').style.display = "block"
+        }
+        function cancel(){
+            document.getElementById('desc_btn').style.display = "block"
+            document.getElementById('userDesc').style.display = "block"
+            document.getElementById('form').style.display = "none"
+        }
+        function avatar(){
+            window.location = '{{ path('app_avatar') }}';
+        }
+    </script>
 {% endblock %}

@@ -56,7 +56,6 @@ nav{
 }
 .nav-button:hover{
     background-color: var(--hover);
-    height: 95px;
     transition: 0.5s;
 }
 .nav-logo{
