@@ -6,6 +6,7 @@
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
 </head>
 <body>
+{#
 <nav>
     <div id="menu-burger" class="side-nav">
         <div class="menu-burger">
@@ -23,7 +24,7 @@
         <div class="nav-button"><p class="nav-text"><a href="#">Community</a></p></div>
     </div>
     <div class="nav-zone-1">
-        <img class="logo" src="{{ asset('media/Sans titre.png') }}">
+        <img class="logo" src="{{ asset('media/logo2.png') }}">
         <p class="nav-logo"><b>Sheker Cat</b></p>
     </div>
     <div class="nav-zone-2">
@@ -32,7 +33,33 @@
         {% else %}
             <div class="nav-button"><p class="nav-text"><a href="{{ path('app_login') }}">Login</a></p></div>
         {% endif %}
-        <div class="nav-button"><p class="nav-text"><a href="#">Cart</a></p></div>
+        <div class="nav-button"><p class="nav-text"><a href="{{ path('app_cart') }}">Cart</a></p></div>
+    </div>
+</nav>
+#}
+
+<nav>
+    <div class="nav-zone-1">
+        <div class="nav-test">
+            <div class="menu-burger"></div>
+            <a class="nav-element" href="{{ path('app_game_list') }}">Store</a>
+            <a class="nav-element">Community</a>
+            <a class="nav-element">About</a>
+            <a class="nav-element">Support</a>
+        </div>
+    </div>
+    <div class="nav-logo-zone">
+        <a class="homeButton" href="{{ path('app_home') }}"><img id="logo" width="50%" src="{{ asset('media/logo2.png') }}"></a>
+        <h1 class="nav-title">Sheker Cat</h1>
+    </div>
+    <div class="nav-zone-2">
+        <div class="nav-test">
+            <a>Login</a>
+            <a>Cart</a>
+            {% if app.user.username is defined %}
+                <a href="{{ path('app_profil',{'username' : app.user.username}) }}">Profil</a>
+            {% endif %}
+        </div>
     </div>
 </nav>
 {% block body %}
@@ -40,7 +67,7 @@
 {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
 <script>
     let burgerNav = false
-
+/*
     document.getElementById("menu-burger").onclick = openNav
 
     function openNav(){
@@ -62,6 +89,9 @@
             btn.style.display = 'none'
         })
     }
+
+ */
+
 </script>
 </body>
 </html>

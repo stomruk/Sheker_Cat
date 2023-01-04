@@ -105,13 +105,20 @@
     font-size: 26px;
 }
 .game-text{
-    line-height: 15px;
+    margin: 0px;
 }
 .cart-button{
     width: 50%;
     height: 25%;
     border-radius: 15px;
     background-color: var(--nav-bar);
+    cursor: pointer;
+}
+.cart-button:hover{
+    background-color: #578f6c;
+}
+.cart-button:active{
+    background-color: #389156;
 }
 .desc-zone{
     padding: 5px;

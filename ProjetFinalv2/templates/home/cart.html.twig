@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    {{ dump(app.session.get('Cart')) }}
+    {% set total = 0 %}
+    <div class="container">
+        <a href="{{ path('app_clear_cart') }}">Clear Cart</a>
+        <div class="cart">
+            <table class="cart-table">
+                <thead>
+                    <th>Product</th>
+                    <th>Gift</th>
+                    <th>Price</th>
+                    <th></th>
+                </thead>
+                {% for index, item in app.session.get('Cart') %}
+                    {% set total = total + item.price %}
+                    <tbody>
+                    <td class="text-center">{{ item.name }}</td>
+                    <td class="text-center">
+                        <label id="{{ index }}gifted">No</label>
+                        <input id="game{{ index }}" name="game{{ index }}" type="checkbox" value="gift">
+                        <select class="gift-option" id="gift{{ index }}" style="display: none">
+                            <option>sakarlord</option>
+                            <option>xavier</option>
+                        </select>
+                    </td>
+                    <td class="text-center">
+                        <p>{{ item.price }} €</p>
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ path('app_remove_cart',{index : index}) }}">remove</a>
+                    </td>
+                    </tbody>
+                {% endfor %}
+            </table>
+            <div class="cart-stuffs cart-frame">
+                <div class="cart-stuffs">
+                    <h3 class="price-text">Total : {{ total }} €</h3>
+                    <button class="buy-button" style="margin-left: 25px;">Buy</button>
+                </div>
+                <div class="cart-stuffs">
+                    <input class="code-promo" type="text">
+                    <input type="submit" value="Apply">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ asset('media/cart.js') }}"></script>
+    <script>
+        {% for index, item in app.session.get('Cart') %}
+            document.getElementById('game{{ index }}').addEventListener('click', e=>{if (e.target.checked){giftgame({{ index }})} else {notgiftgame({{ index }})}})
+        {% endfor %}
+        function giftgame(target){
+            document.getElementById(target+'gifted').innerHTML = 'Yes'
+            document.getElementById('gift'+target).style.display = ''
+        }
+        function notgiftgame(target){
+            document.getElementById(target+'gifted').innerHTML = 'No'
+            document.getElementById('gift'+target).style.display = 'none'
+        }
+    </script>
+{% endblock %}

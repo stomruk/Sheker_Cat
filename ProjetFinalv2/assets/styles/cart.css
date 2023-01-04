@@ -1,0 +1,50 @@
+.cart{
+    width: 100%;
+}
+.cart-table{
+    width: 100%;
+    background-color: #37389a;
+    border-spacing: 100px 50px;
+}
+.text-center{
+    text-align: center;
+}
+.code-promo, input[type="text"], textarea {
+    background-color : lightgrey;
+}
+.cart-frame{
+    border: 5px solid black;
+}
+.cart-stuffs{
+    display: flex;
+    justify-content: space-around;
+}
+.buy-button{
+    margin-left: 25px;
+}
+.table-test{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.remove-btn{
+    margin-left: 50px;
+}
+input[type="text"]
+{
+    font-size:36px;
+}
+@media screen and (max-width: 768px) {
+    .cart-table{
+        border-spacing: 50px;
+    }
+}
+@media screen and (max-width: 625px) {
+    .cart-table{
+        border-spacing: 25px 50px;
+    }
+    .price-text{
+        margin-left: 5px;
+        font-size: 15px;
+    }
+}

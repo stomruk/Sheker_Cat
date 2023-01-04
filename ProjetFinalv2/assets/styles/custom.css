@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Life+Savers&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Marhey&display=swap');
+
 :root{
     --font-title : 'Life Savers', cursive;
     --font-etc : 'Marhey', cursive;
 
-    --background : #4B4CD1;
-    --game-card :#D1AF15;
-    --nav-bar : #80D19E;
-    --hover : #C2F8CB;
+    --background : #5F4B8B;
+    --game-card : #F7D18A;
+    --nav-bar : #E69A8D;
+    --hover : #42335e;
     --rad-7 : 7px;
 }
 body{
@@ -15,6 +16,11 @@ body{
     background-color: var(--background);
     font-family: var(--font-etc);
 }
+a{
+    color: white;
+    cursor: pointer;
+}
+/*
 nav{
     height: 250px;
     width: 100%;
@@ -90,7 +96,7 @@ nav{
     top: 10px;
     width: 50px;
     height: 55px;
-    background-color: #7a9f8a;
+    background-color: var(--hover);
     margin-left: 25px;
     display: none;
     flex-wrap: wrap;
@@ -107,31 +113,70 @@ nav{
 .sidenav-text{
     font-size: 20px;
 }
+ */
+
+nav{
+    height: 250px;
+    width: 100%;
+    display: grid;
+    grid-template: 250px / 1fr 350px 1fr;
+}
+.nav-zone-1{
+    display: flex;
+    align-items: center;
+}
+.nav-zone-2{
+    display: flex;
+    align-items: center;
+}
+.nav-test{
+    width: 100%;
+    height: 75px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--nav-bar);
+}
+.nav-logo-zone{
+    background-color: var(--nav-bar);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.homeButton{
+    display: flex;
+    justify-content: center;
+}
+.nav-title{
+    font-size: 36px;
+}
+.menu-burger{
+    display: none;
+}
+
+
 /*--------------------------- */
 
-@media screen and (max-width: 768px) {
-    .nav-text{
-        font-size: 24px;
-    }
-    .menu-burger{
-        display: flex;
-    }
-    .side-nav{
-        display: flex;
-    }
+@media screen and (max-width: 950px) {
     nav{
-        grid-template: 150px / 1fr 250px 1fr;
+        grid-template: 250px / 1fr 250px 1fr;
     }
-    .nav-text{
+    .nav-test{
+        justify-content: flex-start;
+    }
+    .nav-element{
         display: none;
     }
-    .nav-logo{
-        font-size: 26px;
-    }
-    .logo{
-        width: 150px;
+    .menu-burger{
+        display: block;
+        height: 50px;
+        width: 50px;
+        background-color: blue;
+        margin-left: 15px;
     }
 }
+/*
 @media screen and (max-width: 625px) {
     nav{
         grid-template: 150px / 1fr 150px 1fr;
@@ -149,3 +194,5 @@ nav{
         font-size: 16px;
     }
 }
+
+ */

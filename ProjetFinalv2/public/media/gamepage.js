@@ -13,3 +13,6 @@ function cleanAll(){
         img.style.borderRadius = '0px'
     })
 }
+document.getElementById('clikc').addEventListener('click', e=>{
+    alert('tyjerg')
+})

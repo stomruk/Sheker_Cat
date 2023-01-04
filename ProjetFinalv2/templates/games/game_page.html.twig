@@ -14,8 +14,8 @@
             <div class="detail-zone">
                 <p class="game-text">Developper : {{ game.developper.name }}</p>
                 <p class="game-text">Release Date : {{ game.date }}</p>
-                <p class="game-text">{{ game.price }}€</p>
-                <button class="cart-button">Add To Cart</button>
+                <p class="game-text">Price : {{ game.price }}€</p>
+                <button id="addtocart" class="cart-button"><a href="{{ path('app_add_cart',{'id' : game.id}) }}" style="height: 25%">Add To Cart</a></button>
             </div>
             <div class="desc-zone">
                 <h2 style="text-align: center">Description</h2>
@@ -40,5 +40,7 @@
             </div>
         </div>
     </div>
+    <button id="clikc">qdsqds</button>
     <script src="{{ asset('media/gamepage.js') }}"></script>
+
 {% endblock %}
