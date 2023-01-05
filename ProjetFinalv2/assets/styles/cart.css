@@ -30,8 +30,7 @@
 .remove-btn{
     margin-left: 50px;
 }
-input[type="text"]
-{
+.code-promo {
     font-size:36px;
 }
 @media screen and (max-width: 768px) {

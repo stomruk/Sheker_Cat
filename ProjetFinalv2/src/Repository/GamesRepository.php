@@ -53,14 +53,11 @@ class GamesRepository extends ServiceEntityRepository
 //            ->getResult()
 //        ;
 //    }
-
-//    public function findOneBySomeField($value): ?Games
-//    {
-//        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function searchGame($value): array
+    {
+        $queryBuilder = $this->createQueryBuilder("games");
+        $queryBuilder->where(' games.Name like :w');
+        $queryBuilder->setParameter(':w', '%' . $value . '%');
+        return $queryBuilder->getQuery()->getResult(); // on renvoie le résultat
+    }
 }

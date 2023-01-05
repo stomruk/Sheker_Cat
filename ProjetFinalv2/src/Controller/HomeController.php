@@ -44,6 +44,8 @@ class HomeController extends AbstractController
         $session->remove('Cart');
         return $this->redirectToRoute('app_cart');
     }
+
+
     #[Route('/removeitem/{index}', name: 'app_remove_cart')]
     public function removeCart($index,SessionInterface $session): Response
     {

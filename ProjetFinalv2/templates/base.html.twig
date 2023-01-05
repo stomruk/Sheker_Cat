@@ -42,7 +42,7 @@
     <div class="nav-zone-1">
         <div class="nav-test">
             <div class="menu-burger"></div>
-            <a class="nav-element" href="{{ path('app_game_list') }}">Store</a>
+            <a class="nav-element" href="{{ path('app_show_games') }}">Store</a>
             <a class="nav-element">Community</a>
             <a class="nav-element">About</a>
             <a class="nav-element">Support</a>
@@ -54,8 +54,8 @@
     </div>
     <div class="nav-zone-2">
         <div class="nav-test">
-            <a>Login</a>
-            <a>Cart</a>
+            <a href="{{ path('app_login') }}">Login</a>
+            <a href="{{ path('app_cart') }}">Cart</a>
             {% if app.user.username is defined %}
                 <a href="{{ path('app_profil',{'username' : app.user.username}) }}">Profil</a>
             {% endif %}

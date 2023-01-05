@@ -35,6 +35,12 @@
                     </div>
 
             </div>
+            <div class="category-zone">
+                <p>Category : </p>
+                {% for category in game.categories.values %}
+                    <a href="{{ path('app_filter_button',{'cat' : category.id}) }}" class="category-btn">{{ category.name }}</a>
+                {% endfor %}
+            </div>
             <div class="review-zone">
                 dqsdqsd
             </div>
