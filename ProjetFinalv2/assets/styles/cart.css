@@ -3,17 +3,27 @@
 }
 .cart-table{
     width: 100%;
-    background-color: #37389a;
-    border-spacing: 100px 50px;
+    background-color: white;
+}
+.cart-table-line{
+    border-bottom: 1px solid var(--nav-bar);
+    border-right: 1px solid var(--nav-bar);
+    padding: 10px;
+    font-size: 1.8rem;
 }
 .text-center{
+    font-size: 1.3rem;
     text-align: center;
+    border-right: 1px solid var(--nav-bar);
+    border-bottom: 1px solid var(--nav-bar);
 }
-.code-promo, input[type="text"], textarea {
-    background-color : lightgrey;
+.clear-cart{
+    margin-bottom: 20px;
 }
 .cart-frame{
-    border: 5px solid black;
+    border: 3px solid black;
+    background-color: black;
+    margin-top: 20px;
 }
 .cart-stuffs{
     display: flex;
@@ -32,6 +42,9 @@
 }
 .code-promo {
     font-size:36px;
+}
+.price-text{
+    color: white;
 }
 @media screen and (max-width: 768px) {
     .cart-table{

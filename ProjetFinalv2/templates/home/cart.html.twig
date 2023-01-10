@@ -3,17 +3,16 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-    {{ dump(app.session.get('Cart')) }}
     {% set total = 0 %}
     <div class="container">
-        <a href="{{ path('app_clear_cart') }}">Clear Cart</a>
+        <a class="clear-cart" href="{{ path('app_clear_cart') }}">Clear Cart</a>
         <div class="cart">
             <table class="cart-table">
                 <thead>
-                    <th>Product</th>
-                    <th>Gift</th>
-                    <th>Price</th>
-                    <th></th>
+                    <th class="cart-table-line">Product</th>
+                    <th class="cart-table-line">Gift</th>
+                    <th class="cart-table-line">Price</th>
+                    <th class="cart-table-line"></th>
                 </thead>
                 {% for index, item in app.session.get('Cart') %}
                     {% set total = total + item.price %}
@@ -31,7 +30,7 @@
                         <p>{{ item.price }} €</p>
                     </td>
                     <td class="text-center">
-                        <a href="{{ path('app_remove_cart',{index : index}) }}">remove</a>
+                        <a href="{{ path('app_remove_cart',{index : index}) }}" style="color:black;">remove</a>
                     </td>
                     </tbody>
                 {% endfor %}
@@ -39,7 +38,7 @@
             <div class="cart-stuffs cart-frame">
                 <div class="cart-stuffs">
                     <h3 class="price-text">Total : {{ total }} €</h3>
-                    <button class="buy-button" style="margin-left: 25px;">Buy</button>
+                    <button onclick="buygame()" class="buy-button" style="margin-left: 25px;">Buy</button>
                 </div>
                 <div class="cart-stuffs">
                     <input class="code-promo" type="text">
@@ -60,6 +59,9 @@
         function notgiftgame(target){
             document.getElementById(target+'gifted').innerHTML = 'No'
             document.getElementById('gift'+target).style.display = 'none'
+        }
+        function buygame(){
+            window.location.href = '{{ path('app_buy') }}'
         }
     </script>
 {% endblock %}

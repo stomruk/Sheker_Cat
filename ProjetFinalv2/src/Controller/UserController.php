@@ -12,10 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/profil/{username}', name: 'app_profil')]
-    public function profil($username, UserRepository $userRepository, AvatarRepository $avatarRepository, AvatarPartRepository $avatarPartRepository): Response
+    #[Route('/profil/{id}', name: 'app_profil')]
+    public function profil($id, UserRepository $userRepository, AvatarRepository $avatarRepository, AvatarPartRepository $avatarPartRepository): Response
     {
-        $user = $userRepository->findBy(['username' => $username]);
+        $user = $userRepository->find($id);
 
         return $this->render('profil/profil.html.twig', ['user' => $user]);
     }

@@ -3,49 +3,80 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-
-
+    {% set break = false %}
     <div class="container">
         <div class="profil-grid">
             <div class="username-zone">
-                <p class="username-text">{{ user.0.username }}</p>
+                <p class="username-text">{{ user.username }}</p>
             </div>
             <div class="about-zone">
-                <p id="userDesc" class="about-text">{{ user.0.description }}</p>
+                <p id="userDesc" class="about-text">{{ user.description }}</p>
                 <button id="desc_btn" class="idiot-button">Edit</button>
                 <div id="form" class="form-div">
                     <form method="get" action="{{ path('app_desc') }}" name="desc">
-                        <textarea name="content" class="form-text-area" type="text-area">{{ user.0.description }}</textarea>
+                        <textarea name="content" class="form-text-area" type="text-area">{{ user.description }}</textarea>
                         <input type="submit">
                     </form>
                     <button id="cancel">Cancel</button>
                 </div>
             </div>
             <div class="avatar-zone">
-                {#
                 <div class="avatar-frame">
-                    <img class="avatar" src="{{ asset('media/avatar/head/'~user.0.avatar.head.name~'/'~user.0.avatar.skin.color) }}">
-                    <img class="avatar" src="{{ asset('media/avatar/hair/'~user.0.avatar.hair.name~'/'~user.0.avatar.haircolor.color) }}">
-                    <img class="avatar" src="{{ asset('media/avatar/eyes/'~user.0.avatar.eyes.name~'/'~user.0.avatar.eyecolor.color) }}">
-                    <img class="avatar" src="{{ asset('media/avatar/mouth/'~user.0.avatar.mouth.name~'/'~user.0.avatar.skin.color) }}">
-                    <img class="avatar" src="{{ asset('media/avatar/nose/'~user.0.avatar.nose.name~'/'~user.0.avatar.skin.color) }}">
-                    <img class="avatar" src="{{ asset('media/avatar/cloth/'~user.0.avatar.cloth.name~'/'~user.0.avatar.clothstyle.color) }}">
-                    <button id="avatar_btn">Edit</button>
+                    {% if user.avatar is not null %}
+                        <img class="avatar" src="{{ asset('media/avatar/head/'~user.avatar.head.name~'/'~user.avatar.skin.color) }}">
+                        <img class="avatar" src="{{ asset('media/avatar/hair/'~user.avatar.hair.name~'/'~user.avatar.haircolor.color) }}">
+                        <img class="avatar" src="{{ asset('media/avatar/eyes/'~user.avatar.eyes.name~'/'~user.avatar.eyecolor.color) }}">
+                        <img class="avatar" src="{{ asset('media/avatar/mouth/'~user.avatar.mouth.name~'/'~user.avatar.skin.color) }}">
+                        <img class="avatar" src="{{ asset('media/avatar/nose/'~user.avatar.nose.name~'/'~user.avatar.skin.color) }}">
+                        <img class="avatar" src="{{ asset('media/avatar/cloth/'~user.avatar.cloth.name~'/'~user.avatar.clothstyle.color) }}">
+                        <button id="avatar_btn">Edit</button>
+                    {% else %}
+                        <button id="avatar_btn">Edit</button>
+                    {% endif %}
                 </div>
-                #}
             </div>
             <div class="games-zone">
+                {% for game in user.game %}
+                    {% set review = 'none' %}
                 <div class="game-table">
                     <div class="cover-image-zone">
-                        <img class="image-cover" src="https://cdn.cloudflare.steamstatic.com/steam/apps/268050/header.jpg?t=1572026108">
+                        <img class="image-cover" src="{{ game.Cover }}">
                     </div>
-                    <div>
-                        <p>The Evil Within</p>
+                    <div class="title-zone">
+                        <p>{{ game.name }}</p>
                         <button>Favorite</button>
                     </div>
-                    <p>7 / 10</p>
-                    <p>Avis</p>
+                    {# <a href="{{ path('app_review',{'id' : game.id}) }}">Add Review</a> #}
+                    <div class="score-zone">
+                        {% for rev in user.reviews %}
+                            {% if rev.game.id == game.id %}
+                                {% set review = rev.score %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if review == 'none' %}
+                            <p>{{ review }}</p>
+                        {% else %}
+                            <p>{{ review }} / 10</p>
+                        {% endif %}
+                    </div>
+                    <div class="review-button-zone">
+                        {% for rev in user.reviews %}
+                            {% if rev.game.id == game.id %}
+                                {% set review = rev.content %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if review == 'none' %}
+                            {% if user.id == app.user.id %}
+                                <a href="{{ path('app_review',{'id' : game.id}) }}">Add Review</a>
+                            {% else %}
+                                <p>No Review</p>
+                            {% endif %}
+                        {% else %}
+                            <p>{{ review }}</p>
+                        {% endif %}
+                    </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </div>

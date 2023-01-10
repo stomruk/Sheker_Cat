@@ -12,14 +12,14 @@
                 <img class="cover-img" src="{{ game.cover }}">
             </div>
             <div class="detail-zone">
-                <p class="game-text">Developper : {{ game.developper.name }}</p>
+                <p class="game-text">Developper: {{ game.developper.name }}</p>
                 <p class="game-text">Release Date : {{ game.date }}</p>
                 <p class="game-text">Price : {{ game.price }}€</p>
-                <button id="addtocart" class="cart-button"><a href="{{ path('app_add_cart',{'id' : game.id}) }}" style="height: 25%">Add To Cart</a></button>
+                <button id="addtocart" class="cart-button"><a href="{{ path('app_add_cart',{'id' : game.id}) }}" style="height: 25%; font-size: 2.5rem;">Add To Cart</a></button>
             </div>
             <div class="desc-zone">
-                <h2 style="text-align: center">Description</h2>
-                <p>{{ game.description }}</p>
+                <h2 style="text-align: center; color: white">Description</h2>
+                <p class="game-desc">{{ game.description }}</p>
             </div>
 
             <div class="image-zone">
@@ -36,13 +36,35 @@
 
             </div>
             <div class="category-zone">
-                <p>Category : </p>
+                <p class="category-page-label">Category : </p>
                 {% for category in game.categories.values %}
                     <a href="{{ path('app_filter_button',{'cat' : category.id}) }}" class="category-btn">{{ category.name }}</a>
                 {% endfor %}
             </div>
             <div class="review-zone">
-                dqsdqsd
+                {% for review in game.reviews %}
+                    <div class="review-table">
+                        <div class="review-avatar-zone">
+                            {% if review.user.avatar is not null %}
+                                <img class="posAB" src="{{ asset('media/avatar/head/'~review.user.avatar.head.name~'/'~review.user.avatar.skin.color) }}">
+                                <img class="posAB" src="{{ asset('media/avatar/hair/'~review.user.avatar.hair.name~'/'~review.user.avatar.haircolor.color) }}">
+                                <img class="posAB" src="{{ asset('media/avatar/eyes/'~review.user.avatar.eyes.name~'/'~review.user.avatar.eyecolor.color) }}">
+                                <img class="posAB" src="{{ asset('media/avatar/mouth/'~review.user.avatar.mouth.name~'/'~review.user.avatar.skin.color) }}">
+                                <img class="posAB" src="{{ asset('media/avatar/nose/'~review.user.avatar.nose.name~'/'~review.user.avatar.skin.color) }}">
+                                <img class="posAB" src="{{ asset('media/avatar/cloth/'~review.user.avatar.cloth.name~'/'~review.user.avatar.clothstyle.color) }}">
+                            {% endif %}
+                        </div>
+                        <div class="review-username-zone">
+                            <h2 class="username-border">{{ review.user.username }}</h2>
+                        </div>
+                        <div class="review-score-zone">
+                            <h1 class="review-score">{{ review.score }} / 10</h1>
+                        </div>
+                        <div class="review-content-zone">
+                            <p class="review-content">{{ review.content }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>

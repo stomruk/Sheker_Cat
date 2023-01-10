@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
 </head>
 <body>
@@ -38,30 +41,56 @@
 </nav>
 #}
 
+{#<nav>#}
+{#    <div class="nav-zone-1">#}
+{#        <div class="nav-test">#}
+{#            <div class="menu-burger"></div>#}
+{#            <a class="nav-element" href="{{ path('app_show_games') }}">Store</a>#}
+{#            <a class="nav-element">Community</a>#}
+{#            <a class="nav-element">About</a>#}
+{#            <a class="nav-element">Support</a>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="nav-logo-zone">#}
+
+{#        <img width="80%" src="{{ asset('media/LogoTypoShekerCat.svg') }}">#}
+{#    </div>#}
+{#    <div class="nav-zone-2">#}
+{#        <div class="nav-test">#}
+{#            <a class="nav-element" href="{{ path('app_login') }}">Login</a>#}
+{#            <a class="nav-element" href="{{ path('app_cart') }}">Cart</a>#}
+{#            {% if app.user.username is defined %}#}
+{#                <a class="nav-element" href="{{ path('app_profil',{'username' : app.user.username}) }}">Profil</a>#}
+{#            {% endif %}#}
+{#        </div>#}
+{#    </div>#}
+{#</nav>#}
+
 <nav>
-    <div class="nav-zone-1">
-        <div class="nav-test">
+    <div class="top-bar">
+        <div class="left">
             <div class="menu-burger"></div>
             <a class="nav-element" href="{{ path('app_show_games') }}">Store</a>
             <a class="nav-element">Community</a>
             <a class="nav-element">About</a>
             <a class="nav-element">Support</a>
         </div>
-    </div>
-    <div class="nav-logo-zone">
-        <a class="homeButton" href="{{ path('app_home') }}"><img id="logo" width="50%" src="{{ asset('media/logo2.png') }}"></a>
-        <h1 class="nav-title">Sheker Cat</h1>
-    </div>
-    <div class="nav-zone-2">
-        <div class="nav-test">
-            <a href="{{ path('app_login') }}">Login</a>
-            <a href="{{ path('app_cart') }}">Cart</a>
+        <div class="center">
+
+            <a class="homeButton" href="{{ path('app_home') }}">
+                <img id="logo-sheker" src="{{ asset('media/logofinal.svg') }}" alt="Sheker 1">
+            </a>
+        </div>
+        <div class="right">
+            <a class="nav-element" href="{{ path('app_login') }}">Login</a>
+            <a class="nav-element" href="{{ path('app_cart') }}">Cart</a>
             {% if app.user.username is defined %}
-                <a href="{{ path('app_profil',{'username' : app.user.username}) }}">Profil</a>
+                <a class="nav-element" href="{{ path('app_profil',{'id' : app.user.id}) }}">Profil</a>
             {% endif %}
         </div>
     </div>
 </nav>
+
 {% block body %}
 {% endblock %}
 {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}

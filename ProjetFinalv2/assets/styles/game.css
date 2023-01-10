@@ -1,9 +1,9 @@
 .card{
     background-color: var(--game-card);
     display: grid;
-    grid-template: 180px 80px 40px / 250px;
+    grid-template: 180px 60px 60px / 250px;
     height: 300px;
-    border-radius: var(--rad-7);
+    border-radius: 20px 20px 0 0;
     margin: 10px 10px;
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
     transition: 0.5s;
@@ -30,6 +30,9 @@
     justify-content: center;
     align-items: center;
 }
+.card-cover{
+    border-radius: 20px 20px 0 0;
+}
 .card-detail{
     display: none;
     font-size: 32px;
@@ -40,6 +43,9 @@
 }
 .card-price{
     background-color: #F0FFF1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .card-price-tag{
     position: relative;
@@ -68,12 +74,11 @@
 }
 
 .search-bar{
-    background-color: red;
+
     width: 100%;
     height: 250px;
 }
 .search-zone{
-    background-color: lightcoral;
     width: 100%;
     height: 100px;
     display: flex;
@@ -83,18 +88,31 @@
 .search-btn{
     height: 50px;
     width: 100px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
 }
 .search-input{
-    height: 40px;
+    height: 48px;
     width: 300px;
+    border-radius: 10px;
+    background-color: white;
+    border: none;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
 }
 .filter-zone{
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
 }
 .category-form{
     margin-top: 10px;
     margin-left: 25px;
+}
+.reset-filter{
+    margin-top: 10px;
+    margin-left: 30px;
+    border-radius: 10px;
+    border: none;
 }
 /* ------------------------- */
 .container{
@@ -108,7 +126,8 @@
 .page{
     width: 100%;
     display: grid;
-    grid-template: 100px 400px 350px auto 100px 150px  / 50% 50%;
+    grid-template: 100px 400px 350px auto 100px auto  / 50% 50%;
+    gap: 4rem
 }
 .title-zone{
     grid-column: 1 / 3;
@@ -117,10 +136,10 @@
     margin: 0px;
     font-size: 64px;
     text-align: center;
+    color: white;
 }
 .cover-zone{
     width: 90%;
-    background-color: yellow;
     display: flex;
     justify-content: center;
 }
@@ -128,6 +147,7 @@
     width: 100%;
 }
 .detail-zone{
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -141,14 +161,16 @@
     width: 50%;
     height: 25%;
     border-radius: 15px;
+    border: white 2px solid;
+    margin-top: 1rem;
     background-color: var(--nav-bar);
     cursor: pointer;
 }
 .cart-button:hover{
-    background-color: #578f6c;
+    background-color: var(--background);
 }
 .cart-button:active{
-    background-color: #389156;
+    background-color: black;
 }
 .desc-zone{
     padding: 5px;
@@ -156,14 +178,25 @@
     font-size: 24px;
     overflow: auto;
     border-radius: 5px;
-    background-color: #37389d;
+    background-color: black;
 }
-
+.game-desc{
+    color: white;
+    padding: 0 100px;
+}
 .category-btn{
-    background-color: purple;
+    background-color: black;
     padding: 5px 10px;
+    margin-right: 5px;
+}
+.category-page-label{
+    color: white;
+    font-size: 1.5rem;
 }
 
+.category-label{
+    color: white;
+}
 
 .image-zone{
     margin-top: 15px;
@@ -192,8 +225,63 @@
 }
 .review-zone{
     margin-top: 15px;
-    background-color: purple;
+    background-color: white;
     grid-column: 1 / 3;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.review-table{
+    height: 750px;
+    width: 30%;
+    background-color: #c9c9c9;
+    margin: 15px 0;
+    display: grid;
+    grid-template: 150px 100px 500px / 40% 60%;
+    border: 5px dashed black;
+}
+.review-avatar-zone{
+    background-color: lightblue;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.review-username-zone{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.username-border{
+    border: 5px solid black;
+    padding: 5px;
+    border-radius: 5px;
+}
+.review-score-zone{
+    width: 100%;
+    height: 100px;
+    grid-column: 1 / 3;
+    display: flex;
+    justify-content: center;
+}
+.review-score{
+    background-color: #a8a8a8;
+}
+.review-content-zone{
+    background-color: #a8a8a8;
+    width: 100%;
+    height: 490px;
+    grid-column: 1 / 3;
+}
+.review-content{
+    font-size: 20px;
+    margin: 15px;
+}
+.posAB{
+    position: absolute;
+    max-width: 128px;
 }
 
 
