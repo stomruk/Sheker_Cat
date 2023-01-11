@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Review;
+use App\Form\CommentFormType;
 use App\Form\ReviewFormType;
 use App\Repository\GamesRepository;
 use App\Repository\ReviewRepository;
@@ -37,11 +39,24 @@ class ReviewController extends AbstractController
         ]);
     }
     #[Route('/review/page/{id}', name: 'app-review-page')]
-    public function reviewPage($id, ReviewRepository $reviewRepository)
+    public function reviewPage($id, ReviewRepository $reviewRepository, Request $request, ManagerRegistry $doctrine)
     {
+        $comment = new Comment();
         $review = $reviewRepository->find($id);
+        $form = $this->createForm(CommentFormType::class, $comment);
+        $form->handleRequest($request);
+        if($form->isSubmitted() and  $form->isValid()){
+            $comment->setUser($this->getUser());
+            $comment->setReview($review);
+            $em = $doctrine->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('app-review-page', ['id' => $id]);
+        }
         return $this->render('review/review-page.html.twig', [
-            'review' => $review
+            'review' => $review,
+            'comment' => $form->createView(),
         ]);
     }
 }

@@ -22,8 +22,34 @@
             <p class="review-content">{{ review.content }}</p>
         </div>
     </div>
-</div>
-<div class="comment-area">
-
+    <div class="comment-form-area">
+        {{ form_start(comment) }}
+        {{ form_widget(comment.content) }}
+        {{ form_end(comment) }}
+    </div>
+    <div class="comment-area">
+        {% for comment in review.comments %}
+        <div class="comment-table">
+            <div class="comment-avatar">
+                {% if comment.user.avatar is not null %}
+                    <img class="posAB" src="{{ asset('media/avatar/head/'~comment.user.avatar.head.name~'/'~comment.user.avatar.skin.color) }}">
+                    <img class="posAB" src="{{ asset('media/avatar/hair/'~comment.user.avatar.hair.name~'/'~comment.user.avatar.haircolor.color) }}">
+                    <img class="posAB" src="{{ asset('media/avatar/eyes/'~comment.user.avatar.eyes.name~'/'~comment.user.avatar.eyecolor.color) }}">
+                    <img class="posAB" src="{{ asset('media/avatar/mouth/'~comment.user.avatar.mouth.name~'/'~comment.user.avatar.skin.color) }}">
+                    <img class="posAB" src="{{ asset('media/avatar/nose/'~comment.user.avatar.nose.name~'/'~comment.user.avatar.skin.color) }}">
+                    <img class="posAB" src="{{ asset('media/avatar/cloth/'~comment.user.avatar.cloth.name~'/'~comment.user.avatar.clothstyle.color) }}">
+                {% endif %}
+            </div>
+            <div class="comment-username">
+                <div class="comment-username-line">
+                    <h3 class="comment-username-tag">{{ comment.user.username }}</h3>
+                </div>
+            </div>
+            <div class="comment-content">
+                <p>{{ comment.content }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
