@@ -82,7 +82,11 @@
             </a>
         </div>
         <div class="right">
-            <a class="nav-element" href="{{ path('app_login') }}">Login</a>
+            {% if app.user.username is not defined %}
+                <a class="nav-element" href="{{ path('app_login') }}">Login</a>
+                {% else %}
+                <a class="nav-element" href="{{ path('app_logout') }}">Log Out</a>
+            {% endif %}
             <a class="nav-element" href="{{ path('app_cart') }}">Cart</a>
             {% if app.user.username is defined %}
                 <a class="nav-element" href="{{ path('app_profil',{'id' : app.user.id}) }}">Profil</a>

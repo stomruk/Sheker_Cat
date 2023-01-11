@@ -36,4 +36,12 @@ class ReviewController extends AbstractController
             'review' => $form->createView(),
         ]);
     }
+    #[Route('/review/page/{id}', name: 'app-review-page')]
+    public function reviewPage($id, ReviewRepository $reviewRepository)
+    {
+        $review = $reviewRepository->find($id);
+        return $this->render('review/review-page.html.twig', [
+            'review' => $review
+        ]);
+    }
 }

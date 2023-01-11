@@ -55,20 +55,22 @@
                             {% endif %}
                         </div>
                         <div class="review-username-zone">
-                            <h2 class="username-border">{{ review.user.username }}</h2>
+                            <a class="username-border" href="{{ path('app_profil',{'id' : review.user.id}) }}">{{ review.user.username }}</a>
                         </div>
                         <div class="review-score-zone">
                             <h1 class="review-score">{{ review.score }} / 10</h1>
                         </div>
                         <div class="review-content-zone">
                             <p class="review-content">{{ review.content }}</p>
+                            <a href="{{ path('app-review-page', {'id' : review.id}) }}">Add Comment</a>
                         </div>
                     </div>
                 {% endfor %}
             </div>
         </div>
     </div>
-    <button id="clikc">qdsqds</button>
-    <script src="{{ asset('media/gamepage.js') }}"></script>
+    <script src="{{ asset('media/gamepage.js') }}">
+
+    </script>
 
 {% endblock %}

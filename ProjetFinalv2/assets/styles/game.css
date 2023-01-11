@@ -238,7 +238,7 @@
     background-color: #c9c9c9;
     margin: 15px 0;
     display: grid;
-    grid-template: 150px 100px 500px / 40% 60%;
+    grid-template: 150px 100px auto / 180px auto;
     border: 5px dashed black;
 }
 .review-avatar-zone{
@@ -258,6 +258,7 @@
     border: 5px solid black;
     padding: 5px;
     border-radius: 5px;
+    font-size: 24px;
 }
 .review-score-zone{
     width: 100%;
@@ -281,7 +282,7 @@
 }
 .posAB{
     position: absolute;
-    max-width: 128px;
+    width: 8%;
 }
 
 

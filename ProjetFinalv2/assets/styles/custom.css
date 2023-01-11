@@ -31,9 +31,9 @@ body{
     background-size: 100px;
 }
 a{
-    color: white;
     cursor: pointer;
     text-decoration: none;
+    color: white;
 }
 
 /*

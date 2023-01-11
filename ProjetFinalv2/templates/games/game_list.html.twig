@@ -17,7 +17,7 @@
             <div class="filter-zone">
                 {% for category in categories %}
                     <div class="category-form">
-                        <input id="category{{ category.name }}" type="checkbox" name="filter" value="{{ category.id }}" {% if category.id in app.session.get('Filter') %}  checked  {% endif %}>
+                        <input id="category{{ category.id }}" type="checkbox" name="filter" value="{{ category.id }}" {% if category.id in app.session.get('Filter') %}  checked  {% endif %}>
                         <label class="category-label">{{ category.name }}</label>
                     </div>
                 {% endfor %}
@@ -42,7 +42,7 @@
     </div>
     <script>
         {% for category in categories %}
-            document.getElementById('category{{ category.name }}').addEventListener('click', e=>{
+            document.getElementById('category{{ category.id }}').addEventListener('click', e=>{
                 if(e.target.checked){ window.location.href = '{{ path('app_filter_game',{'cat' : category.id}) }}' }
                 else {
                     window.location.href = '{{ path('app_remove_filter', {'cat' : category.id}) }}'

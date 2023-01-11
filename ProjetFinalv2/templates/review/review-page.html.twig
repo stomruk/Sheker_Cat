@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container">
+    <div class="review-table">
+        <div class="review-avatar-zone">
+            {% if review.user.avatar is not null %}
+                <img class="posAB" src="{{ asset('media/avatar/head/'~review.user.avatar.head.name~'/'~review.user.avatar.skin.color) }}">
+                <img class="posAB" src="{{ asset('media/avatar/hair/'~review.user.avatar.hair.name~'/'~review.user.avatar.haircolor.color) }}">
+                <img class="posAB" src="{{ asset('media/avatar/eyes/'~review.user.avatar.eyes.name~'/'~review.user.avatar.eyecolor.color) }}">
+                <img class="posAB" src="{{ asset('media/avatar/mouth/'~review.user.avatar.mouth.name~'/'~review.user.avatar.skin.color) }}">
+                <img class="posAB" src="{{ asset('media/avatar/nose/'~review.user.avatar.nose.name~'/'~review.user.avatar.skin.color) }}">
+                <img class="posAB" src="{{ asset('media/avatar/cloth/'~review.user.avatar.cloth.name~'/'~review.user.avatar.clothstyle.color) }}">
+            {% endif %}
+        </div>
+        <div class="review-username-zone">
+            <a class="username-border" href="{{ path('app_profil',{'id' : review.user.id}) }}">{{ review.user.username }}</a>
+        </div>
+        <div class="review-score-zone">
+            <h1 class="review-score">{{ review.score }} / 10</h1>
+        </div>
+        <div class="review-content-zone">
+            <p class="review-content">{{ review.content }}</p>
+        </div>
+    </div>
+</div>
+<div class="comment-area">
+
+</div>
+{% endblock %}
