@@ -4,6 +4,7 @@
 
 {% block body %}
     {% set break = false %}
+    {% set friend = '' %}
     <div class="container">
         <div class="profil-grid">
             <div class="username-zone">
@@ -34,6 +35,22 @@
                         <button id="avatar_btn">Edit</button>
                     {% endif %}
                 </div>
+                {% if app.user != user %}
+                    {% set friend %}
+                        <a class="add-friend-button" href="{{ path('app_add-friend', {'id': user.id}) }}">Add Friend</a>
+                    {% endset %}
+                    {% for people in user.friends %}
+                        {% if people.friend == app.user %}
+                            {% set friend %}
+                                <p>You are already friend</p>
+                            {% endset %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+                <a class="add-friend-button">{{ friend }}</a>
+
+                <p id="friend-list-btn">Friend List</p>
             </div>
             <div class="games-zone">
                 {% for game in user.game %}
@@ -46,7 +63,6 @@
                         <p>{{ game.name }}</p>
                         <button>Favorite</button>
                     </div>
-                    {# <a href="{{ path('app_review',{'id' : game.id}) }}">Add Review</a> #}
                     <div class="score-zone">
                         {% for rev in user.reviews %}
                             {% if rev.game.id == game.id %}
@@ -79,11 +95,32 @@
                 {% endfor %}
             </div>
         </div>
+        <div id="friend-list">
+            <div class="close-div">
+                <img id="close" width="50px" src="{{ asset('media/X.png') }}">
+            </div>
+            {% for friend in user.friends %}
+            <div class="friend-list-table">
+                <div class="friend-avatar-zone">
+                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/head/'~friend.friend.avatar.head.name~'/'~friend.friend.avatar.skin.color) }}">
+                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/hair/'~friend.friend.avatar.hair.name~'/'~friend.friend.avatar.haircolor.color) }}">
+                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/eyes/'~friend.friend.avatar.eyes.name~'/'~friend.friend.avatar.eyecolor.color) }}">
+                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/mouth/'~friend.friend.avatar.mouth.name~'/'~friend.friend.avatar.skin.color) }}">
+                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/nose/'~friend.friend.avatar.nose.name~'/'~friend.friend.avatar.skin.color) }}">
+                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/cloth/'~friend.friend.avatar.cloth.name~'/'~friend.friend.avatar.clothstyle.color) }}">
+                </div>
+                <a href="{{ path('app_profil',{'id' : friend.friend.id}) }}">{{ friend.friend.username }}</a>
+            </div>
+                {% endfor %}
+        </div>
     </div>
     <script>
         document.getElementById('avatar_btn').onclick = avatar;
         document.getElementById('cancel').onclick = cancel;
         document.getElementById('desc_btn').onclick = descForm;
+        document.getElementById('friend-list-btn').onclick = showlist;
+        document.getElementById('close').onclick = closelist;
+
         function descForm(){
             document.getElementById('desc_btn').style.display = "none"
             document.getElementById('userDesc').style.display = "none"
@@ -96,6 +133,12 @@
         }
         function avatar(){
             window.location = '{{ path('app_avatar') }}';
+        }
+        function showlist(){
+            document.getElementById('friend-list').style.display = 'block';
+        }
+        function closelist(){
+            document.getElementById('friend-list').style.display = 'none';
         }
     </script>
 {% endblock %}

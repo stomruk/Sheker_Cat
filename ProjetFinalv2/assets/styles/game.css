@@ -129,13 +129,13 @@
     grid-template: 100px 400px 350px auto 100px auto  / 50% 50%;
     gap: 4rem
 }
-.title-zone{
+.game-page-title-zone{
     grid-column: 1 / 3;
+    width: 100%;
 }
 .game-title{
     margin: 0px;
     font-size: 64px;
-    text-align: center;
     color: white;
 }
 .cover-zone{

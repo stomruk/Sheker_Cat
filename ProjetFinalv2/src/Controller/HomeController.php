@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Games;
+use App\Entity\User;
 use App\Repository\GamesRepository;
+use App\Repository\NotificationRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -68,6 +70,12 @@ class HomeController extends AbstractController
 
         $userRepository->save($user, true);
         $session->remove('Cart');
+        return $this->redirectToRoute('app_cart');
+    }
+
+    #[Route('/notification', name: 'app_notification')]
+    public function notification(NotificationRepository $notificationRepository): Response
+    {
         return $this->redirectToRoute('app_cart');
     }
 

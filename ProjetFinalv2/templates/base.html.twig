@@ -89,6 +89,11 @@
             {% endif %}
             <a class="nav-element" href="{{ path('app_cart') }}">Cart</a>
             {% if app.user.username is defined %}
+                {% if app.user.notifications is empty %}
+                    <img id="notification" src="{{ asset('media/no-notification.png') }}" width="8%">
+                {% else %}
+                    <img id="notification" src="{{ asset('media/notification.png') }}" width="8%">
+                {% endif %}
                 <a class="nav-element" href="{{ path('app_profil',{'id' : app.user.id}) }}">Profil</a>
             {% endif %}
         </div>
@@ -124,7 +129,11 @@
     }
 
  */
+    document.getElementById('notification').onclick = gotoNotif
 
+    function gotoNotif(){
+        window.location.href = '{{ path('app_notification') }}'
+    }
 </script>
 </body>
 </html>

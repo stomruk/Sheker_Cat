@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello NotificationController!{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% for notif in app.user.notifications  %}
+        <h2>{{ notif.message }}</h2>
+        <br>
+        <div class="notification-table">
+                <div class="friend-avatar">
+                        <img class="posAB" src="{{ asset('media/avatar/head/'~notif.friend.avatar.head.name~'/'~notif.friend.avatar.skin.color) }}">
+                        <img class="posAB" src="{{ asset('media/avatar/hair/'~notif.friend.avatar.hair.name~'/'~notif.friend.avatar.haircolor.color) }}">
+                        <img class="posAB" src="{{ asset('media/avatar/eyes/'~notif.friend.avatar.eyes.name~'/'~notif.friend.avatar.eyecolor.color) }}">
+                        <img class="posAB" src="{{ asset('media/avatar/mouth/'~notif.friend.avatar.mouth.name~'/'~notif.friend.avatar.skin.color) }}">
+                        <img class="posAB" src="{{ asset('media/avatar/nose/'~notif.friend.avatar.nose.name~'/'~notif.friend.avatar.skin.color) }}">
+                        <img class="posAB" src="{{ asset('media/avatar/cloth/'~notif.friend.avatar.cloth.name~'/'~notif.friend.avatar.clothstyle.color) }}">
+                </div>
+                <h3>{{ notif.friend.username }}</h3>
+                <div class="accept-button"><a href="{{ path('app_accept_friend', {'id' : notif.friend.id, 'not' : notif.id}) }}">Accept</a></div>
+                <div class="refuse-button"><a>Refuse</a></div>
+        </div>
+
+    {% endfor %}
+</div>
+{% endblock %}
