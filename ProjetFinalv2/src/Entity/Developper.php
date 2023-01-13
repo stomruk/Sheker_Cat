@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DevelopperRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DevelopperRepository::class)]
@@ -14,10 +16,15 @@ class Developper
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Name = null;
+    private ?string $name = null;
 
-    #[ORM\OneToOne(mappedBy: 'Developper', cascade: ['persist', 'remove'])]
-    private ?Games $games = null;
+    #[ORM\ManyToMany(targetEntity: Games::class, inversedBy: 'developpers')]
+    private Collection $game;
+
+    public function __construct()
+    {
+        $this->game = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -26,34 +33,36 @@ class Developper
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
-    public function setName(string $Name): self
+    public function setName(string $name): self
     {
-        $this->Name = $Name;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getGames(): ?Games
+    /**
+     * @return Collection<int, Games>
+     */
+    public function getGame(): Collection
     {
-        return $this->games;
+        return $this->game;
     }
 
-    public function setGames(?Games $games): self
+    public function addGame(Games $game): self
     {
-        // unset the owning side of the relation if necessary
-        if ($games === null && $this->games !== null) {
-            $this->games->setDevelopper(null);
+        if (!$this->game->contains($game)) {
+            $this->game->add($game);
         }
 
-        // set the owning side of the relation if necessary
-        if ($games !== null && $games->getDevelopper() !== $this) {
-            $games->setDevelopper($this);
-        }
+        return $this;
+    }
 
-        $this->games = $games;
+    public function removeGame(Games $game): self
+    {
+        $this->game->removeElement($game);
 
         return $this;
     }

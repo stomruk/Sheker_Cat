@@ -4,6 +4,8 @@
 
 {% block body %}
     {% set total = 0 %}
+    {{ dump(app.session.get('giftcart')) }}
+
     <div class="container">
         <a class="clear-cart" href="{{ path('app_clear_cart') }}">Clear Cart</a>
         <div class="cart">
@@ -14,16 +16,18 @@
                     <th class="cart-table-line">Price</th>
                     <th class="cart-table-line"></th>
                 </thead>
+                <form action="{{ path('app_buy') }}">
                 {% for index, item in app.session.get('Cart') %}
                     {% set total = total + item.price %}
                     <tbody>
                     <td class="text-center">{{ item.name }}</td>
                     <td class="text-center">
                         <label id="{{ index }}gifted">No</label>
-                        <input id="game{{ index }}" name="game{{ index }}" type="checkbox" value="gift">
-                        <select class="gift-option" id="gift{{ index }}" style="display: none">
-                            <option>sakarlord</option>
-                            <option>xavier</option>
+                        <input class="giftbox" id="game{{ index }}" name="{{ index }}" type="checkbox" value="false" {% for etc in app.session.get('giftcart') %}{% if etc.gift == true %} checked {% endif %} {% endfor %}>
+                        <select class="gift-option" name="target" id="gift{{ index }}" style="display: none">
+                            {% for friend in app.user.friends %}
+                                <option value="{{ friend.friend.id }}">{{ friend.friend.username }}</option>
+                            {% endfor %}
                         </select>
                     </td>
                     <td class="text-center">
@@ -38,7 +42,8 @@
             <div class="cart-stuffs cart-frame">
                 <div class="cart-stuffs">
                     <h3 class="price-text">Total : {{ total }} €</h3>
-                    <button onclick="buygame()" class="buy-button" style="margin-left: 25px;">Buy</button>
+                    <button onclick="buygame()" type="submit" class="buy-button" style="margin-left: 25px;">Buy</button>
+                    </form>
                 </div>
                 <div class="cart-stuffs">
                     <input class="code-promo" type="text">
@@ -49,6 +54,12 @@
     </div>
     <script src="{{ asset('media/cart.js') }}"></script>
     <script>
+        alerttest()
+        function alerttest(){
+            {% for index, item in app.session.get('Cart') %}
+                if (document.getElementById('game{{ index }}').checked){giftgame({{ index }})}
+            {% endfor %}
+        }
         {% for index, item in app.session.get('Cart') %}
             document.getElementById('game{{ index }}').addEventListener('click', e=>{if (e.target.checked){giftgame({{ index }})} else {notgiftgame({{ index }})}})
         {% endfor %}
@@ -63,5 +74,11 @@
         function buygame(){
             window.location.href = '{{ path('app_buy') }}'
         }
+        items = document.getElementsByClassName('giftbox')
+
+
+        {% for index, item in app.session.get('Cart') %}
+            document.getElementById('game{{ index }}').addEventListener('click', e=>{window.location.href = '{{ path('app_gift', {'index' : index}) }}'})
+        {% endfor %}
     </script>
 {% endblock %}

@@ -12,7 +12,7 @@
                 <img class="cover-img" src="{{ game.cover }}">
             </div>
             <div class="detail-zone">
-                <p class="game-text">Developper: {{ game.developper.name }}</p>
+                <p class="game-text">Developper: {{ game.developpers.values[0].name }}</p>
                 <p class="game-text">Release Date : {{ game.date }}</p>
                 <p class="game-text">Price : {{ game.price }}€</p>
                 <button id="addtocart" class="cart-button"><a href="{{ path('app_add_cart',{'id' : game.id}) }}" style="height: 25%; font-size: 2.5rem;">Add To Cart</a></button>

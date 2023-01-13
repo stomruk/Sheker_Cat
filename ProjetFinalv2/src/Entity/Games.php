@@ -31,8 +31,7 @@ class Games
     #[ORM\OneToMany(mappedBy: 'Game', targetEntity: Images::class)]
     private Collection $images;
 
-    #[ORM\OneToOne(inversedBy: 'games', cascade: ['persist', 'remove'])]
-    private ?Developper $Developper = null;
+
 
     #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'Game')]
     private Collection $categories;
@@ -46,12 +45,16 @@ class Games
     #[ORM\OneToMany(mappedBy: 'Game', targetEntity: Review::class)]
     private Collection $reviews;
 
+    #[ORM\ManyToMany(targetEntity: Developper::class, mappedBy: 'game')]
+    private Collection $developpers;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->developpers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -133,18 +136,6 @@ class Games
                 $image->setGame(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getDevelopper(): ?Developper
-    {
-        return $this->Developper;
-    }
-
-    public function setDevelopper(?Developper $Developper): self
-    {
-        $this->Developper = $Developper;
 
         return $this;
     }
@@ -240,6 +231,33 @@ class Games
             if ($review->getGame() === $this) {
                 $review->setGame(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Developper>
+     */
+    public function getDeveloppers(): Collection
+    {
+        return $this->developpers;
+    }
+
+    public function addDevelopper(Developper $developper): self
+    {
+        if (!$this->developpers->contains($developper)) {
+            $this->developpers->add($developper);
+            $developper->addGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevelopper(Developper $developper): self
+    {
+        if ($this->developpers->removeElement($developper)) {
+            $developper->removeGame($this);
         }
 
         return $this;
