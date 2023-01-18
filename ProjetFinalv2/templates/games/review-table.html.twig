@@ -1,7 +1,7 @@
 <div class="review-table">
     <div class="review-top">
         {% if review.user.avatar is not null %}
-            <div>
+            <div class="review-avatar-frame">
                 <img class="posAB" src="{{ asset('media/avatar/head/'~review.user.avatar.head.name~'/'~review.user.avatar.skin.color) }}">
                 <img class="posAB" src="{{ asset('media/avatar/hair/'~review.user.avatar.hair.name~'/'~review.user.avatar.haircolor.color) }}">
                 <img class="posAB" src="{{ asset('media/avatar/eyes/'~review.user.avatar.eyes.name~'/'~review.user.avatar.eyecolor.color) }}">
@@ -12,7 +12,7 @@
         {% endif %}
         <div class="review-info">
             <a class="review-username" href="{{ path('app_profil',{'id' : review.user.id}) }}">{{ review.user.username }}</a>
-            <h1 class="review-score">{{ review.score }} / 10</h1>
+            <h1 class="review-score">Score : {{ review.score }} / 10</h1>
         </div>
     </div>
     <div class="review-content-zone">

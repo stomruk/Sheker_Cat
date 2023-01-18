@@ -42,23 +42,26 @@
                 {% endfor %}
             </div>
             <div class="review-zone">
+
                 <div>
                     <h1>Avarage Score : X / 10</h1>
+                    <div class="arrow-div">
+                        <div id="back-arrow"></div>
+                        <div id="forward-arrow"></div>
+                    </div>
                 </div>
-                <div class="arrow-div">
-                    <div class="back-arrow"></div>
-                    <div class="forward-arrow"></div>
-                </div>
-                <div class="review-section">
+
+                <div id="review-section">
+
                     {% for review in game.reviews %}
                         {% include 'games/review-table.html.twig' %}
                     {% endfor %}
+
                 </div>
+
             </div>
         </div>
     </div>
-    <script src="{{ asset('media/gamepage.js') }}">
-
-    </script>
+    <script src="{{ asset('media/gamePage.js') }}"></script>
 
 {% endblock %}
