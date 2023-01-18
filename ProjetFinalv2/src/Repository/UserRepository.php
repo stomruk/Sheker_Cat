@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -55,6 +56,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         $this->save($user, true);
     }
+    public function getFriendlist($value): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u.id')
+            ->distinct()
+            ->innerJoin('u.games', 'g', 'WITH', 'g.id = :name')
+            ->setParameter('name', $value)
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+    }
+
+
+
 
 //    /**
 //     * @return User[] Returns an array of User objects

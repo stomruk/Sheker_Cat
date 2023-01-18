@@ -27,7 +27,6 @@ class GameController extends AbstractController
         $filteredGames = [];
         $filter = $session->get('Filter', []);
         $games = $gamesRepo->findAll();
-
         if (empty($session->get('Search'))){
 
             foreach ($games as $game) {
@@ -95,6 +94,7 @@ class GameController extends AbstractController
     {
         $session->remove('Filter');
         $session->remove('Search');
+        $session->remove('Cart');
         return $this->redirectToRoute('app_game_list');
     }
 

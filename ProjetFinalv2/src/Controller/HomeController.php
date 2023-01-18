@@ -9,6 +9,7 @@ use App\Repository\GamesRepository;
 use App\Repository\NotificationRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Rogervila\ArrayDiffMultidimensional;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,22 +30,24 @@ class HomeController extends AbstractController
     public function cart(UserRepository $userRepository): Response
     {
         $user = $userRepository->find($this->getUser());
-        return $this->render('home/cart.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+
+        return $this->render('home/cart.html.twig');
     }
 
     #[Route('/addcart/{id}', name: 'app_add_cart')]
     public function addcart($id,GamesRepository $gamesRepository,SessionInterface $session): Response
     {
         $cart = $session->get('Cart', []);
-        $anotherArray = $session->get('giftcart', []);
         $product = $gamesRepository->find($id);
-        $cart[] = $product;
+        $cartArray = ['game' => $product, 'gift' => false, 'friend' => 'none', 'friendlist' => 'none'];
+        $cart[] = $cartArray;
+        /*
+        $anotherArray = $session->get('giftcart', []);
         $testArray = ['game' => $product, 'gift' => false, 'friend' => 'none'];
         $anotherArray[] = $testArray;
-        $session->set('Cart', $cart);
         $session->set('giftcart', $anotherArray);
+        */
+        $session->set('Cart', $cart);
         return $this->redirectToRoute('app_cart');
     }
 
@@ -53,22 +56,64 @@ class HomeController extends AbstractController
     {
         $session->remove('giftcart');
         $session->remove('Cart');
+        $session->remove('Friends');
         return $this->redirectToRoute('app_cart');
     }
 
     #[Route('/gift/{index}', name: 'app_gift')]
-    public function gift($index, SessionInterface $session, UserRepository $userRepository): Response
+    public function gift($index, SessionInterface $session, UserRepository $userRepository, GamesRepository $gamesRepository): Response
     {
-        $user = $userRepository->find($this->getUser());
-        $anotherArray = $session->get('giftcart', []);
-        $anotherArray[$index]['gift'] = true;
-        if ($anotherArray[$index]['friend'] == 'none'){
-            $anotherArray[$index]['friend'] = $user->getFriends()->get(0)->getFriend();
+        $cart = $session->get('Cart', []);
+        $cart[$index]['gift'] = true;
+
+        foreach ($this->getUser()->getFriends() as $friend){
+            $friendList[] = ['id' => $friend->getFriend()->getId(), 'username' => $friend->getFriend()->getUsername()];
         }
-        $session->set('giftcart', $anotherArray);
+
+        foreach ($cart as $gameId){
+            $game = $gamesRepository->find($gameId['game']);
+            foreach ($game->getUsers() as $owner){
+                $ownerArray[] = ['id' => $owner->getId(), 'username' => $owner->getUsername()];
+            }
+            foreach ($friendList as $friend){
+                if (!in_array($friend, $ownerArray)){
+                    $diff[] = $friend;
+                }
+            }
+            if ($diff !== null){
+
+            }
+            $cart[$index]['friendlist'] = $diff;
+            $diff = [];
+            $ownerArray = [];
+        }
+        if ($cart[$index]['friend'] == 'none'){
+            $cart[$index]['friend'] = $cart[$index]['friendlist'][0];
+        }
+        $session->set('Cart', $cart);
         return $this->redirectToRoute('app_cart');
     }
 
+    #[Route('/ungift/{index}', name: 'app_ungift')]
+    public function ungift($index, SessionInterface $session, UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($this->getUser());
+        $cart = $session->get('Cart', []);
+        $cart[$index]['gift'] = false;
+        $cart[$index]['friend'] = 'none';
+        $session->set('Cart', $cart);
+        return $this->redirectToRoute('app_cart');
+    }
+
+    #[Route('/changeGift/{id}/{index}', name: 'app_change_gift')]
+    public function changeGift($id, $index, SessionInterface $session, UserRepository $userRepository): Response
+    {
+        $cart = $session->get('Cart', []);
+        $user = $userRepository->find($id);
+        $cart[$index]['friend'] = ['id' => $user->getId(), 'username' => $user->getUsername()];
+        $session->set('Cart', $cart);
+        return $this->redirectToRoute('app_cart');
+    }
 
     #[Route('/removeitem/{index}', name: 'app_remove_cart')]
     public function removeCart($index,SessionInterface $session): Response
@@ -83,33 +128,31 @@ class HomeController extends AbstractController
     public function buygame(SessionInterface $session, UserRepository $userRepository, GamesRepository $gamesRepository, NotificationRepository $notificationRepository, Request $request): Response
     {
 
-        $gift = $request->get('gift');
-        $friendid = $request->get('target');
-        $friend = $userRepository->find($friendid);
+        /*
         $cart = $session->get('Cart');
-        if ($gift){
-            $notification = new Notification();
-            foreach ($cart as $gameid){
-                $game = $gamesRepository->find($gameid);
-                $notification->setUser($friend);
-                $notification->setFriend($this->getUser());
-                $notification->setGame($game);
-                $notification->setMessage('You received a gift !');
-
-                $notificationRepository->save($notification, true);
-            }
-        }
-        else{
         $user = $userRepository->find($this->getUser());
-        foreach ($cart as $gameId){
-            $game = $gamesRepository->find($gameId);
+        foreach ($cart as $gameID){
+            $game = $gamesRepository->find($gameID['game']);
             $user->addGame($game);
         }
-
         $userRepository->save($user, true);
-        }
         $session->remove('Cart');
-        return $this->redirectToRoute('app_cart');
+        */
+        $cart = $session->get('Cart');
+        foreach ($cart as $item) {
+            if ($item['gift'] === true){
+                $friend = $userRepository->find($item['friend']['id']);
+                $notification = new Notification();
+                $notification->setUser($friend);
+                $notification->setFriend($this->getUser());
+                $game = $gamesRepository->find($item['game']);
+                $notification->setGame($game);
+                $notification->setMessage('Your friend send you a gift !');
+                $notificationRepository->save($notification, true);
+            }
+        $session->remove('Cart');
+        }
+        return $this->redirectToRoute('app_home');
     }
 
 /*
