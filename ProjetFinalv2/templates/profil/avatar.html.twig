@@ -6,7 +6,7 @@
     <form action="{{ path('app_create_avatar') }}">
     <div class="container">
         <div class="avatar-grid">
-            <div class="current-avatar" style="background-color: lightgreen">
+            <div class="current-avatar">
                 <div id="head" class="head">
                     <div id="hair" class="hair"></div>
                     <div id="eyes" class="eyes"></div>
@@ -21,7 +21,7 @@
                     <input id="Haircolor{{ color.id }}" value="{{ color.id }}" type="radio" name="hairColor" class="clr_radio hairColor-radio">
                     <input id="Eyecolor{{ color.id }}" value="{{ color.id }}" type="radio" name="eyeColor" class="clr_radio eyeColor-radio">
                     <input id="clothStyle{{ color.id }}" value="{{ color.id }}" type="radio" name="clothStyle" class="clr_radio clothStyle-radio">
-                    <div id="{{ color.color }}"></div>
+                    <div id="{{ color.color }}" class="color-divs" title="{{ color.id }}"></div>
                 {% endfor %}
             </div>
             <div style="background-color: turquoise"><input class="Submit-btn" type="submit" value="Confirm"></div>
@@ -37,242 +37,33 @@
             <div class="options" style="background-color: lightsteelblue">
                 {% for head in heads %}
                     <input id="headChoice{{ head.id }}" type="radio" name="head" value="{{ head.id }}" class="radio-btn">
-                    <img id="{{ head.name }}" class="head-options icons" src="{{ asset('media/avatar/head/'~head.name~'/tile000.png') }}">
+                    <img id="{{ head.id }}" alt="{{ head.name }}" class="head-options icons" src="{{ asset('media/avatar/head/'~head.name~'/tile000.png') }}">
                 {% endfor %}
                 {% for hair in hairs %}
                     <input id="hairChoice{{ hair.id }}" type="radio" name="hair" value="{{ hair.id }}" class="radio-btn">
-                    <img id="{{ hair.name }}" style="display: none" class="hair-options icons" src="{{ asset('media/avatar/hair/'~hair.name~'/tile000.png') }}">
+                    <img id="{{ hair.id }}" alt="{{ hair.name }}" style="display: none" class="hair-options icons" src="{{ asset('media/avatar/hair/'~hair.name~'/tile000.png') }}">
                 {% endfor %}
                 {% for eye in eyes %}
                     <input id="eyeChoice{{ eye.id }}" type="radio" name="eyes" value="{{ eye.id }}" class="radio-btn">
-                    <img id="{{ eye.name }}" style="display: none" class="eyes-options icons" src="{{ asset('media/avatar/eyes/'~eye.name~'/tile000.png') }}">
+                    <img id="{{ eye.id }}" alt="{{ eye.name }}" style="display: none" class="eyes-options icons" src="{{ asset('media/avatar/eyes/'~eye.name~'/tile000.png') }}">
                 {% endfor %}
                 {% for mouth in mouths %}
                     <input id="mouthChoice{{ mouth.id }}" type="radio" name="mouth" value="{{ mouth.id }}" class="radio-btn">
-                    <img id="{{ mouth.name }}" style="display: none" class="mouth-options icons" src="{{ asset('media/avatar/mouth/'~mouth.name~'/tile000.png') }}">
+                    <img id="{{ mouth.id }}" alt="{{ mouth.name }}" style="display: none" class="mouth-options icons" src="{{ asset('media/avatar/mouth/'~mouth.name~'/tile000.png') }}">
                 {% endfor %}
                 {% for nose in noses %}
                     <input id="noseChoice{{ nose.id }}" type="radio" name="nose" value="{{ nose.id }}" class="radio-btn">
-                    <img id="{{ nose.name }}" style="display: none" class="nose-options icons" src="{{ asset('media/avatar/nose/'~nose.name~'/tile000.png') }}">
+                    <img id="{{ nose.id }}" alt="{{ nose.name }}" style="display: none" class="nose-options icons" src="{{ asset('media/avatar/nose/'~nose.name~'/tile000.png') }}">
                 {% endfor %}
+
                 {% for cloth in cloths %}
                     <input id="clothChoice{{ cloth.id }}" type="radio" name="cloth" value="{{ cloth.id }}" class="radio-btn">
-                    <img id="{{ cloth.name }}" style="display: none" class="nose-options icons" src="{{ asset('media/avatar/cloth/'~cloth.name~'/tile000.png') }}">
+                    <img id="{{ cloth.id }}" alt="{{ cloth.name }}" style="display: none" class="cloth-options icons" src="{{ asset('media/avatar/cloth/'~cloth.name~'/tile000.png') }}">
                 {% endfor %}
             </div>
         </div>
     </div>
     </form>
     <p id="test"></p>
-    <script>
-        let num = 0
-        let selection = 'head'
-        let skinColor = ['rgb(248,197,171)','rgb(254,224,214)','rgb(217,154,125)','rgb(164,115,103)','rgb(248,197,171)','rgb(254,224,214)','rgb(217,154,125)','rgb(164,115,103)']
-        let hairColors = ['rgb(129,105,82)','rgb(179,111,79)','rgb(254,241,198)','rgb(96,91,98)','rgb(194,215,188)','rgb(224,68,90)','rgb(248,247,233)','rgb(161,189,65)']
-        let eyesColors = ['rgb(66,136,193)','rgb(39,75,114)','rgb(31,152,154)','rgb(255,139,9)','rgb(96,57,45)','rgb(255,9,69)','rgb(110,80,152)','rgb(67,64,63)']
-        let icons = document.getElementsByClassName('icons')
-        let radios = document.getElementsByClassName('radio-btn')
-        let colorRadios = document.getElementsByClassName('clr_radio')
-
-
-
-
-
-        let head_id
-        let skin_id
-        let mouth_id
-        let eyes_id
-        let eye_color_id
-        let hair_id
-        let hair_color_id
-        let nose_id
-        let cloth_id
-        let style_id
-
-        let head = 'head1'
-        let mouth = 'mouth1'
-        let nose = 'nose1'
-        let skin = 'tile000.png'
-        let hair = 'hair1'
-        let hairColor = 'tile000.png'
-        let eyes = 'eyes1'
-        let eyesColor = 'tile000.png'
-        let cloth = 'cloth1'
-
-
-        changeTo(selection)
-
-        function changeTo(value){
-            Array.from(icons).forEach(icon =>{
-                icon.style.display = 'none'
-            })
-            Array.from(radios).forEach(btn =>{
-                btn.style.display = 'none'
-            })
-            num = 0
-            if (value === 'head'){
-                {% for color in colors %}
-                    document.getElementById('{{ color.color }}').style.backgroundColor = skinColor[num]
-                    num++
-                {% endfor %}
-                {% for head in heads %}
-                document.getElementById('{{ head.name }}').style.display = 'inline-block'
-
-                {% endfor %}
-            }
-            if (value === 'hair'){
-                {% for color in colors %}
-                document.getElementById('{{ color.color }}').style.backgroundColor = hairColors[num]
-                num++
-                {% endfor %}
-                {% for hair in hairs %}
-                document.getElementById('{{ hair.name }}').style.display = 'inline-block'
-
-                {% endfor %}
-            }
-            if (value === 'eyes'){
-                {% for color in colors %}
-                document.getElementById('{{ color.color }}').style.backgroundColor = eyesColors[num]
-                num++
-                {% endfor %}
-                {% for eye in eyes %}
-                document.getElementById('{{ eye.name }}').style.display = 'inline-block'
-
-                {% endfor %}
-            }
-            if (value === 'mouth'){
-                {% for color in colors %}
-                document.getElementById('{{ color.color }}').style.backgroundColor = skinColor[num]
-                num++
-                {% endfor %}
-                {% for mouth in mouths %}
-                document.getElementById('{{ mouth.name }}').style.display = 'inline-block'
-
-                {% endfor %}
-            }
-            if (value === 'nose'){
-                {% for color in colors %}
-                document.getElementById('{{ color.color }}').style.backgroundColor = skinColor[num]
-                num++
-                {% endfor %}
-                {% for nose in noses %}
-                document.getElementById('{{ nose.name }}').style.display = 'inline-block'
-
-                {% endfor %}
-            }
-            if (value === 'cloth'){
-                {% for color in colors %}
-                document.getElementById('{{ color.color }}').style.backgroundColor = hairColors[num]
-                num++
-                {% endfor %}
-                {% for cloth in cloths %}
-                document.getElementById('{{ cloth.name }}').style.display = 'inline-block'
-
-                {% endfor %}
-            }
-        }
-
-        {% for head in heads %}
-        document.getElementById('{{ head.name }}').addEventListener('click',e=>{
-            head = e.target.id
-            head_id = {{ head.id }}
-            changeHead(head, skin, head_id)
-        })
-        {% endfor %}
-
-        {% for mouth in mouths %}
-        document.getElementById('{{ mouth.name }}').addEventListener('click',e=>{
-            mouth = e.target.id
-            mouth_id = {{ mouth.id }}
-            changeMouth(mouth, skin, mouth_id)
-        })
-        {% endfor %}
-
-        {% for hair in hairs %}
-        document.getElementById('{{ hair.name }}').addEventListener('click',e=>{
-            hair = e.target.id
-            hair_id = {{ hair.id }}
-            changeHair(hair, hairColor)
-            HairSelection(hair_id, hair_color_id)
-        })
-        {% endfor %}
-
-        {% for eye in eyes %}
-        document.getElementById('{{ eye.name }}').addEventListener('click',e=>{
-            eyes = e.target.id
-            eyes_id = {{ eye.id }}
-            changeEyes(eyes, eyesColor)
-            EyeSelection(eyes_id,eye_color_id)
-        })
-        {% endfor %}
-
-        {% for nose in noses %}
-        document.getElementById('{{ nose.name }}').addEventListener('click',e=>{
-            nose = e.target.id
-            nose_id = {{ nose.id }}
-            changeNose(nose, skin, nose_id)
-        })
-        {% endfor %}
-        {% for cloth in cloths %}
-        document.getElementById('{{ cloth.name }}').addEventListener('click',e=>{
-            cloth = e.target.id
-            cloth_id = {{ cloth.id }}
-            changeCloth(cloth, hairColor)
-            ClothSelection(cloth_id, style_id)
-        })
-        {% endfor %}
-
-        {% for color in colors %}
-            document.getElementById('{{ color.color }}').addEventListener('click',e=>{
-                if (selection === 'head' || selection === 'mouth' || selection === 'nose'){
-                    skin = e.target.id
-                    skin_id = {{ color.id }}
-                    if (skin === 'tile004.png'){
-                        skin = 'tile000.png'
-                    }
-                    if (skin === 'tile005.png'){
-                        skin = 'tile001.png'
-                    }
-                    if (skin === 'tile006.png'){
-                        skin = 'tile002.png'
-                    }
-                    if (skin === 'tile007.png'){
-                        skin = 'tile003.png'
-                    }
-                    if (skin_id === 5){
-                        skin_id = 1
-                    }
-                    if (skin_id === 6){
-                        skin_id = 2
-                    }
-                    if (skin_id === 7){
-                        skin_id = 3
-                    }
-                    if (skin_id === 8){
-                        skin_id = 4
-                    }
-                    changeSkin(head, mouth, nose, skin, skin_id)
-                }
-                if (selection === 'hair'){
-                    hairColor = e.target.id
-                    hair_color_id = {{ color.id }}
-                    changeHair(hair, hairColor)
-                    HairSelection(hair_id, hair_color_id)
-                }
-                if (selection === 'eyes'){
-                    eyesColor = e.target.id
-                    eye_color_id = {{ color.id }}
-                    changeEyes(eyes,eyesColor)
-                    EyeSelection(eyes_id,eye_color_id)
-                }
-                if (selection === 'cloth'){
-                    hairColor = e.target.id
-                    style_id = {{ color.id }}
-                    changeCloth(cloth,hairColor)
-                    ClothSelection(cloth_id, style_id)
-                }
-            })
-        {% endfor %}
-    </script>
     <script src="{{ asset('media/avatar.js') }}"></script>
 {% endblock %}

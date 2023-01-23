@@ -12,6 +12,7 @@
 }
 .current-avatar{
     grid-column: 1 / 3;
+    background-color: lightgreen;
 }
 .avatar-color{
     display: grid;
@@ -37,30 +38,35 @@
     width: 512px;
     height: 512px;
     background-size: cover;
+    background-image: url("../../public/media/avatar/hair/hair1/tile000.png");
 }
 .eyes{
     position: absolute;
     width: 512px;
     height: 512px;
     background-size: cover;
+    background-image: url("../../public/media/avatar/eyes/eyes1/tile000.png");
 }
 .mouth{
     position: absolute;
     width: 512px;
     height: 512px;
     background-size: cover;
+    background-image: url("../../public/media/avatar/mouth/mouth1/tile000.png");
 }
 .nose{
     position: absolute;
     width: 512px;
     height: 512px;
     background-size: cover;
+    background-image: url("../../public/media/avatar/nose/nose1/tile000.png");
 }
 .cloth{
     position: absolute;
     width: 512px;
     height: 500px;
     background-size: cover;
+    background-image: url("../../public/media/avatar/cloth/cloth1/tile000.png");
 }
 .Submit-btn{
     height: 100px;

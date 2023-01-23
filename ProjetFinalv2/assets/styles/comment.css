@@ -1,61 +1,56 @@
-.comment-area{
-    width: 100%;
-    height: auto;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
 .comment-form{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-.comment-form-area{
-    width: 100%;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    margin-bottom: 20px;
+    width: 75%;
 }
 .comment-text-area{
     resize: none;
-    height: 100px;
-    width: 250px;
-}
-.comment-table{
-    margin: 25px 72px;
-    height: 400px;
-    width: 600px;
-    background-color: #a9a9a9;
-    display: grid;
-    grid-template: 150px auto / 150px auto;
-}
-.comment-avatar{
-    display: flex;
-    justify-content: center;
-    background-color: lightblue;
-    border: 2px solid #d5cdcd;
-}
-.comment-username{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.comment-username-tag{
-    padding-left: 15px;
-}
-.comment-username-line{
-    background-color: #d5cdcd;
+    height: 250px;
+    font-size: 32px;
     width: 100%;
 }
-.comment-content{
+.comment-table{
+    background-color: white;
+    margin: 25px;
+    width: 75%;
+    border-radius: 25px;
+    padding: 15px;
+    display: grid;
+    grid-template: auto / 132px auto;
+    grid-gap: 15px;
+}
+.comment-avatar{
+    width: 132px;
+    height: 132px;
+    background-color: lightblue;
+    border: black 2px solid;
+    border-radius: 15px;
+}
+.comment-username{
     grid-column: 1 / 3;
 }
-.comment-content-text{
-    font-size: 18px;
-    padding-left: 10px;
+.rad-15{
+    border-radius: 15px;
+}
+.comment-zone{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.submit-area{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 25px;
+}
+.comment-submit-button{
+    border-radius: 15px;
+    border: 3px solid black;
+    background-color: white;
+    font-weight: bold;
+    font-size: 24px;
+    width: 150px;
+    height: 75px;
+}
+.comment-submit-button:hover{
+    background-color: lightgray;
 }

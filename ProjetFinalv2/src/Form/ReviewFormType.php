@@ -27,10 +27,10 @@ class ReviewFormType extends AbstractType
                     8 => 8,
                     9 => 9,
                     10 => 10,
-                ]
+                ],'attr' => ['class' => 'review-score-select']
             ])
-            ->add('content', TextareaType::class)
-            ->add('save', SubmitType::class)
+            ->add('content', TextareaType::class, ['attr' => ['class' => 'review-content-form']])
+            ->add('save', SubmitType::class, ['attr' => ['class' => 'review-confirm'], 'label' => 'Confirm'])
         ;
     }
 

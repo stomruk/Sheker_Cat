@@ -51,7 +51,7 @@ class GameController extends AbstractController
         ]);
     }
     #[Route('/game/{id}', name: 'app_game_page')]
-    public function game_page($id, Games $game, GamesRepository $games,): Response
+    public function game_page($id, GamesRepository $games,): Response
     {
         $game = $games->find($id);
         return $this->render('games/game_page.html.twig', [

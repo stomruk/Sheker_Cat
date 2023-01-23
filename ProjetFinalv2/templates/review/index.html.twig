@@ -11,38 +11,40 @@
 
 <div class="container">
     <div class="review-page">
-        <div class="review-grid">
-            <div class="review-cover">
+        <div class="top-review">
+            <div class="review-score-form">
+                {{ form_start(review) }}
+                <div class="review-score-area">
+                    {{ form_widget(review.score) }}
+                    <p class="review-10-text"> / 10</p>
+                </div>
+            </div>
+            <div class="review-game">
                 <img src="{{ game.cover }}">
-            </div>
-            <div class="review-title">
-                <h2>{{ game.name }}</h2>
-            </div>
-            <div class="review-desc">
-                {{ game.description }}
-            </div>
-            <div class="review-category">
-                {% for category in game.categories %}
-                    <p class="review-category-tag">{{ category.name }}</p>
-                {% endfor %}
+                <p class="review-gamename">{{ game.name }}</p>
             </div>
         </div>
-        <div class="review-form">
-            <div class="score-form">
-            {{ form_start(review) }}
-            {{ form_label (review.score)}}
-            {{ form_widget(review.score) }}
-            </div>
-            <div class="content-form">
-            {{ form_label (review.content)}}
-            {{ form_widget(review.content) }}
+        <div class="review-content-form-area">
+            {{ form_widget (review.content)}}
+            {{ form_widget (review.save)}}
             {{ form_end(review) }}
-            </div>
-            <div>
-
-            </div>
         </div>
     </div>
 </div>
 
 {% endblock %}
+
+{#
+<div class="review-form">
+    <div class="score-form">
+    {{ form_start(review) }}
+    {{ form_label (review.score)}}
+    {{ form_widget(review.score) }}
+    </div>
+    <div class="content-form">
+    {{ form_label (review.content)}}
+    {{ form_widget(review.content) }}
+    {{ form_end(review) }}
+    </div>
+</div>
+#}
