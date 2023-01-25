@@ -21,6 +21,13 @@ let mouthArray = document.getElementsByClassName('mouth-options')
 let noseArray = document.getElementsByClassName('nose-options')
 let clothArray = document.getElementsByClassName('cloth-options')
 
+let headFrame = document.getElementsByClassName('head-frame')
+let hairFrame = document.getElementsByClassName('hair-frame')
+let eyesFrame = document.getElementsByClassName('eye-frame')
+let mouthFrame = document.getElementsByClassName('mouth-frame')
+let noseFrame = document.getElementsByClassName('nose-frame')
+let clothFrame = document.getElementsByClassName('cloth-frame')
+
 
 
 let num = 0
@@ -55,6 +62,7 @@ let style_id
 changeTo(selection)
 
 function changeTo(value){
+    hideallFrame()
     Array.from(icons).forEach(icon =>{
         icon.style.display = 'none'
     })
@@ -63,29 +71,55 @@ function changeTo(value){
     })
     num = 0
     if (value === 'head'){
-        Array.from(colorsArray).forEach(color => {color.style.backgroundColor = skinColor[num]; num++;})
-        Array.from(heads).forEach(head => {head.style.display = 'inline-block'})
+        Array.from(colorsArray).forEach(color => {changeDivtoSkin(color)})
+        showFrameImage(headFrame, heads)
     }
     if (value === 'hair'){
-        Array.from(colorsArray).forEach(color => {color.style.backgroundColor = hairColors[num]; num++;})
-        Array.from(hairs).forEach(hair => {hair.style.display = 'inline-block'})
+        Array.from(colorsArray).forEach(color => {changeDivtoColor(color, hairColors)})
+        showFrameImage(hairFrame, hairs)
     }
     if (value === 'eyes'){
-        Array.from(colorsArray).forEach(color => {color.style.backgroundColor = eyesColors[num]; num++;})
-        Array.from(eyesArray).forEach(eyes => {eyes.style.display = 'inline-block'})
+        Array.from(colorsArray).forEach(color => {changeDivtoColor(color, eyesColors)})
+        showFrameImage(eyesFrame, eyesArray)
     }
     if (value === 'mouth'){
-        Array.from(colorsArray).forEach(color => {color.style.backgroundColor = skinColor[num]; num++;})
-        Array.from(mouthArray).forEach(mouth => {mouth.style.display = 'inline-block'})
+        Array.from(colorsArray).forEach(color => {changeDivtoSkin(color)})
+        showFrameImage(mouthFrame, mouthArray)
     }
     if (value === 'nose'){
-        Array.from(colorsArray).forEach(color => {color.style.backgroundColor = skinColor[num]; num++;})
-        Array.from(noseArray).forEach(nose => {nose.style.display = 'inline-block'})
+        Array.from(colorsArray).forEach(color => {changeDivtoSkin(color)})
+        showFrameImage(noseFrame, noseArray)
     }
     if (value === 'cloth'){
-        Array.from(colorsArray).forEach(color => {color.style.backgroundColor = hairColors[num]; num++;})
-        Array.from(clothArray).forEach(cloth => {cloth.style.display = 'inline-block'})
+        Array.from(colorsArray).forEach(color => {changeDivtoColor(color, hairColors)})
+        showFrameImage(clothFrame, clothArray)
     }
+}
+
+function hideallFrame(){
+    Array.from(headFrame).forEach(item => {item.style.display = 'none'})
+    Array.from(eyesFrame).forEach(item => {item.style.display = 'none'})
+    Array.from(hairFrame).forEach(item => {item.style.display = 'none'})
+    Array.from(mouthFrame).forEach(item => {item.style.display = 'none'})
+    Array.from(noseFrame).forEach(item => {item.style.display = 'none'})
+    Array.from(clothFrame).forEach(item => {item.style.display = 'none'})
+}
+function showFrameImage(Frame, Image){
+    Array.from(Image).forEach(item => {item.style.display = 'inline-block'})
+    Array.from(Frame).forEach(item => {item.style.display = 'flex'})
+}
+
+function changeDivtoSkin(color){
+    color.style.backgroundColor = skinColor[num];
+    num++;
+    color.style.margin = '0px 5px';
+    color.style.borderRadius ='0px';
+}
+function changeDivtoColor(color, array){
+    color.style.backgroundColor = array[num];
+    num++;
+    color.style.margin = '5px 5px';
+    color.style.borderRadius ='10px';
 }
 
 
@@ -146,72 +180,100 @@ Array.from(colorsArray).forEach(color => {
 /* ------------------------------------------------------------------- */
 
 
-
-
-
-
 document.getElementById('head-btn').addEventListener('click', e=>{
+    removebuttonColor('head-btn')
     selection = 'head'
     changeTo(selection)
     })
 document.getElementById('hair-btn').addEventListener('click', e=>{
+    removebuttonColor('hair-btn')
     selection = 'hair'
     changeTo(selection)
 })
 document.getElementById('eyes-btn').addEventListener('click', e=>{
+    removebuttonColor('eyes-btn')
     selection = 'eyes'
     changeTo(selection)
 })
 document.getElementById('mouth-btn').addEventListener('click', e=>{
+    removebuttonColor('mouth-btn')
     selection = 'mouth'
     changeTo(selection)
 })
 document.getElementById('nose-btn').addEventListener('click', e=>{
+    removebuttonColor('nose-btn')
     selection = 'nose'
     changeTo(selection)
 })
 document.getElementById('cloth-btn').addEventListener('click', e=>{
+    removebuttonColor('cloth-btn')
     selection = 'cloth'
     changeTo(selection)
 })
 
+function removebuttonColor(target){
+    document.getElementById('head-btn').style.backgroundColor = 'var(--game-card)'
+    document.getElementById('hair-btn').style.backgroundColor = 'var(--game-card)'
+    document.getElementById('eyes-btn').style.backgroundColor = 'var(--game-card)'
+    document.getElementById('mouth-btn').style.backgroundColor = 'var(--game-card)'
+    document.getElementById('nose-btn').style.backgroundColor = 'var(--game-card)'
+    document.getElementById('cloth-btn').style.backgroundColor = 'var(--game-card)'
+    document.getElementById(target).style.backgroundColor = 'var(--box-color)'
+
+}
 
 /* ----------------------------------------------------- */
 
 
 Array.from(heads).forEach(h => {h.addEventListener('click', e=>{
+    removeBackground(headFrame)
+    document.getElementById('headFrame'+e.target.id).style.backgroundColor = 'var(--game-card-alt)'
     head = e.target.alt
     head_id = e.target.id
     changeHead(head, skin, head_id)
 })})
 Array.from(mouthArray).forEach(m => {m.addEventListener('click', e=>{
+    removeBackground(mouthFrame)
+    document.getElementById('mouthFrame'+e.target.id).style.backgroundColor = 'var(--game-card-alt)'
     mouth = e.target.alt
     mouth_id = e.target.id
     changeMouth(mouth, skin, mouth_id)
 })})
 Array.from(hairs).forEach(h => {h.addEventListener('click', e=>{
+    removeBackground(hairFrame)
+    document.getElementById('hairFrame'+e.target.id).style.backgroundColor = 'var(--game-card-alt)'
     hair = e.target.alt
     hair_id = e.target.id
     changeHair(hair, hairColor)
     HairSelection(hair_id, hair_color_id)
 })})
 Array.from(eyesArray).forEach(eye => {eye.addEventListener('click', e=>{
+    removeBackground(eyesFrame)
+    document.getElementById('eyeFrame'+e.target.id).style.backgroundColor = 'var(--game-card-alt)'
     eyes = e.target.alt
     eyes_id = e.target.id
     changeEyes(eyes, eyesColor)
     EyeSelection(eyes_id,eye_color_id)
 })})
 Array.from(noseArray).forEach(n => {n.addEventListener('click', e=>{
+    removeBackground(noseFrame)
+    document.getElementById('noseFrame'+e.target.id).style.backgroundColor = 'var(--game-card-alt)'
     nose = e.target.alt
     nose_id = e.target.id
     changeNose(nose, skin, nose_id)
 })})
 Array.from(clothArray).forEach(c => {c.addEventListener('click', e=>{
+    removeBackground(clothFrame)
+    document.getElementById('clothFrame'+e.target.id).style.backgroundColor = 'var(--game-card-alt)'
     cloth = e.target.alt
     cloth_id = e.target.id
     changeCloth(cloth, hairColor)
     ClothSelection(cloth_id, style_id)
 })})
+
+function removeBackground(array){
+    Array.from(array).forEach(item => item.style.backgroundColor = 'var(--box-color)')
+}
 
 
 /* ----------------------------------------------------- */

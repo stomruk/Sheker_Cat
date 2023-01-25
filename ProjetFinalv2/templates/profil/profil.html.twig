@@ -6,6 +6,7 @@
     {% set break = false %}
     {% set friend = '' %}
     <div class="container">
+        {#
         <div class="profil-grid">
             <div class="username-zone">
                 <p class="username-text">{{ user.username }}</p>
@@ -78,7 +79,7 @@
                     <div class="review-button-zone">
                         {% for rev in user.reviews %}
                             {% if rev.game.id == game.id %}
-                                {% set review = rev.content %}
+                                {% set review = rev.id %}
                             {% endif %}
                         {% endfor %}
                         {% if review == 'none' %}
@@ -88,7 +89,7 @@
                                 <p>No Review</p>
                             {% endif %}
                         {% else %}
-                            <p>{{ review }}</p>
+                            <a href="{{ path('app-review-page',{'id' : review}) }}">Show Review</a>
                         {% endif %}
                     </div>
                 </div>
@@ -113,32 +114,76 @@
             </div>
                 {% endfor %}
         </div>
-    </div>
-    <script>
-        document.getElementById('avatar_btn').onclick = avatar;
-        document.getElementById('cancel').onclick = cancel;
-        document.getElementById('desc_btn').onclick = descForm;
-        document.getElementById('friend-list-btn').onclick = showlist;
-        document.getElementById('close').onclick = closelist;
+        #}
+        <div class="grid-flex">
+            <div class="profil-grid">
+                <div class="profil-username">
+                    <p class="profil-username-text">{{ user.username }}</p>
+                </div>
+                <div class="profil-avatar">
+                    <div class="profil-avatar-frame">
+                        {% if user.avatar is not null %}
+                            <img class="avatar" style="border-radius: 15px" src="{{ asset('media/avatar/head/'~user.avatar.head.name~'/'~user.avatar.skin.color) }}">
+                            <img class="avatar" src="{{ asset('media/avatar/hair/'~user.avatar.hair.name~'/'~user.avatar.haircolor.color) }}">
+                            <img class="avatar" src="{{ asset('media/avatar/eyes/'~user.avatar.eyes.name~'/'~user.avatar.eyecolor.color) }}">
+                            <img class="avatar" src="{{ asset('media/avatar/mouth/'~user.avatar.mouth.name~'/'~user.avatar.skin.color) }}">
+                            <img class="avatar" src="{{ asset('media/avatar/nose/'~user.avatar.nose.name~'/'~user.avatar.skin.color) }}">
+                            <img class="avatar" style="border-radius: 15px" src="{{ asset('media/avatar/cloth/'~user.avatar.cloth.name~'/'~user.avatar.clothstyle.color) }}">
+                            <div class="avatar-edit-div">
+                                <button id="avatar_btn">Edit</button>
+                                {% else %}
+                                    <button id="avatar_btn">Edit</button>
+                                {% endif %}
+                            </div>
 
-        function descForm(){
-            document.getElementById('desc_btn').style.display = "none"
-            document.getElementById('userDesc').style.display = "none"
-            document.getElementById('form').style.display = "block"
-        }
-        function cancel(){
-            document.getElementById('desc_btn').style.display = "block"
-            document.getElementById('userDesc').style.display = "block"
-            document.getElementById('form').style.display = "none"
-        }
-        function avatar(){
-            window.location = '{{ path('app_avatar') }}';
-        }
-        function showlist(){
-            document.getElementById('friend-list').style.display = 'block';
-        }
-        function closelist(){
-            document.getElementById('friend-list').style.display = 'none';
-        }
-    </script>
+                    </div>
+                </div>
+                <div class="profil-buttons">
+                    {% if app.user != user %}
+                        {% set friend %}
+                            <button class="btn-box">Already Friend</button>
+                        {% endset %}
+                        {% for friend in user.friends %}
+                            {% if friend.friend == app.user %}
+                                {% set friend %}
+                                    <button class="btn-box">Already Friend</button>
+                                {% endset %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {{ friend }}
+                    <button class="btn-box">Friend List</button>
+                    <button class="btn-box">Show Favorites</button>
+                    {% if app.user != user %}
+                        <button class="btn-box">Report</button>
+                        <button class="btn-box">Block User</button>
+                    {% endif %}
+                </div>
+                <div class="profil-bio">
+                    <div class="profil-bio-zone">
+                        <p id="profil-bio-text">{{ user.description }}</p>
+                        <div id="profil-bio-form">
+                            <form method="get" action="{{ path('app_desc') }}" name="desc">
+                                <textarea name="content" class="form-text-area" type="text-area">{{ user.description }}</textarea>
+                                <input class="btn-box" type="submit">
+                            </form>
+                        </div>
+                    </div>
+                    <br>
+                    {% if app.user == user %}
+                    <button id="edit-desc" class="btn-box">Edit Description</button>
+                    <button id="cancel-desc" class="btn-box">Cancel</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="profil-game-zone">
+            {% for game in user.game %}
+                {% set review = 'none' %}
+                {% include 'profil/game_table.html.twig' %}
+            {% endfor %}
+        </div>
+
+    </div>
+    <script src="{{ asset('media/js/profil.js') }}"></script>
 {% endblock %}

@@ -30,7 +30,7 @@
                         #}
                         {% if app.session.get('Cart')[index]['gift'] == true %}
                         <div id="giftTarget{{ index }}" class="gift-target">
-                            <p>{{ item['friend']['username'] }}</p>
+                            <p>Send to : {{ item['friend']['username'] }}</p>
                             <button id="target{{ index }}">Change</button>
                             <div id="target-users{{ index }}" class="target-users">
                                 {% for friend in app.session.get('Cart')[index]['friendlist'] %}
@@ -63,7 +63,6 @@
     </div>
     <script src="{{ asset('media/cart.js') }}"></script>
     <script>
-
         alerttest()
         function alerttest(){
             {% for index, item in app.session.get('Cart') %}
@@ -83,11 +82,6 @@
             window.location.href = '{{ path('app_buy') }}'
         }
         items = document.getElementsByClassName('giftbox')
-        function lelele(){
-            {% for index, item in app.session.get('Cart') %}
-
-            {% endfor %}
-        }
 
         {% for index, item in app.session.get('Cart') %}
             document.getElementById('game{{ index }}').addEventListener('click', e=>{

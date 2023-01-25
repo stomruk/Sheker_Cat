@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Avatar;
 use App\Manager\AvatarManager;
-use App\Manager\GameManager;
 use App\Repository\AvatarColorRepository;
 use App\Repository\AvatarPartRepository;
 use App\Repository\AvatarRepository;

@@ -5,6 +5,7 @@
 {% block body %}
     <form action="{{ path('app_create_avatar') }}">
     <div class="container">
+        {#
         <div class="avatar-grid">
             <div class="current-avatar">
                 <div id="head" class="head">
@@ -62,6 +63,85 @@
                 {% endfor %}
             </div>
         </div>
+        #}
+        <div class="avatar-area">
+            <div class="avatar-grid">
+                <div class="current-avatar-area">
+                    <div class="current-avatar">
+                        <div id="head" class="head">
+                            <div id="hair" class="hair avatar-display"></div>
+                            <div id="eyes" class="eyes  avatar-display"></div>
+                            <div id="mouth" class="mouth avatar-display"></div>
+                            <div id="nose" class="nose avatar-display"></div>
+                            <div id="cloth" class="cloth avatar-display"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="avatar-color">
+                    <div class="color-palette">
+                        {% for color in colors %}
+                            <input id="Skincolor{{ color.id }}" value="{{ color.id }}" type="radio" name="skin" class="clr_radio skin-radio">
+                            <input id="Haircolor{{ color.id }}" value="{{ color.id }}" type="radio" name="hairColor" class="clr_radio hairColor-radio">
+                            <input id="Eyecolor{{ color.id }}" value="{{ color.id }}" type="radio" name="eyeColor" class="clr_radio eyeColor-radio">
+                            <input id="clothStyle{{ color.id }}" value="{{ color.id }}" type="radio" name="clothStyle" class="clr_radio clothStyle-radio">
+                            <div id="{{ color.color }}" class="color-divs" title="{{ color.id }}"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="button-divs">
+                    <div><input class="Submit-btn" type="submit" value="Confirm"></div>
+                </div>
+            </div>
+            <div class="options-area">
+                <div class="avatar-buttons-area">
+                    <div id="head-btn" class="avatar-stuffs"><h2>Head</h2></div>
+                    <div id="hair-btn" class="avatar-stuffs"><h2>Hair</h2></div>
+                    <div id="eyes-btn" class="avatar-stuffs"><h2>Eyes</h2></div>
+                    <div id="mouth-btn" class="avatar-stuffs"><h2>Mouth</h2></div>
+                    <div id="nose-btn" class="avatar-stuffs"><h2>Nose</h2></div>
+                    <div id="cloth-btn" class="avatar-stuffs"><h2>Cloth</h2></div>
+                </div>
+                <div class="avatar-part-zone">
+                    {% for head in heads %}
+                        <div id="headFrame{{ head.id }}" class="avatar-part-frame head-frame">
+                            <input id="headChoice{{ head.id }}" type="radio" name="head" value="{{ head.id }}" class="radio-btn">
+                            <img id="{{ head.id }}" alt="{{ head.name }}" class="head-options icons" src="{{ asset('media/avatar/head/'~head.name~'/tile000.png') }}">
+                        </div>
+                    {% endfor %}
+                    {% for hair in hairs %}
+                        <div id="hairFrame{{ hair.id }}" class="avatar-part-frame hair-frame">
+                            <input id="hairChoice{{ hair.id }}" type="radio" name="hair" value="{{ hair.id }}" class="radio-btn">
+                            <img id="{{ hair.id }}" alt="{{ hair.name }}" style="display: none" class="hair-options icons" src="{{ asset('media/avatar/hair/'~hair.name~'/tile000.png') }}">
+                        </div>
+                    {% endfor %}
+                    {% for eye in eyes %}
+                        <div id="eyeFrame{{ eye.id }}" class="avatar-part-frame eye-frame">
+                            <input id="eyeChoice{{ eye.id }}" type="radio" name="eyes" value="{{ eye.id }}" class="radio-btn">
+                            <img id="{{ eye.id }}" alt="{{ eye.name }}" style="display: none" class="eyes-options icons" src="{{ asset('media/avatar/eyes/'~eye.name~'/tile000.png') }}">
+                        </div>
+                    {% endfor %}
+                    {% for mouth in mouths %}
+                        <div id="mouthFrame{{ mouth.id }}" class="avatar-part-frame mouth-frame">
+                            <input id="mouthChoice{{ mouth.id }}" type="radio" name="mouth" value="{{ mouth.id }}" class="radio-btn">
+                            <img id="{{ mouth.id }}" alt="{{ mouth.name }}" style="display: none" class="mouth-options icons" src="{{ asset('media/avatar/mouth/'~mouth.name~'/tile000.png') }}">
+                        </div>
+                    {% endfor %}
+                    {% for nose in noses %}
+                        <div id="noseFrame{{ nose.id }}" class="avatar-part-frame nose-frame">
+                            <input id="noseChoice{{ nose.id }}" type="radio" name="nose" value="{{ nose.id }}" class="radio-btn">
+                            <img id="{{ nose.id }}" alt="{{ nose.name }}" style="display: none" class="nose-options icons" src="{{ asset('media/avatar/nose/'~nose.name~'/tile000.png') }}">
+                        </div>
+                    {% endfor %}
+                    {% for cloth in cloths %}
+                        <div id="clothFrame{{ cloth.id }}" class="avatar-part-frame cloth-frame">
+                            <input id="clothChoice{{ cloth.id }}" type="radio" name="cloth" value="{{ cloth.id }}" class="radio-btn">
+                            <img id="{{ cloth.id }}" alt="{{ cloth.name }}" style="display: none" class="cloth-options icons" src="{{ asset('media/avatar/cloth/'~cloth.name~'/tile000.png') }}">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
     </div>
     </form>
     <p id="test"></p>

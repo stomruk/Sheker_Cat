@@ -26,6 +26,6 @@ class UserController extends AbstractController
         $content = $request->get('content');
         $user->setDescription($content);
         $userRepository->save($user, true);
-        return $this->redirectToRoute('app_profil',['username' => $user->getUsername()]);
+        return $this->redirectToRoute('app_profil',['id' => $user->getId()]);
     }
 }

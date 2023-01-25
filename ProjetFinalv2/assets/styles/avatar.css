@@ -1,76 +1,146 @@
-.avatar-grid{
-    display: grid;
-    margin-top: 5%;
-    grid-template: 500px 100px / 500px 200px;
+.avatar-area{
+    width: 100%;
+    display: flex;
 }
-.stuffs-grid{
-    display: grid;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    margin-left: 5%;
-    grid-template: 100px 500px / 100px 100px 100px 100px 100px 100px 100px;
+.avatar-grid{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+.current-avatar-area{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .current-avatar{
-    grid-column: 1 / 3;
-    background-color: lightgreen;
+    background-color: lightblue;
+    outline: var(--game-card) solid;
+    border-radius: 10px;
+    width: 256px;
 }
-.avatar-color{
-    display: grid;
-    grid-template: 50px 50px / 50px 50px 50px 50px;
-    padding: 0% 35%
+.avatar-display{
+    width: 256px;
+    height: 256px;
+    background-size: cover;
 }
 .head{
-    width: 512px;
-    height: 512px;
+    width: 256px;
+    height: 256px;
     background-size: cover;
     background-image: url("../../public/media/avatar/head/head1/tile000.png");
-    margin: 0% 98px;
-}
-.options{
-    grid-column: 1 / 8;
-}
-.item{
-    height: 128px;
-    width: 128px;
+    border-radius: 10px;
 }
 .hair{
     position: absolute;
-    width: 512px;
-    height: 512px;
-    background-size: cover;
     background-image: url("../../public/media/avatar/hair/hair1/tile000.png");
 }
 .eyes{
     position: absolute;
-    width: 512px;
-    height: 512px;
-    background-size: cover;
     background-image: url("../../public/media/avatar/eyes/eyes1/tile000.png");
 }
 .mouth{
     position: absolute;
-    width: 512px;
-    height: 512px;
-    background-size: cover;
     background-image: url("../../public/media/avatar/mouth/mouth1/tile000.png");
 }
 .nose{
     position: absolute;
-    width: 512px;
-    height: 512px;
-    background-size: cover;
     background-image: url("../../public/media/avatar/nose/nose1/tile000.png");
 }
 .cloth{
     position: absolute;
-    width: 512px;
-    height: 500px;
-    background-size: cover;
     background-image: url("../../public/media/avatar/cloth/cloth1/tile000.png");
+    border-radius: 10px;
+}
+.avatar-color{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.color-palette{
+    border-radius: 10px;
+    width: 50%;
+    background-color: var(--game-card);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.color-divs{
+    border-radius: 10px;
+    margin: 5px 5px;
+    width: 75px;
+    height: 75px;
+}
+.button-divs{
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 .Submit-btn{
+    margin: 15px;
     height: 100px;
     width: 150px;
+    background-color: var(--nav-bar);
+    border-radius: 5px;
+    border: 2px solid var(--third-color);
+    font-size: 24px;
+    color: white;
+}
+.Submit-btn:hover{
+    background-color: var(--background);
+}
+.options-area{
+    width: 50%;
+    height: 900px;
+}
+.avatar-buttons-area{
+    width: 100%;
+    background-color: var(--box-color);
+    height: 150px;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 3px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+.avatar-stuffs{
+    width: 15%;
+    text-align: center;
+    background-color: var(--game-card);
+    border: 2px solid var(--box-color);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.avatar-part-zone{
+    width: 100%;
+    height: 750px;
+    border-radius: 15px;
+    background-color: var(--game-card);
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+.avatar-part-frame{
+    width: 30%;
+    background-color: var(--box-color);
+    border-radius: 15px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.icons{
+    width: 90%;
+}
+.item{
+    height: 128px;
+    width: 128px;
 }
 .clr_radio{
     display: none;

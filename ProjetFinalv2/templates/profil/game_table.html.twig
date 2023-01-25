@@ -1,0 +1,36 @@
+<div class="game-table">
+    <div class="game-table-cover">
+        <img class="table-cover-img" src="{{ game.cover }}">
+    </div>
+    <div class="game-table-title">
+        <p class="table-title-text">{{ game.name }}</p>
+    </div>
+    <div class="game-table-score">
+        {% for rev in user.reviews %}
+            {% if rev.game.id == game.id %}
+                {% set review = rev.score %}
+            {% endif %}
+        {% endfor %}
+        {% if review == 'none' %}
+            <p>{{ review }}</p>
+        {% else %}
+            <p>{{ review }} / 10</p>
+        {% endif %}
+    </div>
+    <div class="game-table-review">
+        {% for rev in user.reviews %}
+            {% if rev.game.id == game.id %}
+                {% set review = rev.id %}
+            {% endif %}
+        {% endfor %}
+        {% if review == 'none' %}
+            {% if user.id == app.user.id %}
+                <a class="review-btn" href="{{ path('app_review',{'id' : game.id}) }}">Add Review</a>
+            {% else %}
+                <p>No Review</p>
+            {% endif %}
+        {% else %}
+            <a class="review-btn" href="{{ path('app-review-page',{'id' : review}) }}">Show Review</a>
+        {% endif %}
+    </div>
+</div>
