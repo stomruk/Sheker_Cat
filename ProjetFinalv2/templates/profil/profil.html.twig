@@ -116,7 +116,34 @@
         </div>
         #}
         <div class="grid-flex">
+
             <div class="profil-grid">
+                <div class="friend-zone">
+                    <div class="friend-table">
+                        {% for friend in user.friends %}
+                            <div class="friend-frame">
+                                {% if friend.friend.avatar != null %}
+                                    <div class="friend-avatar-frame">
+                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/head/'~friend.friend.avatar.head.name~'/'~friend.friend.avatar.skin.color) }}">
+                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/hair/'~friend.friend.avatar.hair.name~'/'~friend.friend.avatar.haircolor.color) }}">
+                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/eyes/'~friend.friend.avatar.eyes.name~'/'~friend.friend.avatar.eyecolor.color) }}">
+                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/mouth/'~friend.friend.avatar.mouth.name~'/'~friend.friend.avatar.skin.color) }}">
+                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/nose/'~friend.friend.avatar.nose.name~'/'~friend.friend.avatar.skin.color) }}">
+                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/cloth/'~friend.friend.avatar.cloth.name~'/'~friend.friend.avatar.clothstyle.color) }}">
+                                    </div>
+                                    {% else %}
+                                        <div class="friend-avatar-frame">
+                                            <img class="friend-avatar-icon" src="{{ asset('media/unknown.png') }}">
+                                        </div>
+                                {% endif %}
+                                <div class="friend-info-frame">
+                                    <p>{{ friend.friend.username }}</p>
+                                    <p>Games : {{ friend.friend.game|length }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
                 <div class="profil-username">
                     <p class="profil-username-text">{{ user.username }}</p>
                 </div>
@@ -129,13 +156,17 @@
                             <img class="avatar" src="{{ asset('media/avatar/mouth/'~user.avatar.mouth.name~'/'~user.avatar.skin.color) }}">
                             <img class="avatar" src="{{ asset('media/avatar/nose/'~user.avatar.nose.name~'/'~user.avatar.skin.color) }}">
                             <img class="avatar" style="border-radius: 15px" src="{{ asset('media/avatar/cloth/'~user.avatar.cloth.name~'/'~user.avatar.clothstyle.color) }}">
-                            <div class="avatar-edit-div">
-                                <button id="avatar_btn">Edit</button>
-                                {% else %}
-                                    <button id="avatar_btn">Edit</button>
-                                {% endif %}
-                            </div>
-
+                        {% else %}
+                            <img class="avatar" style="border-radius: 15px" src="{{ asset('media/avatar/head/head1/tile000.png') }}">
+                            <img class="avatar" src="{{ asset('media/avatar/hair/hair1/tile000.png') }}">
+                            <img class="avatar" src="{{ asset('media/avatar/eyes/eyes1/tile000.png') }}">
+                            <img class="avatar" src="{{ asset('media/avatar/mouth/mouth1/tile000.png') }}">
+                            <img class="avatar" src="{{ asset('media/avatar/nose/nose1/tile000.png') }}">
+                            <img class="avatar" style="border-radius: 15px" src="{{ asset('media/avatar/cloth/cloth1/tile000.png') }}">
+                        {% endif %}
+                        <div class="avatar-edit-div">
+                            <button id="avatar_btn">Edit</button>
+                        </div>
                     </div>
                 </div>
                 <div class="profil-buttons">

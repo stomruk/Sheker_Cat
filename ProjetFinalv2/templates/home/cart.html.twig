@@ -3,6 +3,7 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
+    {{ dump(app.session.get('Cart')) }}
     {% set total = 0 %}
     <div class="container">
         <a class="clear-cart" href="{{ path('app_clear_cart') }}">Clear Cart</a>
@@ -16,10 +17,10 @@
                 </thead>
                 {% for index, item in app.session.get('Cart') %}
                     {% set total = total + item.game.price %}
-                    <tbody>
+                    <tbody class="cartItem" id="{{ index }}">
                     <td class="text-center">{{ item.game.name }}</td>
                     <td class="text-center" style="width: 30%;">
-                        <label id="{{ index }}gifted">No</label>
+                        <label id="{{ index }}gifted">{% if app.session.get('Cart')[index]['gift'] == true %}Yes{% else %}No{% endif %}</label>
                         <input class="giftbox" id="game{{ index }}" name="{{ index }}" type="checkbox" value="false" {% if app.session.get('Cart')[index]['gift'] == true %} checked {% endif %}>
                         {#
                         <select  class="gift-option" name="target" id="gift{{ index }}" style="display: none">
@@ -31,7 +32,7 @@
                         {% if app.session.get('Cart')[index]['gift'] == true %}
                         <div id="giftTarget{{ index }}" class="gift-target">
                             <p>Send to : {{ item['friend']['username'] }}</p>
-                            <button id="target{{ index }}">Change</button>
+                            <button id="sendTo{{ index }}">Change</button>
                             <div id="target-users{{ index }}" class="target-users">
                                 {% for friend in app.session.get('Cart')[index]['friendlist'] %}
                                     <a style="margin-right: 10px" href="{{ path('app_change_gift',{'id' : friend['id'], 'index' : index}) }}">{{ friend['username'] }}</a>
@@ -61,8 +62,9 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('media/cart.js') }}"></script>
+    <script src="{{ asset('media/js/cart.js') }}"></script>
     <script>
+        /*
         alerttest()
         function alerttest(){
             {% for index, item in app.session.get('Cart') %}
@@ -95,6 +97,7 @@
                 document.getElementById('target{{ index }}').style.display = 'none'
             })
         {% endfor %}
+        */
 
 
 

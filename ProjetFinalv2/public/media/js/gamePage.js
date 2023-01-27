@@ -14,11 +14,6 @@ function cleanAll(){
 let reviews = document.getElementsByClassName('review-table')
 let counter = 2
 
-Array.from(reviews).forEach(rev => test(rev))
-
-function test(value){
-
-}
 document.getElementById('back-arrow').onclick = backward;
 document.getElementById('forward-arrow').onclick = forward;
 

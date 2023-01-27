@@ -68,73 +68,99 @@
 {#</nav>#}
 
 <nav>
-    <div class="top-bar">
-        <div class="left">
-            <div class="menu-burger"></div>
-            <a class="nav-element" href="{{ path('app_show_games') }}">Store</a>
-            <a class="nav-element">Community</a>
-            <a class="nav-element">About</a>
-            <a class="nav-element">Support</a>
-        </div>
-        <div class="center">
-
-            <a class="homeButton" href="{{ path('app_home') }}">
-                <img id="logo-sheker" src="{{ asset('media/logofinal.svg') }}" alt="Sheker 1">
-            </a>
-        </div>
-        <div class="right">
-            {% if app.user.username is not defined %}
-                <a class="nav-element" href="{{ path('app_login') }}">Login</a>
-                {% else %}
-                <a class="nav-element" href="{{ path('app_logout') }}">Log Out</a>
+{#    <div class="top-bar">#}
+{#        <div class="left">#}
+{#            <div class="menu-burger"></div>#}
+{#            <a class="nav-element" href="{{ path('app_show_games') }}">Store</a>#}
+{#            <a class="nav-element">Community</a>#}
+{#            <a class="nav-element">About</a>#}
+{#            <a class="nav-element">Support</a>#}
+{#        </div>#}
+{#        <div class="center">#}
+{#            <div id="sheker-cat"></div>#}
+{#        </div>#}
+{#        <div class="right">#}
+{#            {% if app.user.username is not defined %}#}
+{#                <a class="nav-element" href="{{ path('app_login') }}">Login</a>#}
+{#                {% else %}#}
+{#                <a class="nav-element" href="{{ path('app_logout') }}">Log Out</a>#}
+{#            {% endif %}#}
+{#            <a class="nav-element" href="{{ path('app_cart') }}">Cart</a>#}
+{#            {% if app.user.username is defined %}#}
+{#                {% if app.user.notifications is empty %}#}
+{#                    <img class="nav-element" id="notification" src="{{ asset('media/no-notification.png') }}" width="8%">#}
+{#                {% else %}#}
+{#                    <img class="nav-element" id="notification" src="{{ asset('media/notification.png') }}" width="8%">#}
+{#                {% endif %}#}
+{#                <a class="nav-element" href="{{ path('app_profil',{'id' : app.user.id}) }}">Profil</a>#}
+{#            {% endif %}#}
+{#        </div>#}
+{#    </div>#}
+    <div class="nav-left-side">
+        <div id="menu-burger"></div>
+        <a class="nav-element nav-size" href="{{ path('app_show_games') }}">Store</a>
+        <a class="nav-element">Community</a>
+        <a class="nav-element">About</a>
+        <a class="nav-element">Support</a>
+    </div>
+    <div class="nav-mid-side">
+        <img width="100%" src="{{ asset('media/logofinal.svg') }}">
+    </div>
+    <div class="nav-right-side">
+        {% if app.user is null  %}
+            <a class="nav-element" href="{{ path('app_login') }}">Login</a>
+            {% else %}
+            <a class="nav-element" href="{{ path('app_logout') }}">Log Out</a>
+        {% endif %}
+        <a class="nav-element" href="{{ path('app_cart') }}">Cart</a>
+        {% if app.user is not null %}
+            {% if app.user.notifications is empty %}
+                <img id="notification" width="40px" src="{{ asset('media/no-notification.png') }}">
+            {% else %}
+                <img id="notification" src="{{ asset('media/notification.png') }}">
             {% endif %}
-            <a class="nav-element" href="{{ path('app_cart') }}">Cart</a>
-            {% if app.user.username is defined %}
-                {% if app.user.notifications is empty %}
-                    <img id="notification" src="{{ asset('media/no-notification.png') }}" width="8%">
-                {% else %}
-                    <img id="notification" src="{{ asset('media/notification.png') }}" width="8%">
-                {% endif %}
-                <a class="nav-element" href="{{ path('app_profil',{'id' : app.user.id}) }}">Profil</a>
-            {% endif %}
-        </div>
+            <a class="nav-element" href="{{ path('app_profil',{'id' : app.user.id}) }}">Profil</a>
+        {% endif %}
     </div>
 </nav>
+<div id="slider-menu">
+    <a class="slide-element nav-size" href="{{ path('app_show_games') }}">Store</a>
+    <a class="slide-element">Community</a>
+    <a class="slide-element">About</a>
+    <a class="slide-element">Support</a>
+    {% if app.user.username is not defined %}
+        <a class="slide-element" href="{{ path('app_login') }}">Login</a>
+    {% else %}
+        <a class="slide-element" href="{{ path('app_logout') }}">Log Out</a>
+        <a class="slide-element" href="{{ path('app_profil',{'id' : app.user.id}) }}">Profil</a>
+    {% endif %}
+</div>
 
 {% block body %}
 {% endblock %}
 {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
 <script>
     let burgerNav = false
-/*
+    let slideButtons = document.getElementsByClassName('slide-element')
+
     document.getElementById("menu-burger").onclick = openNav
+
+
 
     function openNav(){
         if (burgerNav === false){
-            document.getElementById("menu-burger").style.height = '450px'
-            Array.from(document.getElementsByClassName('side-button')).forEach(btn =>{
-                btn.style.display = 'flex'
-            })
+            document.getElementById("slider-menu").style.height = '250px'
+            Array.from(slideButtons).forEach(btn => btn.style.fontSize = '16px')
             burgerNav = true
         }
         else if (burgerNav === true){
-            document.getElementById("menu-burger").style.height = '75px'
+            document.getElementById("slider-menu").style.height = '0px'
+            Array.from(slideButtons).forEach(btn => btn.style.fontSize = '0px')
             burgerNav = false
-            setTimeout(hide,500)
+            // setTimeout(hide,500)
         }
         }
-    function hide(){
-        Array.from(document.getElementsByClassName('side-button')).forEach(btn =>{
-            btn.style.display = 'none'
-        })
-    }
 
- */
-    document.getElementById('notification').onclick = gotoNotif
-
-    function gotoNotif(){
-        window.location.href = '{{ path('app_notification') }}'
-    }
 </script>
 </body>
 </html>

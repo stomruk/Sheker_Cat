@@ -2,6 +2,7 @@
     display: grid;
     grid-template: 100px 400px / auto 1fr 45%;
     width: 100%;
+    position: relative;
 }
 .grid-flex{
     width: 100%;
@@ -37,7 +38,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: relative;
 }
 #avatar_btn{
     display: none;
@@ -112,7 +113,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #42335e;
 }
 .game-table{
     display: grid;
@@ -167,7 +167,36 @@
 .review-btn:hover{
     background-color: lightgray;
 }
-
+.friend-zone{
+    width: 100%;
+    height: 700px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+}
+.friend-table{
+    width: 60%;
+    height: 350px;
+    background-color: #5eb5e0;
+    display: none;
+}
+.friend-frame{
+    width: 40%;
+    height: 128px;
+    background-color: red;
+    display: grid;
+    grid-template: 128px / 40%;
+}
+.friend-avatar-icon{
+    position: absolute;
+}
+.friend-avatar-frame{
+    position: relative;
+}
+.friend-info-frame{
+    grid-column: 2 / 3;
+    background-color: green;
+}
 @media screen and (max-width: 1050px) {
     .profil-grid{
         grid-template: 100px 275px 500px / auto 1fr;
@@ -197,7 +226,6 @@
     }
 }
 @media screen and (max-width: 768px) {
-
     .game-table{
         grid-template: 75px 75px/ 250px 250px 150px;
     }
@@ -218,8 +246,11 @@
     }
 }
 @media screen and (max-width: 670px) {
+    .profil-grid{
+        grid-template: 100px 180px 500px / auto 1fr;
+    }
     .game-table {
-        grid-template: 60px 60px/ 125px 125px 75px;
+        grid-template: 60px 60px/ 35% 40% 25%;
     }
     .table-cover-img {
         width: 100px;

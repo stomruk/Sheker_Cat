@@ -40,13 +40,25 @@ class HomeController extends AbstractController
         $cart = $session->get('Cart', []);
         $product = $gamesRepository->find($id);
         $cartArray = ['game' => $product, 'gift' => false, 'friend' => 'none', 'friendlist' => 'none'];
+
+        foreach ($this->getUser()->getFriends() as $friend){
+            $friendList[] = ['id' => $friend->getFriend()->getId(), 'username' => $friend->getFriend()->getUsername()];
+        }
+
+
+        foreach ($product->getUsers() as $owner){
+            $ownerArray[] = ['id' => $owner->getId(), 'username' => $owner->getUsername()];
+        }
+        foreach ($friendList as $friend){
+            if (!in_array($friend, $ownerArray)){
+                $diff[] = $friend;
+            }
+        }
+
+        $cartArray = ['game' => $product, 'gift' => false, 'friend' => $diff[0], 'friendlist' => $diff];
+
+
         $cart[] = $cartArray;
-        /*
-        $anotherArray = $session->get('giftcart', []);
-        $testArray = ['game' => $product, 'gift' => false, 'friend' => 'none'];
-        $anotherArray[] = $testArray;
-        $session->set('giftcart', $anotherArray);
-        */
         $session->set('Cart', $cart);
         return $this->redirectToRoute('app_cart');
     }
@@ -65,31 +77,6 @@ class HomeController extends AbstractController
     {
         $cart = $session->get('Cart', []);
         $cart[$index]['gift'] = true;
-
-        foreach ($this->getUser()->getFriends() as $friend){
-            $friendList[] = ['id' => $friend->getFriend()->getId(), 'username' => $friend->getFriend()->getUsername()];
-        }
-
-        foreach ($cart as $gameId){
-            $game = $gamesRepository->find($gameId['game']);
-            foreach ($game->getUsers() as $owner){
-                $ownerArray[] = ['id' => $owner->getId(), 'username' => $owner->getUsername()];
-            }
-            foreach ($friendList as $friend){
-                if (!in_array($friend, $ownerArray)){
-                    $diff[] = $friend;
-                }
-            }
-            if ($diff !== null){
-
-            }
-            $cart[$index]['friendlist'] = $diff;
-            $diff = [];
-            $ownerArray = [];
-        }
-        if ($cart[$index]['friend'] == 'none'){
-            $cart[$index]['friend'] = $cart[$index]['friendlist'][0];
-        }
         $session->set('Cart', $cart);
         return $this->redirectToRoute('app_cart');
     }

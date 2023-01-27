@@ -4,59 +4,105 @@
 
 {% block body %}
     <div class="container">
-        <div class="page">
-            <div class="game-page-title-zone">
-                <h1 class="game-title">{{ game.name }}</h1>
+{#        <div class="page">#}
+{#            <div class="game-page-title-zone">#}
+{#                <h1 class="game-title">{{ game.name }}</h1>#}
+{#            </div>#}
+{#            <div class="cover-zone">#}
+{#                <img class="cover-img" src="{{ game.cover }}">#}
+{#            </div>#}
+{#            <div class="detail-zone">#}
+{#                <p class="game-text">Developper: {{ game.developpers.values[0].name }}</p>#}
+{#                <p class="game-text">Release Date : {{ game.date }}</p>#}
+{#                <p class="game-text">Price : {{ game.price }}€</p>#}
+{#                <button id="addtocart" class="cart-button"><a href="{{ path('app_add_cart',{'id' : game.id}) }}" style="height: 25%; font-size: 2.5rem;">Add To Cart</a></button>#}
+{#            </div>#}
+{#            <div class="desc-zone">#}
+{#                <h2 style="text-align: center; color: white">Description</h2>#}
+{#                <p class="game-desc">{{ game.description }}</p>#}
+{#            </div>#}
+
+{#            <div class="image-zone">#}
+
+{#                    <div class="current">#}
+{#                        <img id="current" class="current-img" src="{{ game.images.0.source }}">#}
+{#                    </div>#}
+
+{#                    <div class="others">#}
+{#                            {% for img in game.images.values %}#}
+{#                                <img id="img{{ img.id }}" class="img-icon" src="{{ img.source }}">#}
+{#                            {% endfor %}#}
+{#                    </div>#}
+
+{#            </div>#}
+{#            <div class="category-zone">#}
+{#                <p class="category-page-label">Category : </p>#}
+{#                {% for category in game.categories.values %}#}
+{#                    <a href="{{ path('app_filter_button',{'cat' : category.id}) }}" class="category-btn">{{ category.name }}</a>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#            <div class="review-zone">#}
+{#                <div>#}
+{#                    <h1>Avarage Score : X / 10</h1>#}
+{#                    <div class="arrow-div">#}
+{#                        <div id="back-arrow"></div>#}
+{#                        <div id="forward-arrow"></div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div id="review-section">#}
+{#                    {% for review in game.reviews %}#}
+{#                        {% include 'games/review-table.html.twig' %}#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+        <div class="gamepage-T">
+            <div class="Title-Zone-T">
+                <h1 class="TitleGame-T">{{ game.name }}</h1>
             </div>
-            <div class="cover-zone">
-                <img class="cover-img" src="{{ game.cover }}">
+            <div class="Cover-Zone-T">
+                <img class="cover-img-T" src="{{ game.cover }}">
             </div>
-            <div class="detail-zone">
+            <div class="Info-Zone-T">
+                <div>
                 <p class="game-text">Developper: {{ game.developpers.values[0].name }}</p>
                 <p class="game-text">Release Date : {{ game.date }}</p>
-                <p class="game-text">Price : {{ game.price }}€</p>
-                <button id="addtocart" class="cart-button"><a href="{{ path('app_add_cart',{'id' : game.id}) }}" style="height: 25%; font-size: 2.5rem;">Add To Cart</a></button>
+                <h2 style="text-align: center">Price : {{ game.price }}€</h2>
+                <div class="cart-button-div">
+                    <button id="addtocart" class="cart-button">Add To Cart</button>
+                </div>
+                </div>
             </div>
-            <div class="desc-zone">
-                <h2 style="text-align: center; color: white">Description</h2>
-                <p class="game-desc">{{ game.description }}</p>
+            <div class="Desc-Zone-T">
+                <h2 style="text-align: center">Description</h2>
+                <p>{{ game.description }}</p>
             </div>
-
-            <div class="image-zone">
-
-                    <div class="current">
-                        <img id="current" class="current-img" src="{{ game.images.0.source }}">
-                    </div>
-
-                    <div class="others">
-                            {% for img in game.images.values %}
-                                <img id="img{{ img.id }}" class="img-icon" src="{{ img.source }}">
-                            {% endfor %}
-                    </div>
-
+            <div class="SS-Zone-T">
+                <div class="current-img-zone-T">
+                    <img class="current-img-T" src="{{ game.images[0].source }}">
+                </div>
+                <div class="other-image-T">
+                    {% for image in game.images %}
+                        <img class="img-icon-T" src="{{ image.source }}">
+                    {% endfor %}
+                </div>
             </div>
-            <div class="category-zone">
-                <p class="category-page-label">Category : </p>
+            <div class="Cat-Zone-T">
                 {% for category in game.categories.values %}
                     <a href="{{ path('app_filter_button',{'cat' : category.id}) }}" class="category-btn">{{ category.name }}</a>
                 {% endfor %}
             </div>
-            <div class="review-zone">
-                <div>
-                    <h1>Avarage Score : X / 10</h1>
-                    <div class="arrow-div">
-                        <div id="back-arrow"></div>
-                        <div id="forward-arrow"></div>
-                    </div>
+            <div class="Rev-Zone-T">
+                <h2 style="text-align: center">Score : X / 10</h2>
+                <div class="review-section-T">
+                    {% for review in game.reviews %}
+                        {% include 'games/review-table.html.twig' %}
+                    {% endfor %}
                 </div>
-            <div id="review-section">
-                {% for review in game.reviews %}
-                    {% include 'games/review-table.html.twig' %}
-                {% endfor %}
             </div>
         </div>
     </div>
 
-    <script src="{{ asset('media/gamePage.js') }}"></script>
+    <script src="{{ asset('media/js/gamePage.js') }}"></script>
 
 {% endblock %}

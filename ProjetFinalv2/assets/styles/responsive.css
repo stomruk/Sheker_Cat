@@ -1,0 +1,72 @@
+@media screen and (max-width: 1190px) {
+    nav{
+        font-size: 1rem;
+    }
+    .game-text{
+        font-size: 1.2rem;
+    }
+
+
+}
+@media screen and (max-width: 1150px) {
+    .cover-zone{
+        grid-column: 1 / 3;
+    }
+    .detail-zone{
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+        font-size: 16px;
+    }
+    .desc-zone{
+        grid-column: 1 / 2;
+        font-size: 16px;
+    }
+}
+@media screen and (max-width: 900px) {
+    .gamepage-T{
+        grid-template: auto auto auto 450px auto auto 300px / auto 40%;
+    }
+    #menu-burger{
+        display: block;
+    }
+    .slide-element{
+        display: block;
+    }
+    #slider-menu{
+        display: flex;
+    }
+    .nav-element{
+        display: none;
+    }
+    .nav-right-side{
+        width: 10%;
+    }
+    .nav-mid-side{
+        width: 60%;
+    }
+    .SS-Zone-T{
+        height: 400px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .gamepage-T{
+        grid-template: auto auto auto 300px auto auto 300px / auto 40%;
+    }
+    .TitleGame-T{
+        font-size: 2rem;
+    }
+    .Cover-Zone-T{
+        grid-column: 1 / 3;
+    }
+    .Info-Zone-T{
+        grid-column: 1 / 3;
+    }
+    .SS-Zone-T{
+        height: 300px;
+    }
+}
+@media screen and (max-width: 425px) {
+    .TitleGame-T{
+        font-size: 1rem;
+    }
+}

@@ -1,8 +1,9 @@
-@import "custom";
-@import "profil";
-@import "avatar";
-@import "game";
-@import "cart";
-@import "review";
+@import "custom.css";
+@import "profil.css";
+@import "avatar.css";
+@import "game.css";
+@import "cart.css";
+@import "review.css";
 @import "comment.css";
+@import "responsive.css";
 
