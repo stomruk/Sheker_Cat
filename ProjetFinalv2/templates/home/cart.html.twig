@@ -3,7 +3,6 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-    {{ dump(app.session.get('Cart')) }}
     {% set total = 0 %}
     <div class="container">
         <a class="clear-cart" href="{{ path('app_clear_cart') }}">Clear Cart</a>
@@ -22,13 +21,6 @@
                     <td class="text-center" style="width: 30%;">
                         <label id="{{ index }}gifted">{% if app.session.get('Cart')[index]['gift'] == true %}Yes{% else %}No{% endif %}</label>
                         <input class="giftbox" id="game{{ index }}" name="{{ index }}" type="checkbox" value="false" {% if app.session.get('Cart')[index]['gift'] == true %} checked {% endif %}>
-                        {#
-                        <select  class="gift-option" name="target" id="gift{{ index }}" style="display: none">
-                            {% for index, friend in app.session.get('Cart')[index]['friendlist'] %}
-                                    <option value="{{ friend['id'] }}">{{ friend['username'] }}</option>
-                            {% endfor %}
-                        </select>
-                        #}
                         {% if app.session.get('Cart')[index]['gift'] == true %}
                         <div id="giftTarget{{ index }}" class="gift-target">
                             <p>Send to : {{ item['friend']['username'] }}</p>

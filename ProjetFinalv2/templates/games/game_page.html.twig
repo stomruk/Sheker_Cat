@@ -69,7 +69,7 @@
                 <p class="game-text">Release Date : {{ game.date }}</p>
                 <h2 style="text-align: center">Price : {{ game.price }}€</h2>
                 <div class="cart-button-div">
-                    <button id="addtocart" class="cart-button">Add To Cart</button>
+                    <a href="{{ path('app_add_cart',{'id' : game.id}) }}">Add to Cart</a>
                 </div>
                 </div>
             </div>

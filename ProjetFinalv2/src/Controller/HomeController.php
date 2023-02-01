@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, SessionInterface $session): Response
     {
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',

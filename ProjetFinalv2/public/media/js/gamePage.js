@@ -14,8 +14,8 @@ function cleanAll(){
 let reviews = document.getElementsByClassName('review-table')
 let counter = 2
 
-document.getElementById('back-arrow').onclick = backward;
-document.getElementById('forward-arrow').onclick = forward;
+// document.getElementById('back-arrow').onclick = backward;
+// document.getElementById('forward-arrow').onclick = forward;
 
 function forward(){
     document.getElementById('review-section').scroll({top: 0, left: 750, behavior: 'smooth'})
