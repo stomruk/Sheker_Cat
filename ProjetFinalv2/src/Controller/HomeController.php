@@ -21,6 +21,7 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(UserRepository $userRepository, SessionInterface $session): Response
     {
+        $session->remove('Cart');
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
@@ -93,7 +94,8 @@ class HomeController extends AbstractController
         $user = $userRepository->find($this->getUser());
         $cart = $session->get('Cart', []);
         $cart[$index]['gift'] = false;
-        $cart[$index]['friend'] = 'none';
+
+        $cart[$index]['friend'] = [ 'id' => $cart[$index]['friendlist'][0]['id'], 'username' => $cart[$index]['friendlist'][0]['username']];
         $session->set('Cart', $cart);
         return $this->redirectToRoute('app_cart');
     }

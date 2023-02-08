@@ -6,95 +6,107 @@
     {% set total = 0 %}
     <div class="container">
         <a class="clear-cart" href="{{ path('app_clear_cart') }}">Clear Cart</a>
-        <div class="cart">
-            <table class="cart-table">
-                <thead>
-                    <th class="cart-table-line">Product</th>
-                    <th class="cart-table-line">Gift</th>
-                    <th class="cart-table-line">Price</th>
-                    <th class="cart-table-line"></th>
-                </thead>
-                {% for index, item in app.session.get('Cart') %}
-                    {% set total = total + item.game.price %}
-                    <tbody class="cartItem" id="{{ index }}">
-                    <td class="text-center">{{ item.game.name }}</td>
-                    <td class="text-center" style="width: 30%;">
+{#        <div class="cart">#}
+{#            <table class="cart-table">#}
+{#                <thead>#}
+{#                    <th class="cart-table-line">Product</th>#}
+{#                    <th class="cart-table-line">Gift</th>#}
+{#                    <th class="cart-table-line">Price</th>#}
+{#                    <th class="cart-table-line"></th>#}
+{#                </thead>#}
+{#                {% for index, item in app.session.get('Cart') %}#}
+{#                    {% set total = total + item.game.price %}#}
+{#                    <tbody class="cartItem" id="{{ index }}">#}
+{#                    <td class="text-center">{{ item.game.name }}</td>#}
+{#                    <td class="text-center" style="width: 30%;">#}
+{#                        <label id="{{ index }}gifted">{% if app.session.get('Cart')[index]['gift'] == true %}Yes{% else %}No{% endif %}</label>#}
+{#                        <input class="giftbox" id="game{{ index }}" name="{{ index }}" type="checkbox" value="false"#}
+{#                                {% if app.session.get('Cart')[index]['gift'] == true %} checked {% endif %}#}
+{#                                {% if app.session.get('Cart')[index]['friend'] is empty %} disabled {% endif %}#}
+{#                        >#}
+{#                        {% if app.session.get('Cart')[index]['gift'] == true %}#}
+{#                        <div id="giftTarget{{ index }}" class="gift-target">#}
+{#                            <p>Send to : {{ item['friend'] }}</p>#}
+{#                            <button id="sendTo{{ index }}">Change</button>#}
+{#                            <div id="target-users{{ index }}" class="target-users">#}
+{#                                {% for friend in app.session.get('Cart')[index]['friendlist'] %}#}
+{#                                    <a style="margin-right: 10px" href="{{ path('app_change_gift',{'id' : friend['id'], 'index' : index}) }}">{{ friend['username'] }}</a>#}
+{#                                {% endfor %}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        {% endif %}#}
+{#                    </td>#}
+{#                    <td class="text-center">#}
+{#                        <p>{{ item.game.price }} €</p>#}
+{#                    </td>#}
+{#                    <td class="text-center">#}
+{#                        <a href="{{ path('app_remove_cart',{index : index}) }}" style="color:black;">remove</a>#}
+{#                    </td>#}
+{#                    </tbody>#}
+{#                {% endfor %}#}
+{#            </table>#}
+{#            <div class="cart-stuffs cart-frame">#}
+{#                <div class="cart-stuffs">#}
+{#                    <h3 class="price-text">Total : {{ total }} €</h3>#}
+{#                    <form action="{{ path('checkout') }}" method="POST">#}
+{#                        <button type="submit" class="buy-button" style="margin-left: 25px;">Buy</button>#}
+{#                    </form>#}
+{#                </div>#}
+{#                <div class="cart-stuffs">#}
+{#                    <input class="code-promo" type="text">#}
+{#                    <input type="submit" value="Apply">#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+
+        <div class="cart-table">
+            {% for index, product in app.session.get('Cart') %}
+            <div class="cart-product">
+                <div class="cart-title">
+                    <h2>{{ product.game.name }}</h2>
+                </div>
+                <div class="cart-gift">
+                    <div class="cart-friend" id="friendlist{{ index }}">
+                        {% for friend in app.session.get('Cart')[index]['friendlist'] %}
+                            <a href="{{ path('app_change_gift',{'id' : friend['id'], 'index' : index}) }}">{{ friend['username'] }}</a>
+                        {% endfor %}
+                        <button id="cancel{{ index }}">Cancel</button>
+                    </div>
+                    <div class="gift-checkbox">
                         <label id="{{ index }}gifted">{% if app.session.get('Cart')[index]['gift'] == true %}Yes{% else %}No{% endif %}</label>
-                        <input class="giftbox" id="game{{ index }}" name="{{ index }}" type="checkbox" value="false"
+                        <input class="giftbox" id="{{ index }}" name="{{ index }}" type="checkbox" value="false"
                                 {% if app.session.get('Cart')[index]['gift'] == true %} checked {% endif %}
                                 {% if app.session.get('Cart')[index]['friend'] is empty %} disabled {% endif %}
                         >
-                        {% if app.session.get('Cart')[index]['gift'] == true %}
-                        <div id="giftTarget{{ index }}" class="gift-target">
-                            <p>Send to : {{ item['friend']['username'] }}</p>
-                            <button id="sendTo{{ index }}">Change</button>
-                            <div id="target-users{{ index }}" class="target-users">
-                                {% for friend in app.session.get('Cart')[index]['friendlist'] %}
-                                    <a style="margin-right: 10px" href="{{ path('app_change_gift',{'id' : friend['id'], 'index' : index}) }}">{{ friend['username'] }}</a>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        {% endif %}
-                    </td>
-                    <td class="text-center">
-                        <p>{{ item.game.price }} €</p>
-                    </td>
-                    <td class="text-center">
-                        <a href="{{ path('app_remove_cart',{index : index}) }}" style="color:black;">remove</a>
-                    </td>
-                    </tbody>
-                {% endfor %}
-            </table>
-            <div class="cart-stuffs cart-frame">
-                <div class="cart-stuffs">
-                    <h3 class="price-text">Total : {{ total }} €</h3>
-                    <button onclick="buygame()" type="submit" class="buy-button" style="margin-left: 25px;">Buy</button>
+                    </div>
+                    <div class="gift-sendto" id="gift{{ index }}">
+                        <p>Send to : {{ product['friend']['username'] }}</p>
+                        <button id="changeGift{{ index }}">Change</button>
+                    </div>
                 </div>
-                <div class="cart-stuffs">
-                    <input class="code-promo" type="text">
-                    <input type="submit" value="Apply">
+                <div class="cart-price">
+                    <h3>Price</h3>
+                    {% set total = total + product.game.price %}
+                    <h4>{{ product.game.price }}€</h4>
+                    <a class="cart-remove-btn" href="{{ path('app_remove_cart',{index : index}) }}">remove</a>
                 </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="checkout-section">
+            <div class="total-zone">
+                <p>Total : {{ total }}€</p>
+                <form action="{{ path('checkout') }}" method="POST">
+                    <button type="submit" class="buy-btn">Buy</button>
+                </form>
+            </div>
+            <div class="code-promo">
+                <form method="post">
+                    <input class="code-input" name="code" type="text">
+                    <input class="code-submit" type="submit">
+                </form>
             </div>
         </div>
     </div>
     <script src="{{ asset('media/js/cart.js') }}"></script>
-    <script>
-        /*
-        alerttest()
-        function alerttest(){
-            {% for index, item in app.session.get('Cart') %}
-                if (document.getElementById('game{{ index }}').checked){giftgame({{ index }})}
-            {% endfor %}
-        }
-        {% for index, item in app.session.get('Cart') %}
-            document.getElementById('game{{ index }}').addEventListener('click', e=>{if (e.target.checked){giftgame({{ index }})} else {notgiftgame({{ index }})}})
-        {% endfor %}
-        function giftgame(target){
-            document.getElementById(target+'gifted').innerHTML = 'Yes'
-        }
-        function notgiftgame(target){
-            document.getElementById(target+'gifted').innerHTML = 'No'
-        }
-        function buygame(){
-            window.location.href = '{{ path('app_buy') }}'
-        }
-        items = document.getElementsByClassName('giftbox')
-
-        {% for index, item in app.session.get('Cart') %}
-            document.getElementById('game{{ index }}').addEventListener('click', e=>{
-                if (e.target.checked){
-                    window.location.href = '{{ path('app_gift', {'index' : index}) }}'}
-                else{
-                    window.location.href = '{{ path('app_ungift', {'index' : index}) }}'}
-                })
-            document.getElementById('target{{ index }}').addEventListener('click', e=>{
-                document.getElementById('target-users{{ index }}').style.display = 'block';
-                document.getElementById('target{{ index }}').style.display = 'none'
-            })
-        {% endfor %}
-        */
-
-
-
-    </script>
 {% endblock %}
