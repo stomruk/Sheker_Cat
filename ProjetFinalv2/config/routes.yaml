@@ -1,6 +1,7 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+
 stripe_webhook:
-    path: /webhook
+    path: /stripe_webhook
     controller: App\Controller\StripeController::webhook

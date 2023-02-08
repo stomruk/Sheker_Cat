@@ -15,9 +15,26 @@
         <div style="display: flex; flex-direction: column;" >
             <img width="50%" src="{{ asset('media/tetetet.png') }}">
             <p>Un Jolie creation fait par Valentine ! </p>
-            <h2>Price : 5000€</h2>
+            <h2>Price : 9000€</h2>
             <form action="{{ path('checkout') }}" method="POST">
                 <button id="buy" style="width: 250px; height: 50px; color: white" type="submit">Take my Money !</button>
+            </form>
+{#            <script src="https://js.stripe.com/v3/"></script>#}
+
+{#            <form action="{{ path('webhook') }}" method="POST">#}
+{#                <script#}
+{#                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"#}
+{#                        data-key="pk_test_EAkD5zoDItibYTGvzlQF1u48"#}
+{#                        data-amount="1000"#}
+{#                        data-name="Example Product"#}
+{#                        data-description="Example Description"#}
+{#                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"#}
+{#                        data-locale="auto"#}
+{#                        data-zip-code="true"#}
+{#                        data-currency="usd"#}
+{#                        data-session-id="<?= $session->id ?>"#}
+{#                >#}
+{#                </script>#}
             </form>
         </div>
     </div>

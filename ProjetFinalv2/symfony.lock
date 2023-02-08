@@ -1,4 +1,13 @@
 {
+    "andchir/omnipay-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "b70bdce6cb4c9a3933dcc082c270042e630b5507"
+        }
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {

@@ -21,3 +21,6 @@ function cancelBio(){
     document.getElementById('cancel-desc').style.display = 'none'
     bio = false
 }
+function gotoAvatar(){
+    window.location.href = 'http://localhost:8000/avatar'
+}

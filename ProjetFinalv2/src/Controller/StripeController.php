@@ -2,91 +2,132 @@
 
 namespace App\Controller;
 
+use App\Entity\Notification;
+use App\Repository\GamesRepository;
+use App\Repository\NotificationRepository;
+use App\Repository\UserRepository;
 use Stripe\Checkout\Session;
 use Stripe\PaymentIntent;
 use Stripe\Event;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Stripe;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
+use App\Manager\GameManager;
 class StripeController extends AbstractController
 {
+
     #[Route('/stripe', name: 'app_stripe')]
-    public function index(): Response
+    public function index(SessionInterface $session): Response
     {
         return $this->render('stripe/index.html.twig', [
             'stripe_key' => $_ENV['STRIPE_KEY'],
         ]);
     }
     #[Route('/checkout', name: 'checkout', methods: ['POST'])]
-    public function createCharge(SessionInterface $oturum): Response
+    public function createCharge(SessionInterface $oturum, UserRepository $userRepository): Response
     {
+        $cart = [];
+        $stripeCart = [];
+        foreach ($oturum->get('Cart') as $item){
+            $cart[] = $item;
+        }
+        foreach ($cart as $item){
+            if ($item['gift'] == false){
+                $user = $this->getUser()->getId();
+            }
+            else{
+                $user = $item['friend']['id'];
+            }
+            $stripeCart[] = [
+                'price_data' => [
+                    'currency'     => 'eur',
+                    'product_data' => [
+                        'name' => $item['game']->getName(),
+                        'metadata' => ['gift' => $item['gift'],'gameOwner' => $user, 'game' => $item['game']->getId(), 'user' => $this->getUser()->getId()]
+                    ],
+                    'unit_amount'  => $item['game']->getPrice() * 100,
+                ],
+                'quantity'   => 1,
+            ];
+        }
         Stripe\Stripe::setApiKey($_ENV['STRIPE_SECRET']);
 
         $session = Session::create([
             'payment_method_types' => ['card'],
-            'line_items'           => [
-                [
-                    'price_data' => [
-                        'currency'     => 'eur',
-                        'product_data' => [
-                            'name' => 'Art',
-                        ],
-                        'unit_amount'  => 9000 * 100,
-                    ],
-                    'quantity'   => 1,
-                ]
-            ],
+            'line_items'           => [$stripeCart],
             'mode'                 => 'payment',
-            'success_url'          => $this->generateUrl('app_home', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            'cancel_url'           => $this->generateUrl('app_home', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            'success_url'          => 'http://localhost:8000/games',
+            'cancel_url'           => 'http://localhost:8000/profil/1',
         ]);
-        $pay = PaymentIntent::retrieve($session->payment_intent);
-        $oturum->set('stat', $pay);
 
         return $this->redirect($session->url, 303);
     }
-
-    #[Route('/webhook', name: 'webhook', methods: ['POST'])]
-    public function webhook(SessionInterface $session): Response
+    #[Route('/succes', name: 'succes')]
+    public function succes(): Response
     {
-        $session->set('stat', 'test7');
-        $payload = @file_get_contents('php://input');
-        $event = null;
+        return $this->redirectToRoute('app_game_list');
+    }
 
+//    #[Route('/stripe_webhook', name: 'webhook', methods: ['POST'])]
+    public function webhook(GamesRepository $gamesRepository, UserRepository $userRepository, NotificationRepository $notificationRepository)
+    {
+// Set your secret key. Remember to switch to your live secret key in production.
+// See your keys here: https://dashboard.stripe.com/apikeys
+        Stripe\Stripe::setApiKey('sk_test_XtZYTYhe9JXmnbe9e8sI1ILu');
+        $stripe = new Stripe\StripeClient("sk_test_XtZYTYhe9JXmnbe9e8sI1ILu");
+        $endpoint_secret = 'whsec_0d1cbd40b98be223260c760d3ece7838ca055d081f72bb3c0dc36933868897cf';
+        $payload = @file_get_contents('php://input');
+        $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+        $event = null;
         try {
-            $event = \Stripe\Event::constructFrom(
-                json_decode($payload, true)
+            $event = \Stripe\Webhook::constructEvent(
+                $payload, $sig_header, $endpoint_secret
             );
-            dump($event);
-        } catch(\UnexpectedValueException $e) {
+        } catch (\UnexpectedValueException $e) {
             // Invalid payload
             http_response_code(400);
             exit();
+        } catch (\Stripe\Exception\SignatureVerificationException $e) {
+            // Invalid signature
+            http_response_code(400);
+            exit();
         }
-        dump($event);
+        $path = __DIR__ . 'test.txt';
+
 // Handle the event
-        switch ($event->type) {
-            case 'payment_intent.succeeded':
-//                $paymentIntent = $event->data->object; // contains a \Stripe\PaymentIntent
-                $session->set('stat', 'test5');
-                break;
-            case 'payment_method.attached':
-                $paymentMethod = $event->data->object; // contains a \Stripe\PaymentMethod
-                // Then define and call a method to handle the successful attachment of a PaymentMethod.
-                // handlePaymentMethodAttached($paymentMethod);
-                break;
-            // ... handle other event types
-            default:
-                echo 'Received unknown event type ' . $event->type;
+        $event->type;
+        switch ($event->data->object->object) {
+            case 'checkout.session':
+                if ($event->data->object->payment_status == 'paid'){
+                    $sessionID = $event->data->object->id;
+                    $line_items = $stripe->checkout->sessions->allLineItems($sessionID)->data;
+                    foreach ($line_items as $item) {
+                        $itemID = $item->price->product;
+                        $product = $stripe->products->retrieve($itemID)->metadata;
+                        $game = $gamesRepository->find($product->game);
+                        $user = $userRepository->find($product->gameOwner);
+                        if ($product->gift == 'true'){
+                            $notification = new Notification();
+                            $notification->setGame($game);
+                            $friend = $userRepository->find($product->user);
+                            $notification->setFriend($friend);
+                            $notification->setUser($user);
+                            $notification->setMessage('You received a gift');
+                            $notificationRepository->save($notification, true);
+                        }
+                        else{
+                            $user->addGame($game);
+                            $userRepository->save($user, true);
+                        }
+                        file_put_contents($path, $game->getName().$user->getUsername()." \n", FILE_APPEND);
+                    }
+                }
         }
-        dump($event);
-
-        return $this->redirectToRoute('app_home');
+        http_response_code(200);
+        exit();
     }
-
 }

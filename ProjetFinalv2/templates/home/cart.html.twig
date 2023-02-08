@@ -20,7 +20,10 @@
                     <td class="text-center">{{ item.game.name }}</td>
                     <td class="text-center" style="width: 30%;">
                         <label id="{{ index }}gifted">{% if app.session.get('Cart')[index]['gift'] == true %}Yes{% else %}No{% endif %}</label>
-                        <input class="giftbox" id="game{{ index }}" name="{{ index }}" type="checkbox" value="false" {% if app.session.get('Cart')[index]['gift'] == true %} checked {% endif %}>
+                        <input class="giftbox" id="game{{ index }}" name="{{ index }}" type="checkbox" value="false"
+                                {% if app.session.get('Cart')[index]['gift'] == true %} checked {% endif %}
+                                {% if app.session.get('Cart')[index]['friend'] is empty %} disabled {% endif %}
+                        >
                         {% if app.session.get('Cart')[index]['gift'] == true %}
                         <div id="giftTarget{{ index }}" class="gift-target">
                             <p>Send to : {{ item['friend']['username'] }}</p>

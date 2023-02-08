@@ -157,15 +157,10 @@
                             <img class="avatar" src="{{ asset('media/avatar/nose/'~user.avatar.nose.name~'/'~user.avatar.skin.color) }}">
                             <img class="avatar" style="border-radius: 15px" src="{{ asset('media/avatar/cloth/'~user.avatar.cloth.name~'/'~user.avatar.clothstyle.color) }}">
                         {% else %}
-                            <img class="avatar" style="border-radius: 15px" src="{{ asset('media/avatar/head/head1/tile000.png') }}">
-                            <img class="avatar" src="{{ asset('media/avatar/hair/hair1/tile000.png') }}">
-                            <img class="avatar" src="{{ asset('media/avatar/eyes/eyes1/tile000.png') }}">
-                            <img class="avatar" src="{{ asset('media/avatar/mouth/mouth1/tile000.png') }}">
-                            <img class="avatar" src="{{ asset('media/avatar/nose/nose1/tile000.png') }}">
-                            <img class="avatar" style="border-radius: 15px" src="{{ asset('media/avatar/cloth/cloth1/tile000.png') }}">
+                            <img class="avatar" style="border-radius: 15px" src="{{ asset('media/unknown.png') }}">
                         {% endif %}
                         <div class="avatar-edit-div">
-                            <button id="avatar_btn">Edit</button>
+                            <button id="avatar_btn" onclick="gotoAvatar()">Edit</button>
                         </div>
                     </div>
                 </div>

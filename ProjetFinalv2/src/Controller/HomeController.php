@@ -21,6 +21,7 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(UserRepository $userRepository, SessionInterface $session): Response
     {
+
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);
@@ -40,7 +41,8 @@ class HomeController extends AbstractController
         $cart = $session->get('Cart', []);
         $product = $gamesRepository->find($id);
         $cartArray = ['game' => $product, 'gift' => false, 'friend' => 'none', 'friendlist' => 'none'];
-
+        $diff = [];
+        $targetFriend = '';
         foreach ($this->getUser()->getFriends() as $friend){
             $friendList[] = ['id' => $friend->getFriend()->getId(), 'username' => $friend->getFriend()->getUsername()];
         }
@@ -55,7 +57,11 @@ class HomeController extends AbstractController
             }
         }
 
-        $cartArray = ['game' => $product, 'gift' => false, 'friend' => $diff[0], 'friendlist' => $diff];
+        if (!empty($diff)){
+            $targetFriend = $diff[0];
+        }
+
+        $cartArray = ['game' => $product, 'gift' => false, 'friend' => $targetFriend, 'friendlist' => $diff];
 
 
         $cart[] = $cartArray;
