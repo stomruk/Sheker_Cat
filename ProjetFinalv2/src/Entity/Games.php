@@ -48,6 +48,9 @@ class Games
     #[ORM\ManyToMany(targetEntity: Developper::class, mappedBy: 'game')]
     private Collection $developpers;
 
+    #[ORM\ManyToMany(targetEntity: CodePromo::class, mappedBy: 'game')]
+    private Collection $codePromos;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -55,6 +58,7 @@ class Games
         $this->users = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->developpers = new ArrayCollection();
+        $this->codePromos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -258,6 +262,33 @@ class Games
     {
         if ($this->developpers->removeElement($developper)) {
             $developper->removeGame($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CodePromo>
+     */
+    public function getCodePromos(): Collection
+    {
+        return $this->codePromos;
+    }
+
+    public function addCodePromo(CodePromo $codePromo): self
+    {
+        if (!$this->codePromos->contains($codePromo)) {
+            $this->codePromos->add($codePromo);
+            $codePromo->addGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCodePromo(CodePromo $codePromo): self
+    {
+        if ($this->codePromos->removeElement($codePromo)) {
+            $codePromo->removeGame($this);
         }
 
         return $this;

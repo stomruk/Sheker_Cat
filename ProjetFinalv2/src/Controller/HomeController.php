@@ -29,10 +29,8 @@ class HomeController extends AbstractController
     }
 
     #[Route('/cart', name: 'app_cart')]
-    public function cart(UserRepository $userRepository): Response
+    public function cart(): Response
     {
-        $user = $userRepository->find($this->getUser());
-
         return $this->render('home/cart.html.twig');
     }
 
@@ -62,7 +60,8 @@ class HomeController extends AbstractController
             $targetFriend = $diff[0];
         }
 
-        $cartArray = ['game' => $product, 'gift' => false, 'friend' => $targetFriend, 'friendlist' => $diff];
+
+        $cartArray = ['game' => $product, 'gift' => false, 'friend' => $targetFriend, 'friendlist' => $diff, 'price' => $product->getPrice()];
 
 
         $cart[] = $cartArray;
@@ -122,17 +121,6 @@ class HomeController extends AbstractController
     #[Route('/buygame', name: 'app_buy')]
     public function buygame(SessionInterface $session, UserRepository $userRepository, GamesRepository $gamesRepository, NotificationRepository $notificationRepository, Request $request): Response
     {
-
-        /*
-        $cart = $session->get('Cart');
-        $user = $userRepository->find($this->getUser());
-        foreach ($cart as $gameID){
-            $game = $gamesRepository->find($gameID['game']);
-            $user->addGame($game);
-        }
-        $userRepository->save($user, true);
-        $session->remove('Cart');
-        */
         $cart = $session->get('Cart');
         foreach ($cart as $item) {
             if ($item['gift'] === true){
@@ -150,35 +138,6 @@ class HomeController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
-/*
-    #[Route('/buygame', name: 'app_buy')]
-    public function buygame(SessionInterface $session, UserRepository $userRepository, GamesRepository $gamesRepository, NotificationRepository $notificationRepository, Request $request): Response
-    {
-        $gift = $request->get('gift');
-        $friendid = $request->get('target');
-        $friend = $userRepository->find($friendid);
-        $cart = $session->get('Cart');
-        if ($gift){
-            $notification = new Notification();
-            foreach ($cart as $gameid){
-                $game = $gamesRepository->find($gameid);
-                $notification->setUser($friend);
-                $notification->setFriend($this->getUser());
-                $notification->setGame($game);
-                $notification->setMessage('You received a gift !');
-
-                $notificationRepository->save($notification, true);
-            }
-        }
-        else{
-            $gift = 'ezaazeezaza';
-        }
-        return $this->render('test.html.twig', [
-            'yest' => 'HomeController',
-            'gift' => $gift
-        ]);
-    }
-*/
 
     #[Route('/notification', name: 'app_notification')]
     public function notification(NotificationRepository $notificationRepository): Response

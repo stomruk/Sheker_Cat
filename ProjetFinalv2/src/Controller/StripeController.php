@@ -49,7 +49,7 @@ class StripeController extends AbstractController
                         'name' => $item['game']->getName(),
                         'metadata' => ['gift' => $item['gift'],'gameOwner' => $user, 'game' => $item['game']->getId(), 'user' => $this->getUser()->getId()]
                     ],
-                    'unit_amount'  => $item['game']->getPrice() * 100,
+                    'unit_amount'  => $item['price'] * 100,
                 ],
                 'quantity'   => 1,
             ];

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Games;
 use App\Manager\GameManager;
 use App\Repository\CategoryRepository;
+use App\Repository\CodePromoRepository;
 use App\Repository\GamesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -116,7 +117,27 @@ class GameController extends AbstractController
         $session->set('Search', $gamesRepository->searchGame($name));
         return $this->redirectToRoute('app_game_list');
     }
+    #[Route('/discount', name: 'app_discount')]
+    public function searchdiscount(Request $request, CodePromoRepository $codePromoRepository, SessionInterface $session, GamesRepository $gamesRepository): Response
+    {
+        $discount = $request->get('code');
+        $discountCode = $codePromoRepository->findBy(['code' => $discount]);
+        $discountedGame = $discountCode[0]->getGame();
 
+        $cart = $session->get('Cart');
+        foreach ($cart as $index=>$item){
+            dump($item['game']);
+            dump($discountedGame->getValues()[0]);
+            if ($item['game']->getId() === $discountedGame->getValues()[0]->getId()){
+                $newValue = $item['game']->getPrice() * (1 - $discountCode[0]->getDiscount() / 100);
+                $stringPrice = floatval($newValue);
+                $newPrice = number_format($stringPrice, 2, '.', '');
+                $cart[$index]['price'] = $newPrice - 0.01;
+            }
+        }
+        $session->set('Cart', $cart);
+        return $this->redirectToRoute('app_cart');
+    }
 
 }
 
