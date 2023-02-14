@@ -167,37 +167,33 @@
 .review-btn:hover{
     background-color: lightgray;
 }
-.friend-zone{
+.friend-zone-T{
     width: 100%;
     height: auto;
-    position: absolute;
     display: flex;
     justify-content: center;
 }
-.friend-table{
-    width: 60%;
-    height: 350px;
-    background-color: #5eb5e0;
-    display: none;
+.friend-box{
+    background-color: var(--nav-bar);
+    width: 100%;
+    display: flex;
+    margin: 10px;
 }
-.friend-frame{
-    width: 40%;
+.avatar-box-box{
+    background-color: lightblue;
+    width: 128px;
     height: 128px;
-    background-color: red;
-    display: grid;
-    grid-template: 128px / 40%;
+}
+.avatar-box{
+    position: relative;
 }
 .friend-avatar-icon{
     position: absolute;
 }
-.friend-avatar-frame{
-    position: relative;
-}
-.friend-info-frame{
-    grid-column: 2 / 3;
-    background-color: green;
-}
+
+
 @media screen and (max-width: 1050px) {
+
     .profil-grid{
         grid-template: 100px 275px 500px / auto 1fr;
     }

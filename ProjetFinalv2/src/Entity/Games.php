@@ -51,6 +51,9 @@ class Games
     #[ORM\ManyToMany(targetEntity: CodePromo::class, mappedBy: 'game')]
     private Collection $codePromos;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $Discount = null;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -290,6 +293,18 @@ class Games
         if ($this->codePromos->removeElement($codePromo)) {
             $codePromo->removeGame($this);
         }
+
+        return $this;
+    }
+
+    public function getDiscount(): ?int
+    {
+        return $this->Discount;
+    }
+
+    public function setDiscount(?int $Discount): self
+    {
+        $this->Discount = $Discount;
 
         return $this;
     }

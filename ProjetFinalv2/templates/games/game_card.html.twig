@@ -2,7 +2,12 @@
     <div class="card-highlight">
         <a class="card-detail" href="{{ path('app_game_page',{'id' : game.id}) }}">Details</a>
     </div>
-    <div><img class="card-cover" style="border-radius: 10px 10px 0 0;" width="100%" height="100%" src="{{ game.cover }}"></div>
+    <div>
+        {% if game.discount is not empty %}
+            <p class="promotion-label">{{ game.discount }}%</p>
+        {% endif %}
+        <img class="card-cover" style="border-radius: 10px 10px 0 0;" width="100%" height="100%" src="{{ game.cover }}">
+    </div>
     <div>
         {% if game.name|length < 28 %}
             <p class="card-name">{{ game.name }}</p>
@@ -13,6 +18,16 @@
     {% if game.price == 0 %}
         <div class="card-price"><p class="card-price-tag">free to play</p></div>
     {% else %}
-        <div class="card-price"><p class="card-price-tag">{{ game.price }}€</p></div>
+        <div class="card-price">
+            {% if game.discount is null %}
+                <p class="card-price-tag">{{ game.price }}€</p>
+            {% else %}
+                <p class="card-price-tag">{{ ((100 - game.discount) / 100 * game.price) | number_format(2) }}€</p>
+                <p class="card-old-price-tag">{{ game.price }}€</p>
+            {% endif %}
+        </div>
     {% endif %}
 </div>
+
+
+{#                <p class="card-price-tag">{{ (game.price*(1-game.discount/100)) | number_format(2)}}€</p>#}

@@ -34,6 +34,9 @@ class GameController extends AbstractController
                 if ($this->gameManager->hasCategories($game, $filter)) {
                     $filteredGames[] = $game;
                 }
+//                if ($game->getDiscount() != null){
+//                    $game->setPrice($this->gameManager->calculatePrice($game->getPrice(), $game->getDiscount()));
+//                }
             }
         }
         else{
@@ -129,10 +132,7 @@ class GameController extends AbstractController
             dump($item['game']);
             dump($discountedGame->getValues()[0]);
             if ($item['game']->getId() === $discountedGame->getValues()[0]->getId()){
-                $newValue = $item['game']->getPrice() * (1 - $discountCode[0]->getDiscount() / 100);
-                $stringPrice = floatval($newValue);
-                $newPrice = number_format($stringPrice, 2, '.', '');
-                $cart[$index]['price'] = $newPrice - 0.01;
+                $cart[$index]['price'] = $this->gameManager->calculatePrice($item['game']->getPrice(),$discountCode[0]->getDiscount()) - 0.01;
             }
         }
         $session->set('Cart', $cart);

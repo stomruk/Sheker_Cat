@@ -118,32 +118,32 @@
         <div class="grid-flex">
 
             <div class="profil-grid">
-                <div class="friend-zone">
-                    <div class="friend-table">
-                        {% for friend in user.friends %}
-                            <div class="friend-frame">
-                                {% if friend.friend.avatar != null %}
-                                    <div class="friend-avatar-frame">
-                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/head/'~friend.friend.avatar.head.name~'/'~friend.friend.avatar.skin.color) }}">
-                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/hair/'~friend.friend.avatar.hair.name~'/'~friend.friend.avatar.haircolor.color) }}">
-                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/eyes/'~friend.friend.avatar.eyes.name~'/'~friend.friend.avatar.eyecolor.color) }}">
-                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/mouth/'~friend.friend.avatar.mouth.name~'/'~friend.friend.avatar.skin.color) }}">
-                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/nose/'~friend.friend.avatar.nose.name~'/'~friend.friend.avatar.skin.color) }}">
-                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/cloth/'~friend.friend.avatar.cloth.name~'/'~friend.friend.avatar.clothstyle.color) }}">
-                                    </div>
-                                    {% else %}
-                                        <div class="friend-avatar-frame">
-                                            <img class="friend-avatar-icon" src="{{ asset('media/unknown.png') }}">
-                                        </div>
-                                {% endif %}
-                                <div class="friend-info-frame">
-                                    <p>{{ friend.friend.username }}</p>
-                                    <p>Games : {{ friend.friend.game|length }}</p>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
+{#                <div class="friend-zone">#}
+{#                    <div class="friend-table">#}
+{#                        {% for friend in user.friends %}#}
+{#                            <div class="friend-frame">#}
+{#                                {% if friend.friend.avatar != null %}#}
+{#                                    <div class="friend-avatar-frame">#}
+{#                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/head/'~friend.friend.avatar.head.name~'/'~friend.friend.avatar.skin.color) }}">#}
+{#                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/hair/'~friend.friend.avatar.hair.name~'/'~friend.friend.avatar.haircolor.color) }}">#}
+{#                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/eyes/'~friend.friend.avatar.eyes.name~'/'~friend.friend.avatar.eyecolor.color) }}">#}
+{#                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/mouth/'~friend.friend.avatar.mouth.name~'/'~friend.friend.avatar.skin.color) }}">#}
+{#                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/nose/'~friend.friend.avatar.nose.name~'/'~friend.friend.avatar.skin.color) }}">#}
+{#                                        <img class="friend-avatar-icon" src="{{ asset('media/avatar/cloth/'~friend.friend.avatar.cloth.name~'/'~friend.friend.avatar.clothstyle.color) }}">#}
+{#                                    </div>#}
+{#                                    {% else %}#}
+{#                                        <div class="friend-avatar-frame">#}
+{#                                            <img class="friend-avatar-icon" src="{{ asset('media/unknown.png') }}">#}
+{#                                        </div>#}
+{#                                {% endif %}#}
+{#                                <div class="friend-info-frame">#}
+{#                                    <p>{{ friend.friend.username }}</p>#}
+{#                                    <p>Games : {{ friend.friend.game|length }}</p>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                </div>#}
                 <div class="profil-username">
                     <p class="profil-username-text">{{ user.username }}</p>
                 </div>
@@ -178,7 +178,7 @@
                         {% endfor %}
                     {% endif %}
                     {{ friend }}
-                    <button class="btn-box">Friend List</button>
+                    <button id="friend" class="btn-box">Friend List</button>
                     <button class="btn-box">Show Favorites</button>
                     {% if app.user != user %}
                         <button class="btn-box">Report</button>
@@ -187,6 +187,26 @@
                 </div>
                 <div class="profil-bio">
                     <div class="profil-bio-zone">
+                        <div id="friend-table" class="friend-zone-T" style="display: none">
+                            {% for friend in user.friends %}
+                                <div class="friend-box">
+                                    <div class="avatar-box-box">
+                                        <div class="avatar-box">
+                                            <img class="friend-avatar-icon" src="{{ asset('media/avatar/head/'~friend.friend.avatar.head.name~'/'~friend.friend.avatar.skin.color) }}">
+                                            <img class="friend-avatar-icon" src="{{ asset('media/avatar/hair/'~friend.friend.avatar.hair.name~'/'~friend.friend.avatar.haircolor.color) }}">
+                                            <img class="friend-avatar-icon" src="{{ asset('media/avatar/eyes/'~friend.friend.avatar.eyes.name~'/'~friend.friend.avatar.eyecolor.color) }}">
+                                            <img class="friend-avatar-icon" src="{{ asset('media/avatar/mouth/'~friend.friend.avatar.mouth.name~'/'~friend.friend.avatar.skin.color) }}">
+                                            <img class="friend-avatar-icon" src="{{ asset('media/avatar/nose/'~friend.friend.avatar.nose.name~'/'~friend.friend.avatar.skin.color) }}">
+                                            <img class="friend-avatar-icon" src="{{ asset('media/avatar/cloth/'~friend.friend.avatar.cloth.name~'/'~friend.friend.avatar.clothstyle.color) }}">
+                                        </div>
+                                    </div>
+                                    <div >
+                                            <a href="{{ path('app_profil',{'id' : friend.friend.id}) }}">{{ friend.friend.username }}</a>
+                                            <p>Games : {{ friend.friend.game|length }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
                         <p id="profil-bio-text">{{ user.description }}</p>
                         <div id="profil-bio-form">
                             <form method="get" action="{{ path('app_desc') }}" name="desc">
@@ -211,5 +231,10 @@
         </div>
 
     </div>
-    <script src="{{ asset('media/js/profil.js') }}"></script>
+    <script src="{{ asset('media/js/profil.js') }}">
+        {% if app.user.id == user.id %}
+            document.getElementById('edit-desc').onclick = editBio;
+            document.getElementById('cancel-desc').onclick = cancelBio;
+        {% endif %}
+    </script>
 {% endblock %}

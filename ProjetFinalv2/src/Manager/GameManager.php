@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class GameManager extends AbstractController
 {
-    private SessionInterface $session;
+
     public function hasCategories(Games $game, array $categories): bool
     {
         $gameCategoryIds = [];
@@ -25,10 +25,14 @@ class GameManager extends AbstractController
         return empty($diff);
     }
 
-    public function paymentSuccess(SessionInterface $session){
-        $this->session->set('stat', 'tetetete');
-        $path = __DIR__.'test.txt';
-        file_put_contents($path, "success \n",FILE_APPEND);
+
+    public function calculatePrice($price, $discount): string
+    {
+//        $newValue = $price * (1 - $discount / 100);
+        $newValue = (100 - $discount) / 100 * $price;
+        $stringPrice = floatval($newValue);
+
+        return number_format($stringPrice, 2, '.', '');
     }
     public function handleCart(SessionInterface $session, UserRepository $userRepository, NotificationRepository $notificationRepository, GamesRepository $gamesRepository){
         $cart = $session->get('Cart');

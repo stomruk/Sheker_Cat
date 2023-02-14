@@ -15,7 +15,12 @@
                 <div>
                 <p class="game-text">Developper: {{ game.developpers.values[0].name }}</p>
                 <p class="game-text">Release Date : {{ game.date }}</p>
-                <h2 style="text-align: center">Price : {{ game.price }}€</h2>
+                {% if game.discount is null %}
+                    <h2 class="game-page-price-tag">Price : {{ game.price }}€</h2>
+                {% else %}
+                    <h2 class="game-page-price-tag">Price : {{ ((100 - game.discount) / 100 * game.price) | number_format(2) }}€</h2>
+                    <h2 class="game-page-old-price-tag">{{ game.price }}€</h2>
+                {% endif %}
                 <div class="cart-button-div">
                     <a href="{{ path('app_add_cart',{'id' : game.id}) }}">Add to Cart</a>
                 </div>

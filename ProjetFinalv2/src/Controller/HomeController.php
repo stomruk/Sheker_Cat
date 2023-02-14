@@ -39,7 +39,11 @@ class HomeController extends AbstractController
     {
         $cart = $session->get('Cart', []);
         $product = $gamesRepository->find($id);
-        $cartArray = ['game' => $product, 'gift' => false, 'friend' => 'none', 'friendlist' => 'none'];
+        if ($product->getDiscount() != null){
+            $newPrice = (100 - $product->getDiscount()) / 100 * $product->getPrice();
+            $stringPrice = floatval($newPrice);
+            $product->setPrice(number_format($stringPrice, 2, '.', ''));
+        }
         $diff = [];
         $targetFriend = '';
         foreach ($this->getUser()->getFriends() as $friend){
