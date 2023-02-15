@@ -26,7 +26,7 @@ class NotificationController extends AbstractController
         return $this->redirectToRoute('app_profil',['id' => $id]);
     }
 
-    #[Route('//notification', name: 'app_notification')]
+    #[Route('/notification', name: 'app_notification')]
     public function notification(): Response
     {
 
@@ -35,22 +35,53 @@ class NotificationController extends AbstractController
         ]);
     }
 
-    #[Route('//notification/accept/{id}/{not}', name: 'app_accept_friend')]
-    public function accept($id, $not, UserRepository $userRepository, NotificationRepository $notificationRepository, FriendsRepository $friendsRepository): Response
+    #[Route('/notification/accept/friend/{id}', name: 'app_accept_friend')]
+    public function acceptFriend($id, UserRepository $userRepository, NotificationRepository $notificationRepository, FriendsRepository $friendsRepository): Response
     {
-        $friend = $userRepository->find($id);
-        $newfriend = new Friends();
-        $newfriend->setFriend($friend);
-        $newfriend->setUser($this->getUser());
-        $friendsRepository->save($newfriend, true);
+        $notification = $notificationRepository->find($id);
+        $friend = $notification->getFriend();
+        $newFriend = new Friends();
+        $newFriend->setUser($this->getUser());
+        $newFriend->setFriend($friend);
 
-        $newfriend1 = new Friends();
-        $newfriend1->setFriend($this->getUser());
-        $newfriend1->setUser($friend);
-        $friendsRepository->save($newfriend1, true);
+        $friendsRepository->save($newFriend, true);
 
-        $notif = $notificationRepository->find($not);
-        $notificationRepository->remove($notif, true);
+        $newFriend2 = new Friends();
+        $newFriend2->setUser($friend);
+        $newFriend2->setFriend($this->getUser());
+
+        $friendsRepository->save($newFriend2, true);
+
+        $notificationRepository->remove($notification, true);
+
+        return $this->render('notification/index.html.twig', [
+            'controller_name' => 'NotificationController',
+        ]);
+    }
+    #[Route('/notification/refuse/{id}', name: 'app_refuse')]
+    public function refuseFriend($id,NotificationRepository $notificationRepository): Response
+    {
+        $notification = $notificationRepository->find($id);
+        $notificationRepository->remove($notification, true);
+
+        return $this->render('notification/index.html.twig', [
+            'controller_name' => 'NotificationController',
+        ]);
+    }
+
+    #[Route('/notification/accept/gift/{id}', name: 'app_accept_gift')]
+    public function acceptGift($id, NotificationRepository $notificationRepository, UserRepository $userRepository):Response
+    {
+        $notification = $notificationRepository->find($id);
+
+        $game = $notification->getGame();
+        $user = $notification->getUser();
+
+        $user->addGame($game);
+        $userRepository->save($user, true);
+
+        $notificationRepository->remove($notification, true);
+
 
         return $this->render('notification/index.html.twig', [
             'controller_name' => 'NotificationController',

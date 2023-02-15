@@ -5,13 +5,13 @@
 {% block body %}
     <div class="container">
         <div class="gamepage-T">
-            <div class="Title-Zone-T">
+            <div class="Title-Zone-T white-text">
                 <h1 class="TitleGame-T">{{ game.name }}</h1>
             </div>
             <div class="Cover-Zone-T">
                 <img class="cover-img-T" src="{{ game.cover }}">
             </div>
-            <div class="Info-Zone-T">
+            <div class="Info-Zone-T white-text">
                 <div>
                 <p class="game-text">Developper: {{ game.developpers.values[0].name }}</p>
                 <p class="game-text">Release Date : {{ game.date }}</p>
@@ -22,11 +22,11 @@
                     <h2 class="game-page-old-price-tag">{{ game.price }}€</h2>
                 {% endif %}
                 <div class="cart-button-div">
-                    <a href="{{ path('app_add_cart',{'id' : game.id}) }}">Add to Cart</a>
+                    <a class="cart-button" href="{{ path('app_add_cart',{'id' : game.id}) }}">Add to Cart</a>
                 </div>
                 </div>
             </div>
-            <div class="Desc-Zone-T">
+            <div class="Desc-Zone-T white-text">
                 <h2 style="text-align: center">Description</h2>
                 <p>{{ game.description }}</p>
             </div>

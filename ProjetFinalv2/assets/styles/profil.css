@@ -243,10 +243,10 @@
 }
 @media screen and (max-width: 670px) {
     .profil-grid{
-        grid-template: 100px 180px 500px / auto 1fr;
+        grid-template: 100px 190px auto / auto 1fr;
     }
     .game-table {
-        grid-template: 60px 60px/ 35% 40% 25%;
+        grid-template: 60px 60px/ 150px 150px 120px;
     }
     .table-cover-img {
         width: 100px;
@@ -256,6 +256,16 @@
     }
     .game-table-score {
         font-size: 15px;
+    }
+    .btn-box{
+        height: 40px;
+        width: 140px;
+
+        font-size: 1rem;
+
+
+        border: 3px solid var(--third-color);
+
     }
     .review-btn {
         font-size: 12px;

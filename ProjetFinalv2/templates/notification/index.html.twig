@@ -5,22 +5,44 @@
 {% block body %}
 <div class="container">
     {% for notif in app.user.notifications  %}
-        <h2>{{ notif.message }}</h2>
-        <br>
-        <div class="notification-table">
-                <div class="friend-avatar">
+    <div class="notif-box">
+        {% if notif.game is null %}
+            <h2 class="Text-Center">{{ notif.message }}</h2>
+            <div>
+                <div class="avatar-Flex-Zone">
+                    <div class="friend-avatar">
                         <img class="posAB" src="{{ asset('media/avatar/head/'~notif.friend.avatar.head.name~'/'~notif.friend.avatar.skin.color) }}">
                         <img class="posAB" src="{{ asset('media/avatar/hair/'~notif.friend.avatar.hair.name~'/'~notif.friend.avatar.haircolor.color) }}">
                         <img class="posAB" src="{{ asset('media/avatar/eyes/'~notif.friend.avatar.eyes.name~'/'~notif.friend.avatar.eyecolor.color) }}">
                         <img class="posAB" src="{{ asset('media/avatar/mouth/'~notif.friend.avatar.mouth.name~'/'~notif.friend.avatar.skin.color) }}">
                         <img class="posAB" src="{{ asset('media/avatar/nose/'~notif.friend.avatar.nose.name~'/'~notif.friend.avatar.skin.color) }}">
                         <img class="posAB" src="{{ asset('media/avatar/cloth/'~notif.friend.avatar.cloth.name~'/'~notif.friend.avatar.clothstyle.color) }}">
+                    </div>
                 </div>
-                <h3>{{ notif.friend.username }}</h3>
-                <div class="accept-button"><a href="{{ path('app_accept_friend', {'id' : notif.friend.id, 'not' : notif.id}) }}">Accept</a></div>
-                <div class="refuse-button"><a>Refuse</a></div>
-        </div>
-
+                <h3 class="Text-Center"><a href="{{ path('app_profil', {'id' : notif.friend.id}) }}">{{ notif.friend.username }}</a></h3>
+            </div>
+            <div class="decision-zone">
+                <a class="accept-button decide-btn" href="{{ path('app_accept_friend', {'id' : notif.id}) }}">Accept</a>
+                <a class="refuse-button decide-btn" href="{{ path('app_refuse', {'id' : notif.id}) }}">Refuse</a>
+            </div>
+        {% else %}
+            <h2 class="Text-Center">{{ notif.message }}</h2>
+            <div>
+                <h3 class="Text-Center"><a href="{{ path('app_game_page', {'id' : notif.game.id}) }}">{{ notif.game.name }}</a></h3>
+                <img class="gift-Game-Cover" src="{{ notif.game.cover }}">
+                <p>Sended by : <a href="{{ path('app_profil', {'id' : notif.friend.id}) }}">{{ notif.friend.username }}</a></p>
+                <div class="decision-zone">
+                    <a href="{{ path('app_accept_gift',{'id' : notif.id}) }}" class="accept-button decide-btn">Accept</a>
+                    <a class="refuse-button decide-btn" href="{{ path('app_refuse', {'id' : notif.id}) }}">Refuse</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{#        <div class="notification-table">#}
+{#                <h3>{{ notif.friend.username }}</h3>#}
+{#                <div class="accept-button"><a href="{{ path('app_accept_friend', {'id' : notif.friend.id, 'not' : notif.id}) }}">Accept</a></div>#}
+{#                <div class="refuse-button"><a>Refuse</a></div>#}
+{#        </div>#}
     {% endfor %}
 </div>
 {% endblock %}

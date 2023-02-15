@@ -167,10 +167,10 @@
                 <div class="profil-buttons">
                     {% if app.user != user %}
                         {% set friend %}
-                            <button class="btn-box">Already Friend</button>
+                            <button class="btn-box">Add Friend</button>
                         {% endset %}
-                        {% for friend in user.friends %}
-                            {% if friend.friend == app.user %}
+                        {% for people in user.friends %}
+                            {% if people.friend == app.user %}
                                 {% set friend %}
                                     <button class="btn-box">Already Friend</button>
                                 {% endset %}
