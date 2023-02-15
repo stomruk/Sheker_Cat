@@ -14,7 +14,7 @@
     border-radius: 25px;
     padding: 15px;
     display: grid;
-    grid-template: auto / 132px auto;
+    grid-template: auto / 23% 77%;
     grid-gap: 15px;
 }
 .comment-avatar{
@@ -53,4 +53,15 @@
 }
 .comment-submit-button:hover{
     background-color: lightgray;
+}
+.comment-content-text{
+    word-wrap: break-word;
+}
+.comment-content{
+    max-width: 90%;
+    word-wrap: break-word;
+}
+.comment-avatar-box{
+    display: flex;
+    justify-content: center;
 }

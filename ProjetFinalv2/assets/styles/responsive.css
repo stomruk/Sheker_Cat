@@ -50,6 +50,12 @@
     .notif-box{
         width: 90%;
     }
+    .comment-table{
+        grid-template: auto / 100%;
+    }
+    .comment-content{
+        grid-row: 3 / 4;
+    }
 }
 @media screen and (max-width: 768px) {
     .gamepage-T{

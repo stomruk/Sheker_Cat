@@ -21,14 +21,8 @@
             </div>
             <div class="review-game-info">
                 <h1><a style="color: black" href="{{ path('app_game_page',{'id' : review.game.id}) }}">{{ review.game.name }}</a></h1>
-                <img width="300px" src="{{ review.game.cover }}">
+                <img width="100%" src="{{ review.game.cover }}">
             </div>
-        </div>
-        <div class="review-username-zone">
-
-        </div>
-        <div class="review-score-zone">
-
         </div>
         <div class="review-content-area">
             <p class="review-content">{{ review.content }}</p>
