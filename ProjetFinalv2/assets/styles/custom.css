@@ -21,7 +21,7 @@
     --game-card-alt : #A58750;
     --box-color : #D3AD66;
     --nav-bar : #FF2B59;
-    --third-color : #780820;
+    --third-color : rgb(120, 8, 32);
     --hover : #42335e;
     --rad-7 : 7px;
 }
@@ -190,6 +190,73 @@ nav{
     display: none;
     font-size: 0;
     transition: 300ms;
+}
+
+
+/* ---------------------------------- */
+.sale-zone{
+    width: 60%;
+    height: auto;
+    background-color: rgba(120, 8, 32, 0.5);
+}
+
+.slide-buttons{
+    height: auto;
+    width: 50%;
+    background-color: var(--nav-bar);
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    border: 3px solid var(--third-color);
+    margin: 5px;
+    cursor: pointer;
+}
+#current-sale{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: 500ms;
+}
+#sale-cover{
+    transition: 500ms;
+}
+.sale-arrows{
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+.games-section{
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+}
+.popular-games{
+    padding: 15px;
+    background-color: var(--nav-bar);
+    width: auto;
+}
+.ranking-label{
+    background-color: white;
+    padding: 5px;
+    text-align: center;
+    color: var(--third-color);
+    font-weight: bold;
+    display: block;
+    margin: 15px;
+}
+.rank-title{
+    background-color: white;
+    padding: 5px;
+    text-align: center;
+    color: var(--third-color);
+    font-weight: bold;
+}
+.ranking-label:hover{
+    background-color: #cecece;
 }
 @keyframes slidedown {
     from {

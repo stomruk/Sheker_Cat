@@ -21,6 +21,9 @@
         grid-column: 1 / 2;
         font-size: 16px;
     }
+    .sale-zone {
+        width: 75%;
+    }
 }
 @media screen and (max-width: 900px) {
     .gamepage-T{
@@ -55,6 +58,9 @@
     }
     .comment-content{
         grid-row: 3 / 4;
+    }
+    .sale-zone {
+        width: 100%;
     }
 }
 @media screen and (max-width: 768px) {

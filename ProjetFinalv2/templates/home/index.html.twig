@@ -3,18 +3,37 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {% set gamesArray = [] %}
+<div class="container">
+    {% for game in games %}
+        {% if game.codePromos is not empty %}
+            {% set gamesArray = gamesArray|merge([game]) %}
+        {% endif %}
+    {% endfor %}
+    <div class="sale-zone">
+        <div id="current-sale">
+            <img id="sale-cover" class="coversale" width="100%" src="{{ asset('media/Sale/HESOYAM.png') }}">
+        </div>
+        <div class="sale-arrows">
+            <div id="previous-arrow" class="slide-buttons">previous</div>
+            <div id="next-arrow" class="slide-buttons">next</div>
+        </div>
+    </div>
+    <div class="games-section">
+        <div class="popular-games">
+            <h1 class="rank-title">Popular Games</h1>
+            {% for game in top5 %}
+                <a href="{{ path('app_game_page',{'id' : game.id}) }}" class="ranking-label">{{ game.title }}</a>
+            {% endfor %}
+        </div>
+    </div>
 
-<div class="example-wrapper">
-    <h1>Hello ! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/ProjetFinalv2/ProjetFinalv2/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/ProjetFinalv2/ProjetFinalv2/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
 </div>
+    <script src="{{ asset('media/js/home.js') }}"></script>
+    <script>
+        {% for game in gamesArray %}
+            images.push('{{ game.codePromos.values[0].code }}')
+        {% endfor %}
+    </script>
+
 {% endblock %}

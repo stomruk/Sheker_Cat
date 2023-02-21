@@ -27,7 +27,9 @@
                         >
                     </div>
                     <div class="gift-sendto" id="gift{{ index }}">
-                        <p>Send to : {{ product['friend']['username'] }}</p>
+                        {% if product['friend']['username'] is defined  %}
+                            <p>Send to : {{ product['friend']['username'] }}</p>
+                        {% endif %}
                         <button id="changeGift{{ index }}">Change</button>
                     </div>
                 </div>

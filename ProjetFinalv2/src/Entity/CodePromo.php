@@ -24,6 +24,8 @@ class CodePromo
     #[ORM\ManyToMany(targetEntity: Games::class, inversedBy: 'codePromos')]
     private Collection $game;
 
+
+
     public function __construct()
     {
         $this->game = new ArrayCollection();

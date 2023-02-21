@@ -19,18 +19,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
-    public function index(UserRepository $userRepository, SessionInterface $session): Response
+    public function index(GamesRepository $gameRepository): Response
     {
-        $session->remove('Cart');
+        $games = $gameRepository->findAll();
+        $owner = [];
+        foreach ($games as $game){
+            $owner[] = ['title' => $game->getName(),'id' => $game->getId() ,'owner' => count($game->getUsers()->getValues())];
+        }
+        $keys = array_column($owner, 'owner');
+        array_multisort($keys, SORT_DESC, $owner);
+
 
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'games' => $gameRepository->findAll(),
+            'top5' => array_slice($owner, 0, 5),
         ]);
     }
 
     #[Route('/cart', name: 'app_cart')]
-    public function cart(): Response
+    public function cart(SessionInterface $session): Response
     {
+        dump($session->get('Cart'));
         return $this->render('home/cart.html.twig');
     }
 
@@ -45,7 +54,7 @@ class HomeController extends AbstractController
             $product->setPrice(number_format($stringPrice, 2, '.', ''));
         }
         $diff = [];
-        $targetFriend = '';
+        $targetFriend = null;
         foreach ($this->getUser()->getFriends() as $friend){
             $friendList[] = ['id' => $friend->getFriend()->getId(), 'username' => $friend->getFriend()->getUsername()];
         }
@@ -54,11 +63,14 @@ class HomeController extends AbstractController
         foreach ($product->getUsers() as $owner){
             $ownerArray[] = ['id' => $owner->getId(), 'username' => $owner->getUsername()];
         }
-        foreach ($friendList as $friend){
-            if (!in_array($friend, $ownerArray)){
-                $diff[] = $friend;
+        if (!empty($ownerArray)){
+            foreach ($friendList as $friend){
+                if (!in_array($friend, $ownerArray)){
+                    $diff[] = $friend;
+                }
             }
         }
+
 
         if (!empty($diff)){
             $targetFriend = $diff[0];
