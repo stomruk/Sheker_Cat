@@ -1,8 +1,21 @@
+
+{% set commentLikeButton %}
+    <a href="{{ path('app_like_comment',{'id' : comment.id}) }}">Like This Comment</a>
+{% endset %}
+
+    {% for like in comment.likes.values %}
+        {% if like.user == app.user %}
+            {% set commentLikeButton %}
+                <a href="{{ path('app_unlike_comment',{'id' : like.id}) }}">Unlike This Comment</a>
+            {% endset %}
+        {% endif %}
+    {% endfor %}
+
 <div class="comment-table">
     <div class="comment-username">
         <h3 class="comment-username-tag">{{ comment.user.username }}</h3>
-        <p>0 Like</p>
-        <a>Like This Comment</a>
+        <p>{{ comment.likes|length }} Like</p>
+        {{ commentLikeButton }}
     </div>
     <div class="comment-avatar-box">
         <div class="comment-avatar">

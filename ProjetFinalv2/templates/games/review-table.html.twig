@@ -1,4 +1,17 @@
 <div class="review-table">
+
+    {% set likeButton %}
+        <a href="{{ path('app_like_gamepage_review',{'id' : review.id}) }}" style="color: black">Like This Review</a>
+    {% endset %}
+
+    {% for like in review.likes.values %}
+        {% if like.user == app.user %}
+            {% set likeButton %}
+                <a href="{{ path('app_unlike_gamepage_review',{'id' : like.id}) }}" style="color: black">Unlike This Review</a>
+            {% endset %}
+        {% endif %}
+    {% endfor %}
+
     {% if review.user.avatar is not null %}
         <div class="review-avatar-frame">
             <img class="posAB" src="{{ asset('media/avatar/head/'~review.user.avatar.head.name~'/'~review.user.avatar.skin.color) }}">
@@ -12,8 +25,8 @@
         <a class="review-username" href="{{ path('app_profil',{'id' : review.user.id}) }}">{{ review.user.username }}</a>
         <h3 class="review-score">Score  <br>  {{  review.score }} / 10</h3>
         <div class="review-like">
-            <p>0 Like</p>
-            <a>Like this review</a>
+            <p>{{ review.likes|length }} Like</p>
+            {{ likeButton }}
         </div>
     <div class="review-content-zone">
         <p class="review-content">{{ review.content }}</p>
