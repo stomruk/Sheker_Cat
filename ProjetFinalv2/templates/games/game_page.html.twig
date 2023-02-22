@@ -46,7 +46,11 @@
                 {% endfor %}
             </div>
             <div class="Rev-Zone-T">
-                <h2 style="text-align: center">Score : X / 10</h2>
+                {% if avg is not null %}
+                    <h2 style="text-align: center">Score : {{ avg }} / 10</h2>
+                {% else %}
+                    <h2 style="text-align: center">No Review</h2>
+                {% endif %}
                 <div class="review-section-T">
                     {% for review in game.reviews %}
                         {% include 'games/review-table.html.twig' %}

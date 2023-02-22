@@ -175,9 +175,9 @@
 }
 .friend-box{
     background-color: var(--nav-bar);
-    width: 100%;
+    width: 90%;
     display: flex;
-    margin: 10px;
+    margin: 10px auto;
 }
 .avatar-box-box{
     background-color: lightblue;

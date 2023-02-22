@@ -233,11 +233,15 @@ nav{
     margin-top: 50px;
     width: 100%;
     display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 .popular-games{
     padding: 15px;
     background-color: var(--nav-bar);
     width: auto;
+    border-radius: 15px;
+    margin-bottom: 50px;
 }
 .ranking-label{
     background-color: white;
@@ -247,6 +251,7 @@ nav{
     font-weight: bold;
     display: block;
     margin: 15px;
+    border-radius: 15px;
 }
 .rank-title{
     background-color: white;
@@ -254,9 +259,38 @@ nav{
     text-align: center;
     color: var(--third-color);
     font-weight: bold;
+    border-radius: 15px;
 }
 .ranking-label:hover{
     background-color: #cecece;
+}
+.search-friend-table{
+    width: 100%;
+    height: auto;
+    background-color: var(--game-card);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.user-search-results{
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 15px;
+}
+.user-card{
+    width: auto;
+    padding: 15px;
+    height: 50px;
+    background-color: var(--game-card-alt);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-username{
+    font-size: 24px;
 }
 @keyframes slidedown {
     from {

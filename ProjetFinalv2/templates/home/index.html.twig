@@ -21,8 +21,14 @@
     </div>
     <div class="games-section">
         <div class="popular-games">
-            <h1 class="rank-title">Popular Games</h1>
+            <h1 class="rank-title">Popular</h1>
             {% for game in top5 %}
+                <a href="{{ path('app_game_page',{'id' : game.id}) }}" class="ranking-label">{{ game.title }}</a>
+            {% endfor %}
+        </div>
+        <div class="popular-games">
+            <h1 class="rank-title">Best Rated</h1>
+            {% for game in rated %}
                 <a href="{{ path('app_game_page',{'id' : game.id}) }}" class="ranking-label">{{ game.title }}</a>
             {% endfor %}
         </div>

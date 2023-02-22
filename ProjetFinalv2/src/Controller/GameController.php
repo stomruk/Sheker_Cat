@@ -7,6 +7,7 @@ use App\Manager\GameManager;
 use App\Repository\CategoryRepository;
 use App\Repository\CodePromoRepository;
 use App\Repository\GamesRepository;
+use App\Repository\ReviewRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,11 +56,17 @@ class GameController extends AbstractController
         ]);
     }
     #[Route('/game/{id}', name: 'app_game_page')]
-    public function game_page($id, GamesRepository $games,): Response
+    public function game_page($id, GamesRepository $games,ReviewRepository $reviewRepository): Response
     {
         $game = $games->find($id);
+        $avg = null;
+        if (!empty($game->getReviews()->getValues())){
+            $avg = $reviewRepository->getAverage($game->getId());
+        }
+
         return $this->render('games/game_page.html.twig', [
             'game' => $game,
+            'avg' => $avg
         ]);
     }
 
@@ -112,7 +119,7 @@ class GameController extends AbstractController
         return $this->redirectToRoute('app_game_list');
     }
 
-    #[Route('/search', name: 'app_search')]
+    #[Route('/search/game', name: 'app_search_game')]
     public function searchgame(Request $request ,SessionInterface $session, GamesRepository $gamesRepository): Response
     {
         $session->remove('Filter');

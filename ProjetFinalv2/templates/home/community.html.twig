@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="search-zone">
+            <form action="{{ path('app_search_user') }}">
+                <input class="search-input" type="text" name="search">
+                <button class="search-btn" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="search-friend-table">
+            {% if app.session.get('users') is empty %}
+                <h1>Search User</h1>
+            {% endif %}
+            <div class="user-search-results">
+                {% for user in app.session.get('users') %}
+                    <div class="user-card">
+{#                        <div class="user-card-avatar-zone">#}
+{#                            <img class="avatar" style="border-radius: 15px" src="{{ asset('media/avatar/head/'~user.avatar.head.name~'/'~user.avatar.skin.color) }}">#}
+{#                            <img class="avatar" src="{{ asset('media/avatar/hair/'~user.avatar.hair.name~'/'~user.avatar.haircolor.color) }}">#}
+{#                            <img class="avatar" src="{{ asset('media/avatar/eyes/'~user.avatar.eyes.name~'/'~user.avatar.eyecolor.color) }}">#}
+{#                            <img class="avatar" src="{{ asset('media/avatar/mouth/'~user.avatar.mouth.name~'/'~user.avatar.skin.color) }}">#}
+{#                            <img class="avatar" src="{{ asset('media/avatar/nose/'~user.avatar.nose.name~'/'~user.avatar.skin.color) }}">#}
+{#                            <img class="avatar" style="border-radius: 15px" src="{{ asset('media/avatar/cloth/'~user.avatar.cloth.name~'/'~user.avatar.clothstyle.color) }}">#}
+{#                        </div>#}
+                        <a class="search-username" href="{{ path('app_profil', {'id' : user.id}) }}">{{ user.username }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

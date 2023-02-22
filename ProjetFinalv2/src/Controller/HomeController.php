@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Games;
 use App\Entity\Notification;
 use App\Entity\User;
+use App\Repository\AvatarPartRepository;
+use App\Repository\AvatarRepository;
 use App\Repository\GamesRepository;
 use App\Repository\NotificationRepository;
+use App\Repository\ReviewRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Rogervila\ArrayDiffMultidimensional;
@@ -19,20 +22,37 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
-    public function index(GamesRepository $gameRepository): Response
+    public function index(GamesRepository $gameRepository, ReviewRepository $reviewRepository): Response
     {
         $games = $gameRepository->findAll();
         $owner = [];
+        $rated = [];
         foreach ($games as $game){
             $owner[] = ['title' => $game->getName(),'id' => $game->getId() ,'owner' => count($game->getUsers()->getValues())];
+            $keys = array_column($owner, 'owner');
+            array_multisort($keys, SORT_DESC, $owner);
         }
-        $keys = array_column($owner, 'owner');
-        array_multisort($keys, SORT_DESC, $owner);
+
+        foreach ($games as $game){
+            if (!empty($game->getReviews()->getValues())){
+                $rated[] = ['id' => $game->getId(), 'title' => $game->getName(), 'rate' => $reviewRepository->getAverage($game->getId())];
+                $keys = array_column($rated, 'rate');
+                array_multisort($keys, SORT_DESC, $rated);
+            }
+
+        }
+//        foreach ($reviews as $review){
+//            foreach ($review as $rev){
+//                $revs[] = $reviewRepository->getAverage($rev->getGame());
+//            }
+//        }
+        dump($rated);
 
 
         return $this->render('home/index.html.twig', [
             'games' => $gameRepository->findAll(),
             'top5' => array_slice($owner, 0, 5),
+            'rated' => array_slice($rated, 0, 5),
         ]);
     }
 
@@ -159,6 +179,23 @@ class HomeController extends AbstractController
     public function notification(NotificationRepository $notificationRepository): Response
     {
         return $this->redirectToRoute('app_cart');
+    }
+
+    #[Route('/community', name: 'app_community')]
+    public function community(SessionInterface $session): Response
+    {
+//        $session->remove('users');
+//        $session->remove('avatars');
+        return $this->render('home/community.html.twig', []);
+    }
+    #[Route('/search/user', name: 'app_search_user')]
+    public function searchgame(Request $request ,SessionInterface $session, UserRepository $userRepository, AvatarRepository $avatarRepository, AvatarPartRepository $avatarPartRepository): Response
+    {
+        $value = $request->get('search');
+        $users = $userRepository->searchUser($value);
+
+        $session->set('users', $users);
+        return $this->redirectToRoute('app_community');
     }
 
 }
