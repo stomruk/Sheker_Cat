@@ -419,7 +419,7 @@
 
 .review-table{
     display: grid;
-    grid-template: 64px 64px 350px auto / 128px 372px;
+    grid-template: 64px 64px 350px auto / 148px 172px 200px;
     z-index: 2;
     background-color: white;
     border-radius: 15px;
@@ -439,15 +439,18 @@
 .review-username{
     font-size: 1.5rem;
     color: black;
+    grid-column: 2 / 4;
+    grid-row: 1 / 3;
 }
 .review-score{
+    grid-row: 2 / 3;
     border-radius: 45px;
     padding: 15px;
-    grid-column: 2 / 4;
+    grid-column: 2 / 3;
     margin: 0;
 }
 .review-content-zone{
-    grid-column: 1 / 3;
+    grid-column: 1 / 4;
     height: 350px;
     overflow-y: auto;
     margin: 15px;
@@ -455,8 +458,26 @@
     padding: 1rem;
     white-space: normal;
 }
+.review-like{
+    padding: 15px;
+    grid-row: 1 / 3;
+    grid-column: 3 / 4;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 22px;
+    margin: 0;
+}
+
+
+
+
+.review-like a {
+    color: black;
+}
 .add-comment-review{
-    grid-column: 1 / 3;
+    grid-column: 1 / 4;
     margin: 15px;
     background-color: gray;
     padding: 10px;

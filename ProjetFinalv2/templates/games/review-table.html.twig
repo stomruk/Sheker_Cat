@@ -10,7 +10,11 @@
         </div>
     {% endif %}
         <a class="review-username" href="{{ path('app_profil',{'id' : review.user.id}) }}">{{ review.user.username }}</a>
-        <h3 class="review-score">Score : {{ review.score }} / 10</h3>
+        <h3 class="review-score">Score  <br>  {{  review.score }} / 10</h3>
+        <div class="review-like">
+            <p>0 Like</p>
+            <a>Like this review</a>
+        </div>
     <div class="review-content-zone">
         <p class="review-content">{{ review.content }}</p>
     </div>

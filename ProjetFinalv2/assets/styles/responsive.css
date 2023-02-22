@@ -80,12 +80,12 @@
         height: 300px;
     }
     .review-table{
-        grid-template: 64px 64px 350px auto / 128px 272px;
+        grid-template: 64px 64px 350px auto / 128px 142px 160px;
     }
 }
 @media screen and (max-width: 525px) {
     .review-table{
-        grid-template: 64px 64px 350px auto / 128px 162px;
+        grid-template: 64px 64px 350px auto / 128px 100px 120px;
     }
     .TitleGame-T{
         font-size: 1rem;
