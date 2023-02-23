@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="admin-table">
+            {% for game in games %}
+                <div class="admin-button">
+                    <a href="{{ path('admin_game',{'id' : game.id}) }}">{{ game.name }}</a>
+                </div>
+            {% endfor %}
+            <div class="admin-button">
+                <a>Add New Game</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

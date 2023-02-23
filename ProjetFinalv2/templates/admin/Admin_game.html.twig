@@ -1,0 +1,178 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    {% set avaibleCategories = [] %}
+
+    {% for category in categories %}
+        {% if category not in game.categories %}
+            {% set avaibleCategories = avaibleCategories|merge([category]) %}
+        {% endif %}
+    {% endfor %}
+
+    {% set otherDeveloper = [] %}
+
+    {% for developer in developers %}
+        {% if developer not in game.developpers %}
+            {% set otherDeveloper = otherDeveloper|merge([developer]) %}
+        {% endif %}
+    {% endfor %}
+
+    {% set avaibleUsers = [] %}
+
+    {% for user in users %}
+        {% if user not in game.users %}
+            {% set avaibleUsers = avaibleUsers|merge([user]) %}
+        {% endif %}
+    {% endfor %}
+
+    <div class="container">
+
+        <div class="admin-table">
+
+            <div class="admin-form-box">
+                <form class="admin-game-page-form">
+                    <label class="admin-form-label" for="title">Title</label>
+                    <input id="title" class="admin-form-label" name="title" type="text"  value="{{ game.name }}">
+                    <input class="admin-form-label" type="submit" value="Save">
+                </form>
+            </div>
+
+            <div class="admin-form-box">
+                <form class="admin-game-page-form">
+                    <label class="admin-form-label" for="description">Description</label>
+                    <textarea id="description" name="description" class="admin-form-textarea">{{ game.description }}</textarea>
+                    <input class="admin-form-label" type="submit" value="Save">
+                </form>
+            </div>
+
+
+            <div class="admin-form-box">
+                <form class="admin-game-page-form">
+                    <label class="admin-form-label" for="cover">Cover</label>
+                    <img width="50%" src="{{ game.cover }}">
+                    <input id="cover" class="admin-form-label" name="cover" type="text"  value="{{ game.cover }}">
+                    <input class="admin-form-label" type="submit" value="Save">
+                </form>
+            </div>
+
+
+            <div class="admin-form-box">
+                <form class="admin-game-page-form">
+                    <label class="admin-form-label" for="price">Price</label>
+                    <input id="price" class="admin-form-label" name="price" type="number" min="0" step="0.01"  value="{{ game.price }}">
+                    <input class="admin-form-label" type="submit" value="Save">
+                </form>
+            </div>
+
+
+
+            <div class="admin-form-box">
+                <form class="admin-game-page-form">
+                    <label class="admin-form-label" for="price">Images</label>
+                    <div class="admin-game-image-zone" style="display: flex; justify-content: center">
+                        {% for image in game.images %}
+                            <img class="admin-game-images" src="{{ image.source }}">
+                        {% endfor %}
+                    </div>
+                    <input id="price" class="admin-form-label" name="image" placeholder="add new image">
+                    <input class="admin-form-label" type="submit" value="Add">
+                </form>
+            </div>
+
+
+            <div class="admin-form-box">
+                <form class="admin-game-page-form">
+                    <label class="admin-form-label" for="category">Categories</label>
+                    <div class="admin-category-zone">
+                        {% for category in game.categories %}
+                            <div class="admin-category-box">
+                                <p style="margin-right: 15px;">{{ category.name }}</p>
+                                <a>X</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <select id="category" name="category" class="admin-category-select">
+                        {% for category in avaibleCategories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <input class="admin-form-label" type="submit" value="Save">
+                </form>
+            </div>
+
+
+            <div class="admin-form-box">
+                <form class="admin-game-page-form">
+                    <label class="admin-form-label" for="date">Date</label>
+                    <input id="date" type="text" class="admin-form-label" name="date" value="{{ game.date }}">
+                    <input class="admin-form-label" type="submit" value="Save">
+                </form>
+            </div>
+
+
+            <div class="admin-form-box">
+                <form class="admin-game-page-form">
+                    <label class="admin-form-label" for="developer">Categories</label>
+                    <select id="developer" class="admin-category-select">
+                        {% for developer in game.developpers %}
+                            <option value="{{ developer.id }}">{{ developer.name }}</option>
+                        {% endfor %}
+                        {% for developer in otherDeveloper %}
+                            <option value="{{ developer.id }}">{{ developer.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <input class="admin-form-label" type="submit" value="Change">
+                </form>
+            </div>
+
+            <div class="admin-form-box">
+            {% for code in game.codePromos %}
+                <p style="text-align: center; font-size: 24px">Codes</p>
+                <div class="admin-code-zone">
+                    <form>
+                        <input class="admin-code-form" name="code" type="text" value="{{ code.code }}">
+                        <input class="admin-code-form" name="discount" type="number" min="0" max="100" value="{{ code.discount }}">
+                        <input class="admin-code-form" type="submit" value="Change">
+                        <input class="admin-code-form" type="button" value="Delete">
+                    </form>
+            {% endfor %}
+                    <form>
+                        <input class="admin-code-form" type="text" placeholder="Code">
+                        <input class="admin-code-form" type="number" min="0" max="100" placeholder="Discount">
+                        <input class="admin-code-form" type="submit" value="Add">
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="admin-form-box">
+                <form class="admin-game-page-form">
+                    <label class="admin-form-label" for="sale">Sale</label>
+                    <input id="sale" name="sale" type="number" max="100" min="0" class="admin-form-label" value="{{ game.discount }}">
+                    <input class="admin-form-label" type="submit" value="Save">
+                </form>
+            </div>
+
+            <div class="admin-form-box">
+                <div class="admin-button">
+                    <a>Owners</a>
+                </div>
+                <div class="admin-button">
+                    <a>Reviews</a>
+                </div>
+                <div class="admin-button">
+                    <a href="{{ path('admin_games') }}">Delete This Game</a>
+                </div>
+                <div class="admin-button">
+                    <a href="{{ path('admin_games') }}">Return to List</a>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+{% endblock %}
