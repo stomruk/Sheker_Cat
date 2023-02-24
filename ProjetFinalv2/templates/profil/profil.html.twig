@@ -31,7 +31,7 @@
                 <div class="profil-buttons">
                     {% if app.user != user %}
                         {% set friend %}
-                            <button class="btn-box">Add Friend</button>
+                            <a href="{{ path('app_add-friend',{id : user.id}) }}" class="btn-box">Add Friend</a>
                         {% endset %}
                         {% for people in user.friends %}
                             {% if people.friend == app.user %}

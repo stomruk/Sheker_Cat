@@ -33,12 +33,28 @@
 }
 .admin-game-image-zone{
     overflow: auto;
+    white-space: nowrap;
     margin: 10px;
-    width: 100%;
+    width: 80%;
+}
+.admin-game-image-box{
+    width: 150px;
+    margin: 15px;
+    display: inline-block;
+    position: relative;
 }
 .admin-game-images{
     width: 150px;
-    margin: 15px;
+    height: 84px;
+}
+.admin-game-image-box:hover .admin-delete-image-box{
+    display: block;
+}
+.admin-delete-image-box{
+    display: none;
+    position: absolute;
+    bottom: 35px;
+    left: 50px;
 }
 .admin-category-zone{
     width: 100%;
