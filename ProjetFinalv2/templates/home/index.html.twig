@@ -3,6 +3,7 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
+    {{ dump(app.session.get('test')) }}
     {% set gamesArray = [] %}
 <div class="container">
     {% for game in games %}

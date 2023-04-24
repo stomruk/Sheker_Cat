@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\CodePromo;
 use App\Entity\Comment;
+use App\Entity\Developper;
+use App\Entity\Games;
 use App\Entity\Images;
 use App\Entity\Review;
 use App\Form\CommentFormType;
@@ -20,7 +22,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\Translation\t;
 
 class AdminGameController extends AbstractController
 {
@@ -213,4 +217,68 @@ class AdminGameController extends AbstractController
         return $this->redirectToRoute('admin_game',['id' => $game->getId()]);
     }
 
+    #[Route('/admin/add/new/game', name: 'admin_add_new_game')]
+    public function addnewGame(GamesRepository $gamesRepository, Request $request, SessionInterface $session, DevelopperRepository $developperRepository,
+    CategoryRepository $categoryRepository, ImagesRepository $imagesRepository): Response
+    {
+        $title = $request->get('title');
+        $description = $request->get('description');
+        $cover = $request->get('cover');
+        $price = $request->get('price');
+        $date = $request->get('date');
+        $sale = $request->get('sale');
+        $devID = $request->get('developer');
+        $categoryID = $request->get('category');
+        $categoryID2 = $request->get('category2');
+        $categoryID3 = $request->get('category3');
+        $imageSource = $request->get('image');
+        $imageSource2 = $request->get('image2');
+        $imageSource3 = $request->get('image3');
+        $imageSource4 = $request->get('image4');
+
+        $game = new Games();
+        $game->setName($title);
+        $game->setDescription($description);
+        $game->setCover($cover);
+        $game->setPrice($price);
+        $game->setDate($date);
+        $game->setDiscount($sale);
+        $developer = $developperRepository->find($devID);
+        $game->addDevelopper($developer);
+        $category = $categoryRepository->find($categoryID);
+        $category2 = $categoryRepository->find($categoryID2);
+        $category3 = $categoryRepository->find($categoryID3);
+        $game->addCategory($category);
+        $game->addCategory($category2);
+        $game->addCategory($category3);
+
+        $gamesRepository->save($game, true);
+
+        $image = new Images();
+        $image->setSource($imageSource);
+        $image->setGame($game);
+        $game->addImage($image);
+        $imagesRepository->save($image, true);
+
+        $image2 = new Images();
+        $image2->setSource($imageSource2);
+        $image2->setGame($game);
+        $game->addImage($image2);
+        $imagesRepository->save($image2, true);
+
+        $image3 = new Images();
+        $image3->setSource($imageSource3);
+        $image3->setGame($game);
+        $game->addImage($image3);
+        $imagesRepository->save($image3, true);
+
+        $image4 = new Images();
+        $image4->setSource($imageSource4);
+        $image4->setGame($game);
+        $game->addImage($image4);
+        $imagesRepository->save($image4, true);
+
+        $gamesRepository->save($game, true);
+        return $this->redirectToRoute('app_home');
+    }
 }

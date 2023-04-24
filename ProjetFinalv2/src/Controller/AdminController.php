@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Games;
 use App\Entity\Review;
 use App\Form\CommentFormType;
+use App\Form\GameType;
 use App\Form\ReviewFormType;
 use App\Repository\CategoryRepository;
 use App\Repository\DevelopperRepository;
@@ -40,6 +42,18 @@ class AdminController extends AbstractController
             'developers' => $developperRepository->findAll(),
             'users' => $userRepository->findAll(),
         ]);
+    }
+
+    #[Route('/admin/add/game', name: 'admin_add_game')]
+    public function adminAddGame(DevelopperRepository $developperRepository, CategoryRepository $categoryRepository): Response
+    {
+        $developers = $developperRepository->findAll();
+        $categories = $categoryRepository->findAll();
+        return $this->render('admin/Admin_add_game.html.twig', [
+            'developers' => $developers,
+            'categories' => $categories,
+        ]);
+
     }
 
 }

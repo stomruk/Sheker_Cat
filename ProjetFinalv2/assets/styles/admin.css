@@ -86,34 +86,15 @@
     font-size: 18px;
     margin: 20px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .admin-button {
-    font-size: 36px;
-    background-color: var(--game-card-alt);
+    font-size: 24px;
+    width: 55%;
+    background-color: var(--game-card);
     padding: 15px;
     margin: 15px;
+}
+.admin-button a {
+    color: black;
 }
 .admin-game-page-text{
     font-size: 36px;
@@ -128,12 +109,21 @@
 .admin-game-info-box{
     width: 100%;
 }
-
-
 .admin-add-image{
     font-size: 30px;
     padding: 6px;
     border-radius: 15px;
+    background-color: var(--game-card-alt);
+}
+.add-game-form{
+    width: 100%;
+}
+.admin-form-table{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     background-color: var(--game-card-alt);
 }
 
