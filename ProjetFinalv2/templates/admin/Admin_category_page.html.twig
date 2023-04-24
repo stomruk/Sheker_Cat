@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="admin-table">
+            {% for category in categories %}
+                <div class="admin-category-frame">
+                    <p>{{ category.name }}</p>
+                    <a>Delete</a>
+                </div>
+            {% endfor %}
+            <div class="admin-category-frame">
+                <form method="get" action="{{ path('admin_add_category') }}">
+                    <input name="categoryInput" type="text" class="admin-form-label">
+                    <input type="submit" value="Add" class="admin-form-label">
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

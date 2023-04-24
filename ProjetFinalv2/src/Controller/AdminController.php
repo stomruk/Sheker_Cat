@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Games;
 use App\Entity\Review;
@@ -53,7 +54,22 @@ class AdminController extends AbstractController
             'developers' => $developers,
             'categories' => $categories,
         ]);
-
+    }
+    #[Route('/admin/category/list', name: 'admin_category')]
+    public function adminCategory(CategoryRepository $categoryRepository): Response
+    {
+        return $this->render('admin/Admin_category_page.html.twig',[
+            'categories' => $categoryRepository->findAll(),
+        ]);
+    }
+    #[Route('/admin/add/category', name: 'admin_add_category')]
+    public function adminAddCategory(CategoryRepository $categoryRepository, Request $request): Response
+    {
+        $name = $request->get('categoryInput');
+        $category = new Category();
+        $category->setName($name);
+        $categoryRepository->save($category, true);
+        return $this->redirectToRoute('admin_category');
     }
 
 }

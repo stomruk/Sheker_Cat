@@ -92,6 +92,7 @@
     background-color: var(--game-card);
     padding: 15px;
     margin: 15px;
+    text-align: center;
 }
 .admin-button a {
     color: black;
@@ -126,4 +127,11 @@
     width: 100%;
     background-color: var(--game-card-alt);
 }
-
+.admin-category-frame{
+    font-size: 24px;
+    width: 20%;
+    background-color: var(--game-card);
+    padding: 15px;
+    margin: 15px;
+    text-align: center;
+}
