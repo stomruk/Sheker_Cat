@@ -5,15 +5,15 @@
 {% block body %}
     <div class="container">
         <div class="admin-table">
-            {% for category in categories %}
+            {% for developer in developers %}
                 <div class="admin-category-frame">
-                    <p>{{ category.name }}</p>
-                    <a href="{{ path('admin_delete_category', {'id' : category.id}) }}">Delete</a>
+                    <p>{{ developer.name }}</p>
+                    <a href="{{ path('admin_delete_developer', {'id' : developer.id}) }}">Delete</a>
                 </div>
             {% endfor %}
             <div class="admin-category-frame">
-                <form method="get" action="{{ path('admin_add_category') }}">
-                    <input name="categoryInput" type="text" class="admin-form-label">
+                <form method="get" action="{{ path('admin_add_developer') }}">
+                    <input name="developerInput" type="text" class="admin-form-label">
                     <input type="submit" value="Add" class="admin-form-label">
                 </form>
             </div>

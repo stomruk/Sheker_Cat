@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Comment;
+use App\Entity\Developper;
 use App\Entity\Games;
 use App\Entity\Review;
 use App\Form\CommentFormType;
@@ -70,6 +71,36 @@ class AdminController extends AbstractController
         $category->setName($name);
         $categoryRepository->save($category, true);
         return $this->redirectToRoute('admin_category');
+    }
+    #[Route('/admin/delete/category/{id}', name: 'admin_delete_category')]
+    public function adminDeleteCategory(CategoryRepository $categoryRepository, $id): Response
+    {
+        $category = $categoryRepository->find($id);
+        $categoryRepository->remove($category, true);
+        return $this->redirectToRoute('admin_category');
+    }
+    #[Route('/admin/developer/list', name: 'admin_developer')]
+    public function adminDeveloper(DevelopperRepository $developperRepository): Response
+    {
+        return $this->render('admin/Admin_developer_page.html.twig',[
+            'developers' => $developperRepository->findAll(),
+        ]);
+    }
+    #[Route('/admin/add/developer', name: 'admin_add_developer')]
+    public function adminAddDeveloper(DevelopperRepository $developperRepository, Request $request): Response
+    {
+        $name = $request->get('developerInput');
+        $developer = new Developper();
+        $developer->setName($name);
+        $developperRepository->save($developer, true);
+        return $this->redirectToRoute('admin_developer');
+    }
+    #[Route('/admin/delete/developer/{id}', name: 'admin_delete_developer')]
+    public function adminDeleteDeveloper(DevelopperRepository $developperRepository, $id): Response
+    {
+        $developer = $developperRepository->find($id);
+        $developperRepository->remove($developer, true);
+        return $this->redirectToRoute('admin_developer');
     }
 
 }
