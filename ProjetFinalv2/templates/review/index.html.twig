@@ -8,9 +8,10 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-
+{{ dump(allow) }}
 <div class="container">
     <div class="review-page">
+        {% if allow == true %}
         <div class="top-review">
             <div class="review-score-form">
                 {{ form_start(review) }}
@@ -29,6 +30,13 @@
             {{ form_widget (review.save)}}
             {{ form_end(review) }}
         </div>
+        {% else %}
+            <p class="buygame-warning">Buy Game First !</p>
+            <div class="review-Buygame">
+                <img width="100%" src="{{ game.cover }}">
+                <a href="{{ path('app_game_page', {'id' : game.id}) }}" class="review-gamename">{{ game.name }}</a>
+            </div>
+        {% endif %}
     </div>
 </div>
 

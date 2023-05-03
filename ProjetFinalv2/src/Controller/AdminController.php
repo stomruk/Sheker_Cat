@@ -3,47 +3,59 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Entity\Comment;
 use App\Entity\Developper;
-use App\Entity\Games;
-use App\Entity\Review;
-use App\Form\CommentFormType;
-use App\Form\GameType;
-use App\Form\ReviewFormType;
 use App\Repository\CategoryRepository;
 use App\Repository\DevelopperRepository;
 use App\Repository\GamesRepository;
-use App\Repository\ReviewRepository;
 
 use App\Repository\UserRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+
 
 class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'admin')]
     public function adminIndex(): Response
     {
-        return $this->render('admin/Admin_index.html.twig');
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles()))
+        {
+            return $this->render('admin/Admin_index.html.twig');
+        }
+        else{
+            return $this->redirectToRoute('app_home');
+        }
     }
 
     #[Route('/admin/games', name: 'admin_games')]
     public function adminGames(GamesRepository $gamesRepository): Response
     {
-        return $this->render('admin/Admin_game_list.html.twig',['games' => $gamesRepository->findAll()]);
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles()))
+        {
+            return $this->render('admin/Admin_game_list.html.twig',['games' => $gamesRepository->findAll()]);
+        }
+        else{
+            return $this->redirectToRoute('app_home');
+        }
     }
     #[Route('/admin/game/{id}', name: 'admin_game')]
     public function adminGamePage($id,GamesRepository $gamesRepository, CategoryRepository $categoryRepository, DevelopperRepository $developperRepository, UserRepository $userRepository): Response
     {
-        return $this->render('admin/Admin_game.html.twig',[
-            'game' => $gamesRepository->find($id),
-            'categories' => $categoryRepository->findAll(),
-            'developers' => $developperRepository->findAll(),
-            'users' => $userRepository->findAll(),
-        ]);
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles()))
+        {
+            return $this->render('admin/Admin_game.html.twig',[
+                'game' => $gamesRepository->find($id),
+                'categories' => $categoryRepository->findAll(),
+                'developers' => $developperRepository->findAll(),
+                'users' => $userRepository->findAll(),
+            ]);
+        }
+        else{
+            return $this->redirectToRoute('app_home');
+        }
     }
 
     #[Route('/admin/add/game', name: 'admin_add_game')]
@@ -51,17 +63,30 @@ class AdminController extends AbstractController
     {
         $developers = $developperRepository->findAll();
         $categories = $categoryRepository->findAll();
-        return $this->render('admin/Admin_add_game.html.twig', [
-            'developers' => $developers,
-            'categories' => $categories,
-        ]);
+
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles()))
+        {
+            return $this->render('admin/Admin_add_game.html.twig', [
+                'developers' => $developers,
+                'categories' => $categories,
+            ]);
+        }
+        else{
+            return $this->redirectToRoute('app_home');
+        }
     }
     #[Route('/admin/category/list', name: 'admin_category')]
     public function adminCategory(CategoryRepository $categoryRepository): Response
     {
-        return $this->render('admin/Admin_category_page.html.twig',[
-            'categories' => $categoryRepository->findAll(),
-        ]);
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles()))
+        {
+            return $this->render('admin/Admin_category_page.html.twig',[
+                'categories' => $categoryRepository->findAll(),
+            ]);
+        }
+        else{
+            return $this->redirectToRoute('app_home');
+        }
     }
     #[Route('/admin/add/category', name: 'admin_add_category')]
     public function adminAddCategory(CategoryRepository $categoryRepository, Request $request): Response
@@ -70,21 +95,39 @@ class AdminController extends AbstractController
         $category = new Category();
         $category->setName($name);
         $categoryRepository->save($category, true);
-        return $this->redirectToRoute('admin_category');
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles()))
+        {
+            return $this->redirectToRoute('admin_category');
+        }
+        else{
+            return $this->redirectToRoute('app_home');
+        }
     }
     #[Route('/admin/delete/category/{id}', name: 'admin_delete_category')]
     public function adminDeleteCategory(CategoryRepository $categoryRepository, $id): Response
     {
         $category = $categoryRepository->find($id);
         $categoryRepository->remove($category, true);
-        return $this->redirectToRoute('admin_category');
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles()))
+        {
+            return $this->redirectToRoute('admin_category');
+        }
+        else{
+            return $this->redirectToRoute('app_home');
+        }
     }
     #[Route('/admin/developer/list', name: 'admin_developer')]
     public function adminDeveloper(DevelopperRepository $developperRepository): Response
     {
-        return $this->render('admin/Admin_developer_page.html.twig',[
-            'developers' => $developperRepository->findAll(),
-        ]);
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles()))
+        {
+            return $this->render('admin/Admin_developer_page.html.twig',[
+                'developers' => $developperRepository->findAll(),
+            ]);
+        }
+        else{
+            return $this->redirectToRoute('app_home');
+        }
     }
     #[Route('/admin/add/developer', name: 'admin_add_developer')]
     public function adminAddDeveloper(DevelopperRepository $developperRepository, Request $request): Response
@@ -93,14 +136,26 @@ class AdminController extends AbstractController
         $developer = new Developper();
         $developer->setName($name);
         $developperRepository->save($developer, true);
-        return $this->redirectToRoute('admin_developer');
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles()))
+        {
+            return $this->redirectToRoute('admin_developer');
+        }
+        else{
+            return $this->redirectToRoute('app_home');
+        }
     }
     #[Route('/admin/delete/developer/{id}', name: 'admin_delete_developer')]
     public function adminDeleteDeveloper(DevelopperRepository $developperRepository, $id): Response
     {
         $developer = $developperRepository->find($id);
         $developperRepository->remove($developer, true);
-        return $this->redirectToRoute('admin_developer');
+        if (in_array("ROLE_ADMIN", $this->getUser()->getRoles()))
+        {
+            return $this->redirectToRoute('admin_developer');
+        }
+        else{
+            return $this->redirectToRoute('app_home');
+        }
     }
 
 }

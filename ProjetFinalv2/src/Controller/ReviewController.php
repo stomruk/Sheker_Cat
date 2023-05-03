@@ -20,6 +20,15 @@ class ReviewController extends AbstractController
     #[Route('/review/{id}', name: 'app_review')]
     public function index($id,GamesRepository $gamesRepository, Request $request, ManagerRegistry $doctrine, ReviewRepository $reviewRepository): Response
     {
+        $game = $gamesRepository->find($id);
+        $userGames = $this->getUser()->getGame()->getValues();
+        if(in_array($game, $userGames)){
+            $allow = true;
+        }
+        else{
+            $allow = false;
+        }
+
         $review = new Review();
         $form = $this->createForm(ReviewFormType::class, $review);
         $form->handleRequest($request);
@@ -36,6 +45,7 @@ class ReviewController extends AbstractController
         return $this->render('review/index.html.twig', [
             'game' => $gamesRepository->find($id),
             'review' => $form->createView(),
+            'allow' => $allow,
         ]);
     }
     #[Route('/review/page/{id}', name: 'app-review-page')]

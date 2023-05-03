@@ -59,13 +59,17 @@ class HomeController extends AbstractController
     #[Route('/cart', name: 'app_cart')]
     public function cart(SessionInterface $session): Response
     {
-        dump($session->get('Cart'));
+        dump($session->get('test'));
         return $this->render('home/cart.html.twig');
     }
 
     #[Route('/addcart/{id}', name: 'app_add_cart')]
     public function addcart($id,GamesRepository $gamesRepository,SessionInterface $session): Response
     {
+        if ($this->getUser() == null){
+            return $this->redirectToRoute('app_login');
+        }
+        else{
         $cart = $session->get('Cart', []);
         $product = $gamesRepository->find($id);
         if ($product->getDiscount() != null){
@@ -73,36 +77,39 @@ class HomeController extends AbstractController
             $stringPrice = floatval($newPrice);
             $product->setPrice(number_format($stringPrice, 2, '.', ''));
         }
-        $diff = [];
+        $giftable = [];
         $targetFriend = null;
+
+
         foreach ($this->getUser()->getFriends() as $friend){
-            $friendList[] = ['id' => $friend->getFriend()->getId(), 'username' => $friend->getFriend()->getUsername()];
+            $friendList[] = [
+                'id' => $friend->getFriend()->getId(),
+                'username' => $friend->getFriend()->getUsername(),
+                'games' => $friend->getFriend()->getGame()->getValues()
+            ];
         }
 
 
-        foreach ($product->getUsers() as $owner){
-            $ownerArray[] = ['id' => $owner->getId(), 'username' => $owner->getUsername()];
-        }
-        if (!empty($ownerArray)){
-            foreach ($friendList as $friend){
-                if (!in_array($friend, $ownerArray)){
-                    $diff[] = $friend;
-                }
+        foreach ($friendList as $friend){
+            if (!in_array($product, $friend['games'])){
+                $giftable[] = $friend;
             }
         }
 
 
-        if (!empty($diff)){
-            $targetFriend = $diff[0];
+
+        if (!empty($giftable)){
+            $targetFriend = $giftable[0];
         }
 
 
-        $cartArray = ['game' => $product, 'gift' => false, 'friend' => $targetFriend, 'friendlist' => $diff, 'price' => $product->getPrice()];
+        $cartArray = ['game' => $product, 'gift' => false, 'friend' => $targetFriend, 'friendlist' => $giftable, 'price' => $product->getPrice()];
 
 
         $cart[] = $cartArray;
         $session->set('Cart', $cart);
         return $this->redirectToRoute('app_cart');
+        }
     }
 
     #[Route('/clearcart', name: 'app_clear_cart')]
