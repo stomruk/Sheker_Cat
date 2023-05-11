@@ -1,0 +1,41 @@
+.register-page-form{
+    background-color: var(--game-card);
+    padding:35px 0;
+    margin: 0 15%;
+    display: flex;
+    justify-content: center;
+}
+.email-input{
+    margin-left: 50px;
+}
+.firstname-input{
+    margin-left: 44px;
+}
+.lastname-input{
+    margin-left: 8px;
+}
+.register-name-zone{
+    display: flex;
+    justify-content: space-around;
+    background-color: #5eb5e0;
+}
+.password-input{
+    margin-left: 15px;
+}
+.username-input{
+    margin-left: 10px;
+}
+.register-btn{
+    width: 250px;
+}
+.register-term-zone{
+    display: flex;
+    justify-content: center;
+}
+.register-title{
+    background-color: var(--third-color);
+    text-align: center;
+    width: 50%;
+    margin-left: 25%;
+    color: white;
+}

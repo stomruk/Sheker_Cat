@@ -64,10 +64,10 @@
     border-radius: 5px ;
 }
 .checkout-section{
+    padding: 15px;
     margin-top: 25px;
     width: 80%;
     background-color: var(--third-color);
-    height: 200px;
     display: flex;
 }
 .total-zone{

@@ -62,7 +62,7 @@
 }
 .color-palette{
     border-radius: 10px;
-    width: 50%;
+    width: 40%;
     background-color: var(--game-card);
     display: flex;
     justify-content: center;

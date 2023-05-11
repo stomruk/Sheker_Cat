@@ -103,8 +103,13 @@ class HomeController extends AbstractController
         }
 
 
-        $cartArray = ['game' => $product, 'gift' => false, 'friend' => $targetFriend, 'friendlist' => $giftable, 'price' => $product->getPrice()];
-
+        $cartArray = [
+            'game' => $product,
+            'gift' => false,
+            'friend' => $targetFriend,
+            'friendlist' => $giftable,
+            'price' => $product->getPrice()
+        ];
 
         $cart[] = $cartArray;
         $session->set('Cart', $cart);
