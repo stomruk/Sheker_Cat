@@ -61,7 +61,7 @@
 
     document.getElementById("menu-burger").onclick = openNav
     document.getElementById("logo").onclick = gotoHome
-
+    document.getElementById("notification").onclick = notif
 
 
     function openNav(){
@@ -81,6 +81,18 @@
         window.location.href = '{{ path('app_home') }}'
     }
 
+    function notif(){
+        window.location.href = '{{ path('app_notification') }}'
+    }
+
+
 </script>
+<footer>
+    <div >
+        <p>dqs</p>
+        <p>dqs</p>
+        <p>dqs</p>
+    </div>
+</footer>
 </body>
 </html>

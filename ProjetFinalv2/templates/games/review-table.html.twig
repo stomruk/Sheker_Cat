@@ -21,6 +21,10 @@
             <img class="posAB" src="{{ asset('media/avatar/nose/'~review.user.avatar.nose.name~'/'~review.user.avatar.skin.color) }}">
             <img class="posAB" src="{{ asset('media/avatar/cloth/'~review.user.avatar.cloth.name~'/'~review.user.avatar.clothstyle.color) }}">
         </div>
+    {% else %}
+        <div class="review-avatar-frame">
+            <img class="posAB" src="{{ asset('media/unknown.png') }}">
+        </div>
     {% endif %}
         <a class="review-username" href="{{ path('app_profil',{'id' : review.user.id}) }}">{{ review.user.username }}</a>
         <h3 class="review-score">Score  <br>  {{  review.score }} / 10</h3>

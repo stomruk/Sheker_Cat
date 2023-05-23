@@ -77,7 +77,7 @@ class AvatarController extends AbstractController
         $user->setAvatar($avatar);
         $userRepository->save($user, true);
         $avatarRepository->save($avatar, true);
-        return $this->render('home/index.html.twig');
+        return $this->redirectToRoute("app_profil", ['id' => $user->getId()]);
     }
 
 }

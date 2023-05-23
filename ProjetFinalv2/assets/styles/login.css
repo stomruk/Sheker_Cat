@@ -1,0 +1,55 @@
+.register-title{
+    background-color: var(--third-color);
+    text-align: center;
+    width: 50%;
+    margin-left: 25%;
+    color: white;
+}
+.login-email-zone{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.login-password-zone{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+
+}
+.login-password-input{
+    margin-left: 20px;
+}
+.login-email-input{
+    margin-left: 55px;
+}
+.login-signin-button{
+    width: 250px;
+    border-radius: 15px;
+}
+.login-page-form{
+    background-color: var(--game-card);
+    padding:35px 0;
+    margin: 0 15%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    border: var(--game-card-alt) 5px solid;
+    border-radius: 15px;
+}
+.login-loginbtn-zone{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+.login-register-btn{
+    background-color: var(--game-card-alt);
+    width: 255px;
+    text-align: center;
+    border-radius: 15px;
+}
+.login-register-btn:hover{
+    background-color: #917c54;
+}

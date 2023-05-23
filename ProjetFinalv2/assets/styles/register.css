@@ -4,6 +4,8 @@
     margin: 0 15%;
     display: flex;
     justify-content: center;
+    border: var(--game-card-alt) 5px solid;
+    border-radius: 15px;
 }
 .email-input{
     margin-left: 50px;

@@ -17,6 +17,8 @@ class AvatarManager
         }
         return $part;
     }
+
+
     public function checkColorValue($value, AvatarColorRepository $avatarColorRepository, $default): \App\Entity\AvatarColor
     {
         if($value == null){

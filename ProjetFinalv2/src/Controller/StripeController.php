@@ -82,9 +82,9 @@ class StripeController extends AbstractController
     {
 // Set your secret key. Remember to switch to your live secret key in production.
 // See your keys here: https://dashboard.stripe.com/apikeys
-        Stripe\Stripe::setApiKey('sk_test_XtZYTYhe9JXmnbe9e8sI1ILu');
-        $stripe = new Stripe\StripeClient("sk_test_XtZYTYhe9JXmnbe9e8sI1ILu");
-        $endpoint_secret = 'whsec_0d1cbd40b98be223260c760d3ece7838ca055d081f72bb3c0dc36933868897cf';
+        Stripe\Stripe::setApiKey('sk_test_51NAVhMAvzszb62FYCnDSBHX4QDyNs2mvOB4xrXt5H7qXX7PaMnZwlONBkCTIwcqK9b5tzDxCdQ0o6Dcg09Bs58V700dDECwA6w');
+        $stripe = new Stripe\StripeClient("sk_test_51NAVhMAvzszb62FYCnDSBHX4QDyNs2mvOB4xrXt5H7qXX7PaMnZwlONBkCTIwcqK9b5tzDxCdQ0o6Dcg09Bs58V700dDECwA6w");
+        $endpoint_secret = 'whsec_7d1eed849c97b823585edb3a8f8eb93321529a133fc48860e7cd2b0e027c4dda';
         $payload = @file_get_contents('php://input');
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
         $event = null;

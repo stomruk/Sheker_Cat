@@ -20,7 +20,7 @@
                         <button id="cancel{{ index }}">Cancel</button>
                     </div>
                     <div class="gift-checkbox">
-                        <label id="{{ index }}gifted">{% if app.session.get('Cart')[index]['gift'] == true %}Yes{% else %}No{% endif %}</label>
+                        <label id="{{ index }}gifted">Gift : {% if app.session.get('Cart')[index]['gift'] == true %}Yes{% else %}No{% endif %}</label>
                         <input class="giftbox" id="{{ index }}" name="{{ index }}" type="checkbox" value="false"
                                 {% if app.session.get('Cart')[index]['gift'] == true %} checked {% endif %}
                                 {% if app.session.get('Cart')[index]['friend'] is empty %} disabled {% endif %}
